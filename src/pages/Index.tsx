@@ -5,6 +5,8 @@ import HeroSection from "@/components/HeroSection";
 import FeaturedProperties from "@/components/FeaturedProperties";
 import LocationsSection from "@/components/LocationsSection";
 import WhyChooseUs from "@/components/WhyChooseUs";
+import HowItWorks from "@/components/HowItWorks";
+import TestimonialsSection from "@/components/TestimonialsSection";
 import CTABanner from "@/components/CTABanner";
 
 const Index = () => {
@@ -16,6 +18,8 @@ const Index = () => {
         <FeaturedProperties />
         <LocationsSection />
         <WhyChooseUs />
+        <HowItWorks />
+        <TestimonialsSection />
         <CTABanner />
       </main>
       <Footer />
