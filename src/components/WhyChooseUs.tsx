@@ -18,7 +18,7 @@ const WhyChooseUs = () => {
       <div className="container mx-auto px-4 lg:px-8 relative">
         <ScrollReveal>
           <div className="text-center max-w-2xl mx-auto">
-            <span className="text-secondary font-semibold text-sm uppercase tracking-widest">Why Indore Reality</span>
+            <span className="text-secondary font-semibold text-sm uppercase tracking-widest">Why Indore Realty</span>
             <h2 className="section-title mt-3">
               Trusted by 1,200+ Families
             </h2>

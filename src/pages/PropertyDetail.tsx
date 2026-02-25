@@ -154,20 +154,8 @@ const PropertyDetail = () => {
       </main>
       <Footer />
       <WhatsAppButton />
-
-      {/* Mobile sticky bottom */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur-md border-t border-border p-3 flex gap-2 z-40">
-        <a href="tel:+919876543210" className="flex-1">
-          <button className="w-full h-12 rounded-xl btn-gold text-sm flex items-center justify-center gap-2">
-            <Phone className="h-4 w-4" /> Call Now
-          </button>
-        </a>
-        <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="flex-1">
-          <button className="w-full h-12 rounded-xl bg-[#25D366] text-primary-foreground font-heading font-semibold text-sm flex items-center justify-center gap-2 shadow-md">
-            <MessageCircle className="h-4 w-4" /> WhatsApp
-          </button>
-        </a>
-      </div>
+      {/* Spacer for mobile bottom bar */}
+      <div className="lg:hidden h-28" />
     </div>
   );
 };

@@ -35,7 +35,7 @@ const Header = () => {
           </div>
           <div>
             <span className="font-heading text-lg font-bold text-primary-foreground leading-none block">
-              Indore Reality
+              Indore Realty
             </span>
             <span className="text-[10px] text-primary-foreground/50 font-medium tracking-widest uppercase">
               Premium Properties

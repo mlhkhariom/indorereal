@@ -53,7 +53,7 @@ const HeroSection = () => {
           >
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-secondary/30 bg-secondary/10 text-secondary text-sm font-medium backdrop-blur-sm">
               <span className="h-2 w-2 rounded-full bg-secondary animate-pulse" />
-              Indore's #1 Trusted Real Estate Platform
+              Indore Realty — #1 Trusted Platform
             </span>
           </motion.div>
 

@@ -166,6 +166,8 @@ const Properties = () => {
       </main>
       <Footer />
       <WhatsAppButton />
+      {/* Spacer for mobile bottom bar */}
+      <div className="lg:hidden h-28" />
     </div>
   );
 };

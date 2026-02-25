@@ -31,14 +31,14 @@ const Footer = () => {
                 IR
               </div>
               <div>
-                <span className="font-heading text-lg font-bold leading-none block">Indore Reality</span>
+                <span className="font-heading text-lg font-bold leading-none block">Indore Realty</span>
                 <span className="text-[10px] text-primary-foreground/40 font-medium tracking-widest uppercase">
                   Premium Properties
                 </span>
               </div>
             </div>
             <p className="text-primary-foreground/60 text-sm leading-relaxed">
-              Indore's most trusted real estate platform. We help you discover verified properties with transparent pricing and expert guidance since 2015.
+              Indore's most trusted real estate platform. Discover verified properties with transparent pricing and expert guidance since 2015. Powered by MLHK Infotech.
             </p>
             <div className="flex gap-3 mt-5">
               {["facebook", "instagram", "youtube"].map((s) => (
@@ -110,14 +110,14 @@ const Footer = () => {
                 <div className="h-9 w-9 rounded-lg bg-secondary/10 flex items-center justify-center flex-shrink-0">
                   <Mail className="h-4 w-4 text-secondary" />
                 </div>
-                <a href="mailto:info@indorereality.com" className="hover:text-secondary transition-colors">info@indorereality.com</a>
+                <a href="mailto:info@indorerealty.in" className="hover:text-secondary transition-colors">info@indorerealty.in</a>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-primary-foreground/10 py-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-primary-foreground/40">
-          <p>© {new Date().getFullYear()} Indore Reality. All rights reserved. RERA Registered.</p>
+          <p>© {new Date().getFullYear()} Indore Realty. All rights reserved. RERA Registered.</p>
           <p>A product of <span className="text-secondary font-medium">MLHK Infotech</span></p>
         </div>
       </div>
