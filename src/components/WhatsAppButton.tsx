@@ -4,7 +4,7 @@ const WhatsAppButton = () => {
       href="https://wa.me/919876543210?text=Hi%2C%20I%20am%20interested%20in%20a%20property%20in%20Indore"
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 group"
+      className="fixed bottom-32 lg:bottom-6 right-6 z-50 group"
       aria-label="Chat on WhatsApp"
     >
       {/* Pulse ring */}
