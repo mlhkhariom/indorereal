@@ -8,6 +8,8 @@ import Properties from "./pages/Properties";
 import PropertyDetail from "./pages/PropertyDetail";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsConditions from "./pages/TermsConditions";
 import NotFound from "./pages/NotFound";
 import MobileBottomBar from "./components/MobileBottomBar";
 
@@ -25,6 +27,8 @@ const App = () => (
           <Route path="/property/:slug" element={<PropertyDetail />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-conditions" element={<TermsConditions />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <MobileBottomBar />
