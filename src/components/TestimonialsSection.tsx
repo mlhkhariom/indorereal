@@ -5,7 +5,7 @@ const testimonials = [
   {
     name: "Rajesh Sharma",
     role: "Bought 3BHK in Vijay Nagar",
-    text: "Indore Reality made our home-buying journey seamless. Their team was professional, transparent about pricing, and helped us find the perfect flat within our budget. Highly recommended!",
+    text: "Indore Realty made our home-buying journey seamless. Their team was professional, transparent about pricing, and helped us find the perfect flat within our budget. Highly recommended!",
     rating: 5,
   },
   {

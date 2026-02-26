@@ -1,12 +1,14 @@
 import { Link, useLocation } from "react-router-dom";
-import { Phone, Menu, X } from "lucide-react";
-import { useState, useEffect } from "react";
+import { Phone, Menu, X, ChevronDown } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
   const location = useLocation();
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -14,10 +16,49 @@ const Header = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const links = [
+  useEffect(() => {
+    setMobileOpen(false);
+    setDropdownOpen(null);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
+  const mainLinks = [
     { label: "Home", path: "/" },
     { label: "Properties", path: "/properties" },
-    { label: "About", path: "/about" },
+    {
+      label: "Pages",
+      children: [
+        { label: "About Us", path: "/about" },
+        { label: "Our Services", path: "/services" },
+        { label: "Gallery", path: "/gallery" },
+        { label: "Blog", path: "/blog" },
+        { label: "FAQ", path: "/faq" },
+        { label: "Careers", path: "/careers" },
+        { label: "EMI Calculator", path: "/emi-calculator" },
+      ],
+    },
+    { label: "Contact", path: "/contact" },
+  ];
+
+  const allMobileLinks = [
+    { label: "Home", path: "/" },
+    { label: "Properties", path: "/properties" },
+    { label: "About Us", path: "/about" },
+    { label: "Our Services", path: "/services" },
+    { label: "Gallery", path: "/gallery" },
+    { label: "Blog", path: "/blog" },
+    { label: "FAQ", path: "/faq" },
+    { label: "Careers", path: "/careers" },
+    { label: "EMI Calculator", path: "/emi-calculator" },
     { label: "Contact", path: "/contact" },
   ];
 
@@ -28,36 +69,69 @@ const Header = () => {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${headerBg}`}>
-      <div className="container mx-auto flex items-center justify-between py-4 px-4 lg:px-8">
-        <Link to="/" className="flex items-center gap-3 group">
-          <div className="h-10 w-10 rounded-xl gold-gradient flex items-center justify-center font-heading font-extrabold text-primary text-lg shadow-md group-hover:scale-105 transition-transform">
+      <div className="container mx-auto flex items-center justify-between py-3 lg:py-4 px-4 lg:px-8">
+        <Link to="/" className="flex items-center gap-2.5 group flex-shrink-0">
+          <div className="h-9 w-9 lg:h-10 lg:w-10 rounded-xl gold-gradient flex items-center justify-center font-heading font-extrabold text-primary text-base lg:text-lg shadow-md group-hover:scale-105 transition-transform">
             IR
           </div>
-          <div>
-            <span className="font-heading text-lg font-bold text-primary-foreground leading-none block">
+          <div className="min-w-0">
+            <span className="font-heading text-base lg:text-lg font-bold text-primary-foreground leading-none block">
               Indore Realty
             </span>
-            <span className="text-[10px] text-primary-foreground/50 font-medium tracking-widest uppercase">
+            <span className="text-[9px] lg:text-[10px] text-primary-foreground/50 font-medium tracking-widest uppercase block">
               Premium Properties
             </span>
           </div>
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-1">
-          {links.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                location.pathname === link.path
-                  ? "text-secondary bg-secondary/10"
-                  : "text-primary-foreground/75 hover:text-primary-foreground hover:bg-primary-foreground/5"
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
+        <nav className="hidden lg:flex items-center gap-1" ref={dropdownRef}>
+          {mainLinks.map((link) =>
+            link.children ? (
+              <div key={link.label} className="relative">
+                <button
+                  onClick={() => setDropdownOpen(dropdownOpen === link.label ? null : link.label)}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 inline-flex items-center gap-1 ${
+                    link.children.some((c) => location.pathname === c.path)
+                      ? "text-secondary bg-secondary/10"
+                      : "text-primary-foreground/75 hover:text-primary-foreground hover:bg-primary-foreground/5"
+                  }`}
+                >
+                  {link.label}
+                  <ChevronDown className={`h-3.5 w-3.5 transition-transform ${dropdownOpen === link.label ? "rotate-180" : ""}`} />
+                </button>
+                {dropdownOpen === link.label && (
+                  <div className="absolute top-full left-0 mt-2 w-52 rounded-xl bg-card border border-border shadow-xl py-2 animate-fade-in z-50">
+                    {link.children.map((child) => (
+                      <Link
+                        key={child.path}
+                        to={child.path}
+                        className={`block px-4 py-2.5 text-sm transition-colors ${
+                          location.pathname === child.path
+                            ? "text-secondary bg-secondary/5 font-medium"
+                            : "text-card-foreground/75 hover:text-secondary hover:bg-muted"
+                        }`}
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                key={link.path}
+                to={link.path!}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  location.pathname === link.path
+                    ? "text-secondary bg-secondary/10"
+                    : "text-primary-foreground/75 hover:text-primary-foreground hover:bg-primary-foreground/5"
+                }`}
+              >
+                {link.label}
+              </Link>
+            )
+          )}
         </nav>
 
         <div className="hidden lg:flex items-center gap-3">
@@ -88,13 +162,13 @@ const Header = () => {
 
       {/* Mobile Nav */}
       {mobileOpen && (
-        <div className="lg:hidden navy-gradient border-t border-primary-foreground/10 px-4 pb-5 animate-fade-in">
-          {links.map((link) => (
+        <div className="lg:hidden navy-gradient border-t border-primary-foreground/10 px-4 pb-5 animate-fade-in max-h-[70vh] overflow-y-auto">
+          {allMobileLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
               onClick={() => setMobileOpen(false)}
-              className={`block py-3.5 text-sm font-medium border-b border-primary-foreground/5 ${
+              className={`block py-3 text-sm font-medium border-b border-primary-foreground/5 ${
                 location.pathname === link.path ? "text-secondary" : "text-primary-foreground/75"
               }`}
             >
