@@ -27,7 +27,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center">
+    <section className="relative min-h-[85vh] lg:min-h-screen flex items-center overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0">
         <img src={heroBg} alt="" className="w-full h-full object-cover" />
@@ -43,7 +43,7 @@ const HeroSection = () => {
       <div className="absolute top-20 right-10 w-72 h-72 rounded-full bg-secondary/10 blur-[100px]" />
       <div className="absolute bottom-20 left-10 w-96 h-96 rounded-full bg-primary/20 blur-[120px]" />
 
-      <div className="relative z-10 container mx-auto px-4 lg:px-8 pt-28 pb-16">
+      <div className="relative z-10 container mx-auto px-4 lg:px-8 pt-24 sm:pt-28 pb-12 sm:pb-16">
         <div className="max-w-4xl">
           {/* Badge */}
           <motion.div
@@ -59,7 +59,7 @@ const HeroSection = () => {
 
           {/* Heading */}
           <motion.h1
-            className="font-heading text-4xl md:text-5xl lg:text-[3.5rem] xl:text-[4rem] font-extrabold text-primary-foreground mt-8 leading-[1.1]"
+            className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-[4rem] font-extrabold text-primary-foreground mt-6 sm:mt-8 leading-[1.1]"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
@@ -71,7 +71,7 @@ const HeroSection = () => {
           </motion.h1>
 
           <motion.p
-            className="text-primary-foreground/60 text-lg md:text-xl mt-6 max-w-2xl leading-relaxed"
+            className="text-primary-foreground/60 text-base sm:text-lg md:text-xl mt-4 sm:mt-6 max-w-2xl leading-relaxed"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
