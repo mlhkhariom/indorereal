@@ -5,21 +5,26 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import PropertyCard from "@/components/PropertyCard";
 import ScrollReveal from "@/components/ScrollReveal";
+import SEOHead from "@/components/SEOHead";
 import { useProperties } from "@/hooks/useProperties";
-import { LOCATIONS, PROPERTY_TYPES, BUDGET_RANGES } from "@/types/property";
+import { useLocations } from "@/hooks/useLocations";
+import { PROPERTY_TYPES, BUDGET_RANGES } from "@/types/property";
 import { SlidersHorizontal, X, Home, ChevronRight, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+
 const Properties = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [showFilters, setShowFilters] = useState(false);
   const { data: properties = [], isLoading } = useProperties();
+  const { data: locations = [] } = useLocations();
 
   const location = searchParams.get("location") || "";
   const type = searchParams.get("type") || "";
   const budget = searchParams.get("budget") || "";
   const status = searchParams.get("status") || "";
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
+
   const updateFilter = (key: string, value: string) => {
     const params = new URLSearchParams(searchParams);
     if (value) params.set(key, value);
@@ -27,7 +32,7 @@ const Properties = () => {
     setSearchParams(params);
   };
 
-  const clearFilters = () => setSearchParams({});
+  const clearFilters = () => { setSearchParams({}); setSearchQuery(""); };
 
   const filtered = useMemo(() => {
     return properties.filter((p) => {
@@ -45,8 +50,8 @@ const Properties = () => {
       return true;
     });
   }, [properties, location, type, budget, status, searchQuery]);
-  const hasFilters = location || type || budget || status;
 
+  const hasFilters = location || type || budget || status;
   const selectClass = "w-full h-11 rounded-xl bg-muted/60 border border-border px-4 text-sm font-body text-foreground focus:outline-none focus:ring-2 focus:ring-secondary/40 appearance-none cursor-pointer";
 
   const FilterControls = () => (
@@ -55,7 +60,7 @@ const Properties = () => {
         <label className="text-xs font-heading font-semibold text-foreground mb-1.5 block uppercase tracking-wider">Location</label>
         <select value={location} onChange={(e) => updateFilter("location", e.target.value)} className={selectClass}>
           <option value="">All Locations</option>
-          {LOCATIONS.map((l) => <option key={l} value={l}>{l}</option>)}
+          {locations.map((l) => <option key={l.id} value={l.name}>{l.name}</option>)}
         </select>
       </div>
       <div>
@@ -88,8 +93,36 @@ const Properties = () => {
     </div>
   );
 
+  const propertySchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Properties in Indore",
+    description: `Browse ${filtered.length} verified properties in Indore`,
+    numberOfItems: filtered.length,
+    itemListElement: filtered.slice(0, 10).map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "Product",
+        name: p.title,
+        description: p.description || `${p.type} in ${p.location}, Indore`,
+        offers: {
+          "@type": "Offer",
+          price: p.price,
+          priceCurrency: "INR",
+          availability: "https://schema.org/InStock",
+        },
+      },
+    })),
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOHead
+        title={`Properties in Indore${location ? ` — ${location}` : ""} | Indore Realty`}
+        description={`Browse ${filtered.length}+ verified properties in Indore${location ? ` — ${location}` : ""}. Flats, plots, villas & houses with transparent pricing.`}
+        schema={propertySchema}
+      />
       <Header />
       <main className="flex-1 bg-muted">
         <div className="navy-gradient pt-28 pb-10">
@@ -107,11 +140,10 @@ const Properties = () => {
                 </>
               )}
             </nav>
-            <h1 className="font-heading text-3xl md:text-4xl font-bold text-primary-foreground">Properties in Indore</h1>
+            <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-primary-foreground">Properties in Indore</h1>
             <p className="text-primary-foreground/50 text-sm mt-1">
               Browse {filtered.length} verified properties across Indore's prime locations
             </p>
-            {/* Search Bar */}
             <div className="mt-5 max-w-xl relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-primary-foreground/40" />
               <input
@@ -124,7 +156,7 @@ const Properties = () => {
             </div>
           </div>
         </div>
-        <div className="container mx-auto px-4 lg:px-8 py-10">
+        <div className="container mx-auto px-4 lg:px-8 py-8 sm:py-10">
           <div className="lg:hidden mb-6">
             <Button variant="outline" onClick={() => setShowFilters(!showFilters)} className="w-full rounded-xl h-11">
               <SlidersHorizontal className="h-4 w-4 mr-2" />
@@ -147,7 +179,7 @@ const Properties = () => {
 
             <div className="flex-1">
               {isLoading ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
                   {[1, 2, 3, 4, 5, 6].map((i) => (
                     <div key={i} className="card-elevated h-80 animate-pulse bg-muted rounded-2xl" />
                   ))}
@@ -159,7 +191,7 @@ const Properties = () => {
                   <Button variant="outline" className="mt-5 rounded-xl" onClick={clearFilters}>Clear Filters</Button>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
                   {filtered.map((property, i) => (
                     <ScrollReveal key={property.id} delay={i * 0.05}>
                       <PropertyCard property={property} />

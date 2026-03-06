@@ -23,7 +23,54 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
   const finalOgDescription = ogDescription || settings.og_description || finalDescription;
   const finalCanonical = canonical || settings.canonical_url || "https://indorerealty.in";
 
-  const defaultSchema = {
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": "https://indorerealty.in/#business",
+    name: settings.schema_org_name || "Indore Realty",
+    description: settings.schema_org_description || "Indore's #1 trusted real estate platform with 500+ verified properties",
+    url: finalCanonical,
+    telephone: settings.schema_org_phone || "+919876543210",
+    email: "info@indorerealty.in",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: settings.schema_org_address?.split(",")[0] || "123 Business Park, Vijay Nagar",
+      addressLocality: "Indore",
+      addressRegion: "Madhya Pradesh",
+      postalCode: "452010",
+      addressCountry: "IN",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: "22.7196",
+      longitude: "75.8577",
+    },
+    areaServed: {
+      "@type": "City",
+      name: "Indore",
+      "@id": "https://www.wikidata.org/wiki/Q228405",
+    },
+    priceRange: "₹₹-₹₹₹₹",
+    image: "https://indorerealty.in/logo.png",
+    logo: "https://indorerealty.in/logo.png",
+    sameAs: [],
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        opens: "09:00",
+        closes: "19:00",
+      },
+    ],
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.8",
+      reviewCount: "350",
+      bestRating: "5",
+    },
+  };
+
+  const realEstateSchema = {
     "@context": "https://schema.org",
     "@type": "RealEstateAgent",
     name: settings.schema_org_name || "Indore Realty",
@@ -42,6 +89,29 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
     priceRange: "₹₹-₹₹₹₹",
     image: "https://indorerealty.in/logo.png",
     sameAs: [],
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://indorerealty.in/" },
+    ],
+  };
+
+  const orgSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Indore Realty",
+    url: "https://indorerealty.in",
+    logo: "https://indorerealty.in/logo.png",
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: settings.schema_org_phone || "+919876543210",
+      contactType: "customer service",
+      areaServed: "IN",
+      availableLanguage: ["Hindi", "English"],
+    },
   };
 
   return (
@@ -72,8 +142,17 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
         <meta name="google-site-verification" content={settings.google_site_verification} />
       )}
 
-      {/* Schema.org */}
-      <script type="application/ld+json">{JSON.stringify(schema || defaultSchema)}</script>
+      {/* Schema.org - Multiple schemas */}
+      {schema ? (
+        <script type="application/ld+json">{JSON.stringify(schema)}</script>
+      ) : (
+        <>
+          <script type="application/ld+json">{JSON.stringify(localBusinessSchema)}</script>
+          <script type="application/ld+json">{JSON.stringify(realEstateSchema)}</script>
+        </>
+      )}
+      <script type="application/ld+json">{JSON.stringify(orgSchema)}</script>
+      <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
     </Helmet>
   );
 };

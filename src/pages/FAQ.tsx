@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import ScrollReveal from "@/components/ScrollReveal";
+import SEOHead from "@/components/SEOHead";
 import { Link } from "react-router-dom";
 import { Home, ChevronRight, Phone, MessageCircle } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -43,12 +44,32 @@ const faqs = [
   },
 ];
 
+const allFaqItems = faqs.flatMap(s => s.items);
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: allFaqItems.map(faq => ({
+    "@type": "Question",
+    name: faq.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.a,
+    },
+  })),
+};
+
 const FAQ = () => {
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOHead
+        title="FAQ — Indore Realty | Property Buying, Selling & Legal Questions"
+        description="Find answers to common questions about buying, selling, and investing in Indore's real estate market. RERA, home loans, documentation & more."
+        keywords="Indore property FAQ, real estate questions Indore, RERA Indore, home loan Indore, property buying guide"
+        schema={faqSchema}
+      />
       <Header />
       <main className="flex-1">
-        {/* Hero */}
         <section className="navy-gradient pt-28 pb-16 relative overflow-hidden">
           <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-secondary/10 blur-[100px]" />
           <div className="container mx-auto px-4 lg:px-8 relative">
@@ -60,33 +81,32 @@ const FAQ = () => {
               <span className="text-primary-foreground">FAQ</span>
             </nav>
             <ScrollReveal>
-              <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-extrabold text-primary-foreground leading-tight">
+              <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-primary-foreground leading-tight">
                 Frequently Asked <span className="text-gold-gradient">Questions</span>
               </h1>
-              <p className="text-primary-foreground/60 text-lg md:text-xl mt-4 max-w-2xl leading-relaxed">
+              <p className="text-primary-foreground/60 text-base sm:text-lg md:text-xl mt-4 max-w-2xl leading-relaxed">
                 Find answers to common questions about buying, selling, and investing in Indore's real estate market.
               </p>
             </ScrollReveal>
           </div>
         </section>
 
-        {/* FAQ Sections */}
         <section className="section-padding bg-background">
           <div className="container mx-auto px-4 lg:px-8 max-w-4xl">
             {faqs.map((section, i) => (
               <ScrollReveal key={section.category} delay={i * 0.1}>
                 <div className="mb-12">
-                  <h2 className="font-heading font-bold text-foreground text-2xl mb-6 flex items-center gap-3">
+                  <h2 className="font-heading font-bold text-foreground text-xl sm:text-2xl mb-6 flex items-center gap-3">
                     <span className="h-8 w-1 rounded-full bg-secondary" />
                     {section.category}
                   </h2>
                   <Accordion type="single" collapsible className="space-y-3">
                     {section.items.map((faq, j) => (
-                      <AccordionItem key={j} value={`${section.category}-${j}`} className="card-elevated px-6 border rounded-xl">
-                        <AccordionTrigger className="font-heading font-semibold text-foreground text-[15px] text-left hover:no-underline py-5">
+                      <AccordionItem key={j} value={`${section.category}-${j}`} className="card-elevated px-4 sm:px-6 border rounded-xl">
+                        <AccordionTrigger className="font-heading font-semibold text-foreground text-sm sm:text-[15px] text-left hover:no-underline py-4 sm:py-5">
                           {faq.q}
                         </AccordionTrigger>
-                        <AccordionContent className="text-muted-foreground text-sm leading-relaxed pb-5">
+                        <AccordionContent className="text-muted-foreground text-sm leading-relaxed pb-4 sm:pb-5">
                           {faq.a}
                         </AccordionContent>
                       </AccordionItem>
@@ -98,7 +118,6 @@ const FAQ = () => {
           </div>
         </section>
 
-        {/* Still have questions CTA */}
         <section className="section-padding bg-muted">
           <div className="container mx-auto px-4 lg:px-8 text-center max-w-2xl">
             <ScrollReveal>

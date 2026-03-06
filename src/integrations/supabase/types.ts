@@ -121,6 +121,36 @@ export type Database = {
           },
         ]
       }
+      gallery_images: {
+        Row: {
+          category: string
+          created_at: string
+          created_by: string | null
+          id: string
+          image_url: string
+          sort_order: number | null
+          title: string | null
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          image_url: string
+          sort_order?: number | null
+          title?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          image_url?: string
+          sort_order?: number | null
+          title?: string | null
+        }
+        Relationships: []
+      }
       homepage_content: {
         Row: {
           created_at: string
@@ -159,6 +189,42 @@ export type Database = {
           sort_order?: number | null
           subtitle?: string | null
           title?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      locations: {
+        Row: {
+          active: boolean | null
+          created_at: string
+          description: string | null
+          id: string
+          image_url: string | null
+          listing_count: number | null
+          name: string
+          sort_order: number | null
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          listing_count?: number | null
+          name: string
+          sort_order?: number | null
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          listing_count?: number | null
+          name?: string
+          sort_order?: number | null
           updated_at?: string
         }
         Relationships: []
