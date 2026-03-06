@@ -121,6 +121,48 @@ export type Database = {
           },
         ]
       }
+      homepage_content: {
+        Row: {
+          created_at: string
+          description: string | null
+          extra_data: Json | null
+          icon: string | null
+          id: string
+          image: string | null
+          section: string
+          sort_order: number | null
+          subtitle: string | null
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          extra_data?: Json | null
+          icon?: string | null
+          id?: string
+          image?: string | null
+          section: string
+          sort_order?: number | null
+          subtitle?: string | null
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          extra_data?: Json | null
+          icon?: string | null
+          id?: string
+          image?: string | null
+          section?: string
+          sort_order?: number | null
+          subtitle?: string | null
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
