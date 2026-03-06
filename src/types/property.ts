@@ -7,12 +7,13 @@ export interface Property {
   type: "Flat" | "Plot" | "House" | "Villa";
   bedrooms: number;
   area: number;
-  areaUnit: string;
-  description: string;
+  area_unit: string;
+  description: string | null;
   amenities: string[];
   images: string[];
   featured: boolean;
   status: "Sale" | "Rent";
+  created_at?: string;
 }
 
 export interface Enquiry {
@@ -20,8 +21,8 @@ export interface Enquiry {
   name: string;
   phone: string;
   message: string;
-  propertyId: string;
-  date: string;
+  property_id: string;
+  created_at: string;
 }
 
 export const LOCATIONS = [
@@ -42,3 +43,16 @@ export const BUDGET_RANGES = [
   { label: "₹1Cr - ₹2Cr", min: 10000000, max: 20000000 },
   { label: "Above ₹2Cr", min: 20000000, max: Infinity },
 ] as const;
+
+export const formatPrice = (price: number, status: string) => {
+  if (status === "Rent") {
+    return `₹${price.toLocaleString("en-IN")}/mo`;
+  }
+  if (price >= 10000000) {
+    return `₹${(price / 10000000).toFixed(1)} Cr`;
+  }
+  if (price >= 100000) {
+    return `₹${(price / 100000).toFixed(1)} L`;
+  }
+  return `₹${price.toLocaleString("en-IN")}`;
+};

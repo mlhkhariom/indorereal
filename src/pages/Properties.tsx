@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import PropertyCard from "@/components/PropertyCard";
 import ScrollReveal from "@/components/ScrollReveal";
-import { properties } from "@/data/properties";
+import { useProperties } from "@/hooks/useProperties";
 import { LOCATIONS, PROPERTY_TYPES, BUDGET_RANGES } from "@/types/property";
 import { SlidersHorizontal, X, Home, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 const Properties = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [showFilters, setShowFilters] = useState(false);
+  const { data: properties = [], isLoading } = useProperties();
 
   const location = searchParams.get("location") || "";
   const type = searchParams.get("type") || "";
@@ -40,7 +41,7 @@ const Properties = () => {
       }
       return true;
     });
-  }, [location, type, budget, status]);
+  }, [properties, location, type, budget, status]);
 
   const hasFilters = location || type || budget || status;
 
@@ -89,7 +90,6 @@ const Properties = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1 bg-muted">
-        {/* Header banner */}
         <div className="navy-gradient pt-28 pb-10">
           <div className="container mx-auto px-4 lg:px-8">
             <nav className="flex items-center gap-1.5 text-sm text-primary-foreground/50 mb-4">
@@ -105,9 +105,7 @@ const Properties = () => {
                 </>
               )}
             </nav>
-            <h1 className="font-heading text-3xl md:text-4xl font-bold text-primary-foreground">
-              Properties in Indore
-            </h1>
+            <h1 className="font-heading text-3xl md:text-4xl font-bold text-primary-foreground">Properties in Indore</h1>
             <p className="text-primary-foreground/50 text-sm mt-1">
               Browse {filtered.length} verified properties across Indore's prime locations
             </p>
@@ -115,25 +113,17 @@ const Properties = () => {
         </div>
 
         <div className="container mx-auto px-4 lg:px-8 py-10">
-          {/* Mobile filter toggle */}
           <div className="lg:hidden mb-6">
-            <Button
-              variant="outline"
-              onClick={() => setShowFilters(!showFilters)}
-              className="w-full rounded-xl h-11"
-            >
+            <Button variant="outline" onClick={() => setShowFilters(!showFilters)} className="w-full rounded-xl h-11">
               <SlidersHorizontal className="h-4 w-4 mr-2" />
               {showFilters ? "Hide Filters" : "Show Filters"}
             </Button>
             {showFilters && (
-              <div className="mt-4 card-elevated p-5">
-                <FilterControls />
-              </div>
+              <div className="mt-4 card-elevated p-5"><FilterControls /></div>
             )}
           </div>
 
           <div className="flex gap-8">
-            {/* Desktop sidebar */}
             <aside className="hidden lg:block w-72 flex-shrink-0">
               <div className="card-elevated p-6 sticky top-24">
                 <h3 className="font-heading font-bold text-foreground text-sm uppercase tracking-wider mb-5 flex items-center gap-2">
@@ -143,9 +133,14 @@ const Properties = () => {
               </div>
             </aside>
 
-            {/* Grid */}
             <div className="flex-1">
-              {filtered.length === 0 ? (
+              {isLoading ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {[1, 2, 3, 4, 5, 6].map((i) => (
+                    <div key={i} className="card-elevated h-80 animate-pulse bg-muted rounded-2xl" />
+                  ))}
+                </div>
+              ) : filtered.length === 0 ? (
                 <div className="text-center py-24 card-elevated rounded-2xl">
                   <p className="text-muted-foreground text-lg font-heading">No properties found</p>
                   <p className="text-muted-foreground/60 text-sm mt-1">Try adjusting your filters</p>
@@ -166,7 +161,6 @@ const Properties = () => {
       </main>
       <Footer />
       <WhatsAppButton />
-      {/* Spacer for mobile bottom bar */}
       <div className="lg:hidden h-28" />
     </div>
   );

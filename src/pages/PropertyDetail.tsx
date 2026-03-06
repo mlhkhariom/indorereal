@@ -4,12 +4,25 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import LeadForm from "@/components/LeadForm";
 import ScrollReveal from "@/components/ScrollReveal";
-import { properties, formatPrice } from "@/data/properties";
-import { MapPin, Bed, Maximize, Home, ChevronRight, Building, Phone, MessageCircle } from "lucide-react";
+import { useProperty } from "@/hooks/useProperties";
+import { formatPrice } from "@/types/property";
+import { MapPin, Bed, Maximize, Home, ChevronRight, Building } from "lucide-react";
 
 const PropertyDetail = () => {
   const { slug } = useParams();
-  const property = properties.find((p) => p.slug === slug);
+  const { data: property, isLoading } = useProperty(slug || "");
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-1 flex items-center justify-center bg-muted">
+          <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full" />
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!property) {
     return (
@@ -30,13 +43,10 @@ const PropertyDetail = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1 bg-muted">
-        {/* Breadcrumb */}
         <div className="navy-gradient pt-24 pb-6">
           <div className="container mx-auto px-4 lg:px-8">
             <nav className="flex items-center gap-1.5 text-sm text-primary-foreground/50">
-              <Link to="/" className="hover:text-secondary transition-colors flex items-center gap-1">
-                <Home className="h-3.5 w-3.5" /> Home
-              </Link>
+              <Link to="/" className="hover:text-secondary transition-colors flex items-center gap-1"><Home className="h-3.5 w-3.5" /> Home</Link>
               <ChevronRight className="h-3.5 w-3.5" />
               <Link to="/properties" className="hover:text-secondary transition-colors">Properties</Link>
               <ChevronRight className="h-3.5 w-3.5" />
@@ -49,37 +59,24 @@ const PropertyDetail = () => {
 
         <div className="container mx-auto px-4 lg:px-8 py-8">
           <div className="flex flex-col lg:flex-row gap-8">
-            {/* Left */}
             <div className="flex-1 min-w-0">
               <ScrollReveal>
-                {/* Image */}
                 <div className="rounded-2xl overflow-hidden aspect-video shadow-lg">
-                  <img src={property.images[0]} alt={property.title} className="w-full h-full object-cover" />
+                  <img src={property.images?.[0]} alt={property.title} className="w-full h-full object-cover" />
                 </div>
               </ScrollReveal>
 
               <ScrollReveal delay={0.1}>
-                {/* Info card */}
                 <div className="card-elevated p-7 mt-6">
                   <div className="flex flex-wrap items-start justify-between gap-4 mb-5">
                     <div>
-                      <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-secondary/10 text-secondary border border-secondary/20 mb-3">
-                        For {property.status}
-                      </span>
-                      <h1 className="font-heading text-2xl md:text-3xl font-bold text-card-foreground leading-tight">
-                        {property.title}
-                      </h1>
-                      <p className="flex items-center gap-1.5 text-muted-foreground mt-2">
-                        <MapPin className="h-4 w-4 text-secondary" /> {property.location}, Indore, Madhya Pradesh
-                      </p>
+                      <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-secondary/10 text-secondary border border-secondary/20 mb-3">For {property.status}</span>
+                      <h1 className="font-heading text-2xl md:text-3xl font-bold text-card-foreground leading-tight">{property.title}</h1>
+                      <p className="flex items-center gap-1.5 text-muted-foreground mt-2"><MapPin className="h-4 w-4 text-secondary" /> {property.location}, Indore, Madhya Pradesh</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-heading text-3xl md:text-4xl font-extrabold text-gold-gradient">
-                        {formatPrice(property.price, property.status)}
-                      </p>
-                      {property.status === "Rent" && (
-                        <p className="text-muted-foreground text-xs mt-1">per month</p>
-                      )}
+                      <p className="font-heading text-3xl md:text-4xl font-extrabold text-gold-gradient">{formatPrice(property.price, property.status)}</p>
+                      {property.status === "Rent" && <p className="text-muted-foreground text-xs mt-1">per month</p>}
                     </div>
                   </div>
 
@@ -94,7 +91,7 @@ const PropertyDetail = () => {
                     <div className="text-center p-3 rounded-xl bg-muted/50">
                       <Maximize className="h-5 w-5 text-secondary mx-auto mb-1.5" />
                       <p className="font-heading font-bold text-foreground text-lg">{property.area}</p>
-                      <p className="text-muted-foreground text-xs">{property.areaUnit}</p>
+                      <p className="text-muted-foreground text-xs">{property.area_unit}</p>
                     </div>
                     <div className="text-center p-3 rounded-xl bg-muted/50">
                       <Building className="h-5 w-5 text-secondary mx-auto mb-1.5" />
@@ -111,11 +108,10 @@ const PropertyDetail = () => {
               </ScrollReveal>
 
               <ScrollReveal delay={0.15}>
-                {/* Amenities */}
                 <div className="card-elevated p-7 mt-6">
                   <h2 className="font-heading font-bold text-foreground text-lg mb-5">Amenities & Features</h2>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                    {property.amenities.map((a) => (
+                    {property.amenities?.map((a) => (
                       <div key={a} className="flex items-center gap-3 p-3 rounded-xl bg-muted/50 text-sm text-foreground">
                         <div className="h-2.5 w-2.5 rounded-full gold-gradient flex-shrink-0 shadow-sm" />
                         {a}
@@ -126,22 +122,16 @@ const PropertyDetail = () => {
               </ScrollReveal>
             </div>
 
-            {/* Right sidebar */}
             <div className="w-full lg:w-[340px] flex-shrink-0">
               <div className="lg:sticky lg:top-24 space-y-5">
-                <ScrollReveal delay={0.1}>
-                  <LeadForm propertyTitle={property.title} />
-                </ScrollReveal>
-
+                <ScrollReveal delay={0.1}><LeadForm propertyTitle={property.title} /></ScrollReveal>
                 <ScrollReveal delay={0.15}>
-                  {/* Trust box */}
                   <div className="card-elevated p-5">
                     <h4 className="font-heading font-semibold text-sm text-foreground mb-3">Why Trust Us</h4>
                     <ul className="space-y-2.5 text-sm text-muted-foreground">
                       {["RERA Registered Agency", "100% Verified Listings", "Free Legal Consultation", "No Hidden Charges"].map((t) => (
                         <li key={t} className="flex items-center gap-2">
-                          <span className="h-1.5 w-1.5 rounded-full bg-secondary flex-shrink-0" />
-                          {t}
+                          <span className="h-1.5 w-1.5 rounded-full bg-secondary flex-shrink-0" />{t}
                         </li>
                       ))}
                     </ul>
@@ -154,7 +144,6 @@ const PropertyDetail = () => {
       </main>
       <Footer />
       <WhatsAppButton />
-      {/* Spacer for mobile bottom bar */}
       <div className="lg:hidden h-28" />
     </div>
   );
