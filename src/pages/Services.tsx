@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Link } from "react-router-dom";
@@ -51,6 +52,7 @@ const services = [
 const Services = () => {
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOHead title="Real Estate Services in Indore — Buy, Sell, Rent Properties" description="Explore Indore Realty's comprehensive real estate services — property search, legal assistance, home loans, vastu consultation, interior design & property management in Indore." keywords="real estate services Indore, property services, home loan assistance, vastu consultation, property management Indore" canonical="https://indorerealty.in/services" />
       <Header />
       <main className="flex-1">
         {/* Hero */}

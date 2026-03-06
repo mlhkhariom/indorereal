@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import ScrollReveal from "@/components/ScrollReveal";
+import SEOHead from "@/components/SEOHead";
 import { Link } from "react-router-dom";
 import { Home, ChevronRight, Target, Eye, Heart, Award, Users, Building, MapPin, Clock, ShieldCheck, Handshake } from "lucide-react";
 
@@ -31,6 +32,7 @@ const values = [
 const About = () => {
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOHead title="About Indore Realty — Indore's Trusted Real Estate Partner" description="Learn about Indore Realty — Indore's #1 trusted real estate agency with 500+ verified properties, 1200+ happy families, and 15+ years of experience." keywords="about Indore Realty, real estate agency Indore, property dealer Indore, trusted real estate" canonical="https://indorerealty.in/about" />
       <Header />
       <main className="flex-1">
         {/* Hero */}

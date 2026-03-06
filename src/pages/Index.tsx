@@ -8,10 +8,12 @@ import WhyChooseUs from "@/components/WhyChooseUs";
 import HowItWorks from "@/components/HowItWorks";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import CTABanner from "@/components/CTABanner";
+import SEOHead from "@/components/SEOHead";
 
 const Index = () => {
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOHead />
       <Header />
       <main className="flex-1">
         <HeroSection />
@@ -24,7 +26,6 @@ const Index = () => {
       </main>
       <Footer />
       <WhatsAppButton />
-      {/* Spacer for mobile bottom bar */}
       <div className="lg:hidden h-28" />
     </div>
   );
