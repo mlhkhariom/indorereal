@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { MapPin, ArrowUpRight } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
+import { useHomepageSection } from "@/hooks/useHomepageContent";
 
-const locations = [
+const defaultLocations = [
   { name: "Vijay Nagar", count: 25, desc: "Premium flats & commercial", image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600" },
   { name: "Super Corridor", count: 18, desc: "Plots & new developments", image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600" },
   { name: "Rau", count: 12, desc: "Villas & independent houses", image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600" },
@@ -12,40 +13,36 @@ const locations = [
 ];
 
 const LocationsSection = () => {
+  const { data: dbLocations } = useHomepageSection("location");
+
+  const locations = dbLocations && dbLocations.length > 0
+    ? dbLocations.map(l => ({
+        name: l.title || "",
+        desc: l.subtitle || "",
+        count: (l.extra_data as any)?.count || 0,
+        image: l.image || "",
+      }))
+    : defaultLocations;
+
   return (
     <section className="section-padding bg-muted relative overflow-hidden">
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[120px]" />
-
       <div className="container mx-auto px-4 lg:px-8 relative">
         <ScrollReveal>
           <div className="text-center max-w-2xl mx-auto">
             <span className="text-secondary font-semibold text-sm uppercase tracking-widest">Prime Localities</span>
-            <h2 className="section-title mt-3">
-              Explore by Location
-            </h2>
+            <h2 className="section-title mt-3">Explore by Location</h2>
             <div className="divider-gold" />
-            <p className="section-subtitle">
-              Browse properties across Indore's most sought-after neighbourhoods
-            </p>
+            <p className="section-subtitle">Browse properties across Indore's most sought-after neighbourhoods</p>
           </div>
         </ScrollReveal>
 
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mt-14">
           {locations.map((loc, i) => (
-            <ScrollReveal key={loc.name} delay={i * 0.08}>
-              <Link
-                to={`/properties?location=${loc.name}`}
-                className="group relative rounded-2xl overflow-hidden aspect-[4/3] block"
-              >
-                <img
-                  src={loc.image}
-                  alt={loc.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-                  loading="lazy"
-                />
+            <ScrollReveal key={i} delay={i * 0.08}>
+              <Link to={`/properties?location=${loc.name}`} className="group relative rounded-2xl overflow-hidden aspect-[4/3] block">
+                <img src={loc.image} alt={loc.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/95 via-navy-dark/40 to-transparent" />
-
-                {/* Content */}
                 <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6">
                   <div className="flex items-end justify-between">
                     <div>

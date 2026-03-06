@@ -1,7 +1,10 @@
 import { ShieldCheck, BadgeIndianRupee, Users, MapPinCheck, Headphones, FileCheck } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
+import { useHomepageSection } from "@/hooks/useHomepageContent";
 
-const features = [
+const iconMap: Record<string, any> = { ShieldCheck, BadgeIndianRupee, Users, MapPinCheck, Headphones, FileCheck };
+
+const defaultFeatures = [
   { icon: ShieldCheck, title: "100% Verified", desc: "Every listing undergoes thorough verification by our expert field team before going live." },
   { icon: BadgeIndianRupee, title: "Best Price Guarantee", desc: "We negotiate on your behalf to ensure you get the most competitive deal in the market." },
   { icon: Users, title: "Local Market Experts", desc: "Our team has 8+ years of deep experience across every locality in Indore." },
@@ -11,27 +14,32 @@ const features = [
 ];
 
 const WhyChooseUs = () => {
+  const { data: dbFeatures } = useHomepageSection("why_choose_us");
+
+  const features = dbFeatures && dbFeatures.length > 0
+    ? dbFeatures.map(f => ({
+        icon: iconMap[f.icon || ""] || ShieldCheck,
+        title: f.title || "",
+        desc: f.description || "",
+      }))
+    : defaultFeatures;
+
   return (
     <section className="section-padding bg-background relative overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-[150px]" />
-
       <div className="container mx-auto px-4 lg:px-8 relative">
         <ScrollReveal>
           <div className="text-center max-w-2xl mx-auto">
             <span className="text-secondary font-semibold text-sm uppercase tracking-widest">Why Indore Realty</span>
-            <h2 className="section-title mt-3">
-              Trusted by 1,200+ Families
-            </h2>
+            <h2 className="section-title mt-3">Trusted by 1,200+ Families</h2>
             <div className="divider-gold" />
-            <p className="section-subtitle">
-              We go beyond just listing properties — we build lasting relationships with every client
-            </p>
+            <p className="section-subtitle">We go beyond just listing properties — we build lasting relationships with every client</p>
           </div>
         </ScrollReveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-14">
           {features.map((f, i) => (
-            <ScrollReveal key={f.title} delay={i * 0.08}>
+            <ScrollReveal key={i} delay={i * 0.08}>
               <div className="card-elevated p-7 group h-full">
                 <div className="h-12 w-12 rounded-2xl gold-gradient flex items-center justify-center mb-5 group-hover:scale-110 transition-transform shadow-md">
                   <f.icon className="h-6 w-6 text-primary" />

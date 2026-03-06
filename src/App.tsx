@@ -29,6 +29,7 @@ import AdminProperties from "./pages/admin/AdminProperties";
 import AdminBlog from "./pages/admin/AdminBlog";
 import AdminEnquiries from "./pages/admin/AdminEnquiries";
 import AdminSEO from "./pages/admin/AdminSEO";
+import AdminHomepage from "./pages/admin/AdminHomepage";
 
 const queryClient = new QueryClient();
 
@@ -63,6 +64,7 @@ const App = () => (
                   <Route path="blog" element={<AdminBlog />} />
                   <Route path="enquiries" element={<AdminEnquiries />} />
                   <Route path="seo" element={<AdminSEO />} />
+                  <Route path="homepage" element={<AdminHomepage />} />
                 </Route>
                 <Route path="*" element={<NotFound />} />
               </Routes>

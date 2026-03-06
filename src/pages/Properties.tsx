@@ -7,10 +7,9 @@ import PropertyCard from "@/components/PropertyCard";
 import ScrollReveal from "@/components/ScrollReveal";
 import { useProperties } from "@/hooks/useProperties";
 import { LOCATIONS, PROPERTY_TYPES, BUDGET_RANGES } from "@/types/property";
-import { SlidersHorizontal, X, Home, ChevronRight } from "lucide-react";
+import { SlidersHorizontal, X, Home, ChevronRight, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-
 const Properties = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [showFilters, setShowFilters] = useState(false);
@@ -20,7 +19,7 @@ const Properties = () => {
   const type = searchParams.get("type") || "";
   const budget = searchParams.get("budget") || "";
   const status = searchParams.get("status") || "";
-
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
   const updateFilter = (key: string, value: string) => {
     const params = new URLSearchParams(searchParams);
     if (value) params.set(key, value);
@@ -32,6 +31,10 @@ const Properties = () => {
 
   const filtered = useMemo(() => {
     return properties.filter((p) => {
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        if (!p.title.toLowerCase().includes(q) && !p.location.toLowerCase().includes(q)) return false;
+      }
       if (location && p.location !== location) return false;
       if (type && p.type !== type) return false;
       if (status && p.status !== status) return false;
@@ -41,8 +44,7 @@ const Properties = () => {
       }
       return true;
     });
-  }, [properties, location, type, budget, status]);
-
+  }, [properties, location, type, budget, status, searchQuery]);
   const hasFilters = location || type || budget || status;
 
   const selectClass = "w-full h-11 rounded-xl bg-muted/60 border border-border px-4 text-sm font-body text-foreground focus:outline-none focus:ring-2 focus:ring-secondary/40 appearance-none cursor-pointer";
@@ -109,9 +111,19 @@ const Properties = () => {
             <p className="text-primary-foreground/50 text-sm mt-1">
               Browse {filtered.length} verified properties across Indore's prime locations
             </p>
+            {/* Search Bar */}
+            <div className="mt-5 max-w-xl relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-primary-foreground/40" />
+              <input
+                type="text"
+                placeholder="Search by property name or location..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full h-12 rounded-xl bg-primary-foreground/10 border border-primary-foreground/20 pl-11 pr-4 text-sm text-primary-foreground placeholder:text-primary-foreground/40 focus:outline-none focus:ring-2 focus:ring-secondary/50 backdrop-blur-sm"
+              />
+            </div>
           </div>
         </div>
-
         <div className="container mx-auto px-4 lg:px-8 py-10">
           <div className="lg:hidden mb-6">
             <Button variant="outline" onClick={() => setShowFilters(!showFilters)} className="w-full rounded-xl h-11">
