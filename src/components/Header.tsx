@@ -71,9 +71,7 @@ const Header = () => {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${headerBg}`}>
       <div className="container mx-auto flex items-center justify-between py-3 lg:py-4 px-4 lg:px-8">
         <Link to="/" className="flex items-center gap-2.5 group flex-shrink-0">
-          <div className="h-9 w-9 lg:h-10 lg:w-10 rounded-xl gold-gradient flex items-center justify-center font-heading font-extrabold text-primary text-base lg:text-lg shadow-md group-hover:scale-105 transition-transform">
-            IR
-          </div>
+          <img src="/logo.png" alt="Indore Realty Logo" className="h-9 w-9 lg:h-10 lg:w-10 rounded-xl shadow-md group-hover:scale-105 transition-transform object-contain" />
           <div className="min-w-0">
             <span className="font-heading text-base lg:text-lg font-bold text-primary-foreground leading-none block">
               Indore Realty
