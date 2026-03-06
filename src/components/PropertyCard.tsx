@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { MapPin, Bed, Maximize, ArrowUpRight } from "lucide-react";
-import { Property } from "@/types/property";
-import { formatPrice } from "@/data/properties";
+import { Property, formatPrice } from "@/types/property";
 
 interface PropertyCardProps {
   property: Property;
@@ -63,7 +62,7 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
             </span>
           )}
           <span className="flex items-center gap-1.5">
-            <Maximize className="h-3.5 w-3.5 text-navy-light" /> {property.area} {property.areaUnit}
+            <Maximize className="h-3.5 w-3.5 text-navy-light" /> {property.area} {property.area_unit}
           </span>
           <span className="ml-auto px-2.5 py-1 rounded-md bg-muted text-muted-foreground text-[11px] font-semibold uppercase">
             {property.type}
