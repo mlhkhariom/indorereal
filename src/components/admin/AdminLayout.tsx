@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate, Outlet } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
-import { LayoutDashboard, Building2, FileText, MessageSquare, LogOut, Menu, X, ChevronRight } from "lucide-react";
+import { LayoutDashboard, Building2, FileText, MessageSquare, LogOut, Menu, X, ChevronRight, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 
@@ -9,6 +9,7 @@ const navItems = [
   { label: "Properties", path: "/admin/properties", icon: Building2 },
   { label: "Blog Posts", path: "/admin/blog", icon: FileText },
   { label: "Enquiries", path: "/admin/enquiries", icon: MessageSquare },
+  { label: "SEO Settings", path: "/admin/seo", icon: Search },
 ];
 
 const AdminLayout = () => {

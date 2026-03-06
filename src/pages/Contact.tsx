@@ -1,10 +1,12 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Home, ChevronRight, MapPin, Phone, Mail, Clock, Send, MessageCircle } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
@@ -41,18 +43,31 @@ const Contact = () => {
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !phone) {
       toast({ title: "Please fill name and phone number", variant: "destructive" });
       return;
     }
-    toast({ title: "Message sent successfully!", description: "Our team will get back to you within 24 hours." });
-    setName(""); setPhone(""); setEmail(""); setSubject(""); setMessage("");
+    setLoading(true);
+    const { error } = await supabase.from("enquiries").insert({
+      name, phone, email: email || null, message: `${subject ? `[${subject}] ` : ""}${message}`.trim() || null,
+      source: "contact_page",
+    });
+    setLoading(false);
+    if (error) {
+      toast({ title: "Something went wrong", description: "Please try again or call us directly.", variant: "destructive" });
+    } else {
+      toast({ title: "Message sent successfully!", description: "Our team will get back to you within 24 hours." });
+      setName(""); setPhone(""); setEmail(""); setSubject(""); setMessage("");
+    }
   };
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOHead title="Contact Indore Realty — Get Free Property Consultation" description="Contact Indore Realty for free property consultation. Call +91 98765 43210 or visit our Vijay Nagar office. Expert guidance for buying, selling & renting in Indore." keywords="contact Indore Realty, property consultation Indore, real estate agent contact, property dealer Indore phone" canonical="https://indorerealty.in/contact" />
       <Header />
       <main className="flex-1">
         {/* Hero */}

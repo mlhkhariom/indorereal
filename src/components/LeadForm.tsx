@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Phone, MessageCircle, Send } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface LeadFormProps {
   propertyTitle?: string;
@@ -11,55 +12,51 @@ interface LeadFormProps {
 const LeadForm = ({ propertyTitle }: LeadFormProps) => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [message, setMessage] = useState(
     propertyTitle ? `I'm interested in: ${propertyTitle}` : ""
   );
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !phone) {
       toast({ title: "Please fill in your name and phone number", variant: "destructive" });
       return;
     }
-    toast({ title: "Enquiry sent successfully!", description: "Our team will contact you within 30 minutes." });
-    setName("");
-    setPhone("");
-    setMessage("");
+    setLoading(true);
+    const { error } = await supabase.from("enquiries").insert({
+      name,
+      phone,
+      email: email || null,
+      message: message || null,
+      property_title: propertyTitle || null,
+      source: "website",
+    });
+    setLoading(false);
+    if (error) {
+      toast({ title: "Something went wrong", description: "Please try again or call us directly.", variant: "destructive" });
+    } else {
+      toast({ title: "Enquiry sent successfully!", description: "Our team will contact you within 30 minutes." });
+      setName(""); setPhone(""); setEmail(""); setMessage("");
+    }
   };
 
   return (
     <div className="card-elevated p-6 relative overflow-hidden">
-      {/* Gold top accent */}
       <div className="absolute top-0 left-0 right-0 h-1 gold-gradient" />
-
       <h3 className="font-heading font-bold text-lg text-card-foreground mb-1 mt-1">
-        Interested in this property?
+        {propertyTitle ? "Interested in this property?" : "Get Free Consultation"}
       </h3>
       <p className="text-muted-foreground text-sm mb-5">Fill the form & get a callback in 30 mins</p>
 
       <form onSubmit={handleSubmit} className="space-y-3">
-        <Input
-          placeholder="Your Full Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="h-11 rounded-xl"
-        />
-        <Input
-          placeholder="Phone Number"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          className="h-11 rounded-xl"
-          type="tel"
-        />
-        <Textarea
-          placeholder="Message (optional)"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          rows={3}
-          className="rounded-xl resize-none"
-        />
-        <button type="submit" className="w-full h-12 btn-gold rounded-xl text-sm flex items-center justify-center gap-2">
-          <Send className="h-4 w-4" /> Send Enquiry
+        <Input placeholder="Your Full Name *" value={name} onChange={(e) => setName(e.target.value)} className="h-11 rounded-xl" required />
+        <Input placeholder="Phone Number *" value={phone} onChange={(e) => setPhone(e.target.value)} className="h-11 rounded-xl" type="tel" required />
+        <Input placeholder="Email (optional)" value={email} onChange={(e) => setEmail(e.target.value)} className="h-11 rounded-xl" type="email" />
+        <Textarea placeholder="Message (optional)" value={message} onChange={(e) => setMessage(e.target.value)} rows={3} className="rounded-xl resize-none" />
+        <button type="submit" disabled={loading} className="w-full h-12 btn-gold rounded-xl text-sm flex items-center justify-center gap-2 disabled:opacity-50">
+          <Send className="h-4 w-4" /> {loading ? "Sending..." : "Send Enquiry"}
         </button>
       </form>
 
