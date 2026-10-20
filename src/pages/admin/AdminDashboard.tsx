@@ -26,7 +26,9 @@ const AdminDashboard = () => {
     return days.map((d) => ({ day: d.toLocaleDateString(undefined, { day: "numeric", month: "short" }), leads: leads.filter((l) => new Date(l.created_at).toDateString() === d.toDateString()).length }));
   }, [leads]);
   const funnel = PIPELINE_STAGES.map((s) => ({ stage: s.label, count: leads.filter((l) => normalizeStage(l.status) === s.id).length }));
-  const sources: [string, number][] = Object.entries(leads.reduce(<(a: Record<string, number>, l) => { const k = (l.source || "website").replace(/_/g, " "); a[k] = (a[k] || 0) + 1; return a; }, {}) as Record<string, number>).sort((a, b) => b[1] - a[1]);
+  const sourceCounts: Record<string, number> = {};
+  leads.forEach((l) => { const k = (l.source || "website").replace(/_/g, " "); sourceCounts[k] = (sourceCounts[k] || 0) + 1; });
+  const sources = Object.entries(sourceCounts).sort((a, b) => b[1] - a[1]);
   const topProps = [...props].sort((a, b) => (b.view_count || 0) - (a.view_count || 0)).slice(0, 5);
   const won = leads.filter((l) => normalizeStage(l.status) === "won").length;
   const due = leads.filter((l) => ["overdue", "today"].includes(followUpBucket(l.follow_up_at))).length;
