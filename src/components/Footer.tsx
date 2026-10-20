@@ -39,8 +39,8 @@ const Footer = () => {
               Indore's most trusted real estate platform. Discover verified properties with transparent pricing and expert guidance since 2015.
             </p>
             <div className="flex gap-3 mt-5">
-              {["facebook", "instagram", "youtube"].map((s) => (
-                <a key={s} href="#" className="h-9 w-9 rounded-lg bg-primary-foreground/5 border border-primary-foreground/10 flex items-center justify-center text-primary-foreground/50 hover:bg-secondary/20 hover:text-secondary hover:border-secondary/30 transition-all text-xs font-bold uppercase">
+              {(["facebook", "instagram", "youtube", "linkedin"] as const).filter((s) => contact[s]).map((s) => (
+                <a key={s} href={contact[s]} target="_blank" rel="noopener noreferrer" aria-label={s} className="h-9 w-9 rounded-lg bg-primary-foreground/5 border border-primary-foreground/10 flex items-center justify-center text-primary-foreground/50 hover:bg-secondary/20 hover:text-secondary hover:border-secondary/30 transition-all text-xs font-bold uppercase">
                   {s[0]}
                 </a>
               ))}
