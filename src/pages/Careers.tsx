@@ -104,10 +104,8 @@ const Careers = () => {
                         {job.department}
                       </span>
                     </div>
-                    <a href={`mailto:careers@indorerealty.in?subject=Application for ${job.title}`}>
-                      <button className="btn-gold px-6 py-2.5 rounded-xl text-sm inline-flex items-center gap-2 whitespace-nowrap">
-                        <Send className="h-4 w-4" aria-hidden="true" /> Apply Now
-                      </button>
+                    <a href={`mailto:careers@indorerealty.in?subject=Application for ${job.title}`} className="btn-gold px-6 py-2.5 rounded-xl text-sm inline-flex items-center gap-2 whitespace-nowrap">
+                      <Send className="h-4 w-4" aria-hidden="true" /> Apply Now<span className="sr-only"> for {job.title}</span>
                     </a>
                   </div>
                 </ScrollReveal>
