@@ -82,12 +82,12 @@ const PropertyDetail = () => {
         <div className="navy-gradient pt-24 pb-6">
           <div className="container mx-auto px-4 lg:px-8">
             <nav className="flex items-center gap-1.5 text-sm text-primary-foreground/60 overflow-x-auto whitespace-nowrap">
-              <Link to="/" className="hover:text-secondary transition-colors flex items-center gap-1"><Home className="h-3.5 w-3.5" /> Home</Link>
-              <ChevronRight className="h-3.5 w-3.5" />
+              <Link to="/" className="hover:text-secondary transition-colors flex items-center gap-1"><Home className="h-3.5 w-3.5" aria-hidden="true" /> Home</Link>
+              <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
               <Link to="/properties" className="hover:text-secondary transition-colors">Properties</Link>
-              <ChevronRight className="h-3.5 w-3.5" />
+              <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
               <Link to={`/area/${areaSlug(property.location)}`} className="hover:text-secondary transition-colors">{property.location}</Link>
-              <ChevronRight className="h-3.5 w-3.5" />
+              <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
               <span className="text-primary-foreground truncate max-w-[160px] sm:max-w-[300px]">{property.title}</span>
             </nav>
           </div>
@@ -103,10 +103,10 @@ const PropertyDetail = () => {
                     <Heart className={`h-4 w-4 ${wish.has(property.id) ? "fill-destructive text-destructive" : ""}`} /> {wish.has(property.id) ? "Saved" : "Save"}
                   </button>
                   <button onClick={() => { if (!cmp.toggle(property.id)) toast({ title: `You can compare up to ${COMPARE_MAX} properties` }); }} className={`h-10 px-4 rounded-xl border text-sm font-medium flex items-center gap-2 ${cmp.has(property.id) ? "bg-secondary text-secondary-foreground border-secondary" : "bg-card border-border hover:border-secondary"}`}>
-                    <GitCompare className="h-4 w-4" /> {cmp.has(property.id) ? "In compare" : "Compare"}
+                    <GitCompare className="h-4 w-4" aria-hidden="true" /> {cmp.has(property.id) ? "In compare" : "Compare"}
                   </button>
-                  <button onClick={share} className="h-10 px-4 rounded-xl bg-card border border-border text-sm font-medium flex items-center gap-2 hover:border-secondary"><Share2 className="h-4 w-4" /> Share</button>
-                  {(property.view_count ?? 0) > 0 && <span className="h-10 px-3 text-sm text-muted-foreground flex items-center gap-1.5 ml-auto"><Eye className="h-4 w-4" /> {property.view_count} views</span>}
+                  <button onClick={share} className="h-10 px-4 rounded-xl bg-card border border-border text-sm font-medium flex items-center gap-2 hover:border-secondary"><Share2 className="h-4 w-4" aria-hidden="true" /> Share</button>
+                  {(property.view_count ?? 0) > 0 && <span className="h-10 px-3 text-sm text-muted-foreground flex items-center gap-1.5 ml-auto"><Eye className="h-4 w-4" aria-hidden="true" /> {property.view_count} views</span>}
                 </div>
               </ScrollReveal>
 
@@ -116,7 +116,7 @@ const PropertyDetail = () => {
                     <div>
                       <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-secondary/10 text-secondary border border-secondary/20 mb-3">For {property.status}</span>
                       <h1 className="font-heading text-2xl md:text-3xl font-bold text-card-foreground leading-tight">{property.title}</h1>
-                      <p className="flex items-center gap-1.5 text-muted-foreground mt-2"><MapPin className="h-4 w-4 text-secondary" /> {property.location}, Indore, Madhya Pradesh</p>
+                      <p className="flex items-center gap-1.5 text-muted-foreground mt-2"><MapPin className="h-4 w-4 text-secondary" aria-hidden="true" /> {property.location}, Indore, Madhya Pradesh</p>
                     </div>
                     <div className="sm:text-right">
                       <p className="font-heading text-2xl sm:text-3xl md:text-4xl font-extrabold text-gold-gradient">{formatPrice(property.price, property.status)}</p>
@@ -127,18 +127,18 @@ const PropertyDetail = () => {
                   <div className="grid grid-cols-3 gap-2 sm:gap-4 py-5 border-y border-border">
                     {property.bedrooms > 0 && (
                       <div className="text-center p-3 rounded-xl bg-muted/50">
-                        <Bed className="h-5 w-5 text-secondary mx-auto mb-1.5" />
+                        <Bed className="h-5 w-5 text-secondary mx-auto mb-1.5" aria-hidden="true" />
                         <p className="font-heading font-bold text-foreground text-lg">{property.bedrooms} BHK</p>
                         <p className="text-muted-foreground text-xs">Bedrooms</p>
                       </div>
                     )}
                     <div className="text-center p-3 rounded-xl bg-muted/50">
-                      <Maximize className="h-5 w-5 text-secondary mx-auto mb-1.5" />
+                      <Maximize className="h-5 w-5 text-secondary mx-auto mb-1.5" aria-hidden="true" />
                       <p className="font-heading font-bold text-foreground text-lg">{property.area}</p>
                       <p className="text-muted-foreground text-xs">{property.area_unit}</p>
                     </div>
                     <div className="text-center p-3 rounded-xl bg-muted/50">
-                      <Building className="h-5 w-5 text-secondary mx-auto mb-1.5" />
+                      <Building className="h-5 w-5 text-secondary mx-auto mb-1.5" aria-hidden="true" />
                       <p className="font-heading font-bold text-foreground text-base sm:text-lg">{property.type}</p>
                       <p className="text-muted-foreground text-xs">Type</p>
                     </div>

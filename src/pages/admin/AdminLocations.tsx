@@ -91,7 +91,7 @@ const AdminLocations = () => {
         <h2 className="text-lg font-bold">Locations ({locations.length})</h2>
         <Dialog open={dialogOpen} onOpenChange={(v) => { setDialogOpen(v); if (!v) { setForm(emptyForm); setEditId(null); } }}>
           <DialogTrigger asChild>
-            <Button className="btn-gold"><Plus className="h-4 w-4 mr-1" /> Add Location</Button>
+            <Button className="btn-gold"><Plus className="h-4 w-4 mr-1" aria-hidden="true" /> Add Location</Button>
           </DialogTrigger>
           <DialogContent className="max-w-lg">
             <DialogHeader><DialogTitle>{editId ? "Edit Location" : "Add Location"}</DialogTitle></DialogHeader>
@@ -139,7 +139,7 @@ const AdminLocations = () => {
                 {loc.image_url && <img loading="lazy" decoding="async" src={loc.image_url} alt="" className="h-12 w-12 rounded-lg object-cover hidden sm:block" />}
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
-                    <MapPin className="h-3.5 w-3.5 text-secondary flex-shrink-0" />
+                    <MapPin className="h-3.5 w-3.5 text-secondary flex-shrink-0" aria-hidden="true" />
                     <p className="font-semibold text-sm truncate">{loc.name}</p>
                     {!loc.active && <span className="text-[10px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground">Inactive</span>}
                   </div>
@@ -147,8 +147,8 @@ const AdminLocations = () => {
                 </div>
               </div>
               <div className="flex gap-2 flex-shrink-0">
-                <Button size="icon" variant="outline" onClick={() => handleEdit(loc)}><Pencil className="h-4 w-4" /></Button>
-                <Button size="icon" variant="destructive" onClick={() => handleDelete(loc.id)}><Trash2 className="h-4 w-4" /></Button>
+                <Button size="icon" variant="outline" onClick={() => handleEdit(loc)}><Pencil className="h-4 w-4" aria-hidden="true" /></Button>
+                <Button size="icon" variant="destructive" onClick={() => handleDelete(loc.id)}><Trash2 className="h-4 w-4" aria-hidden="true" /></Button>
               </div>
             </CardContent>
           </Card>

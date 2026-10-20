@@ -46,14 +46,14 @@ const AdminSubmissions = () => {
                 <p className="font-semibold">{s.title} <Badge variant="outline" className="ml-1">{s.type} · {s.status}</Badge></p>
                 <p className="text-sm text-muted-foreground">{s.location}{s.price ? ` · ${formatPrice(Number(s.price), s.status)}` : ""}{s.area ? ` · ${s.area} sq.ft` : ""}{s.bedrooms ? ` · ${s.bedrooms} BHK` : ""}</p>
                 {s.description && <p className="text-sm">{s.description}</p>}
-                <p className="text-xs text-muted-foreground flex items-center gap-2"><a href={`tel:${s.owner_phone}`} className="flex items-center gap-1 hover:text-secondary"><Phone className="h-3 w-3" />{s.owner_name} · {s.owner_phone}</a> · {new Date(s.created_at).toLocaleDateString()}</p>
+                <p className="text-xs text-muted-foreground flex items-center gap-2"><a href={`tel:${s.owner_phone}`} className="flex items-center gap-1 hover:text-secondary"><Phone className="h-3 w-3" aria-hidden="true" />{s.owner_name} · {s.owner_phone}</a> · {new Date(s.created_at).toLocaleDateString()}</p>
               </div>
               <div className="flex gap-2 shrink-0">
                 {tab === "pending" && <>
-                  <Button size="sm" className="btn-gold" onClick={() => approve(s)}><Check className="h-4 w-4 mr-1" />Approve</Button>
+                  <Button size="sm" className="btn-gold" onClick={() => approve(s)}><Check className="h-4 w-4 mr-1" aria-hidden="true" />Approve</Button>
                   <Button size="sm" variant="outline" onClick={() => setStatus(s.id, "rejected")}><X className="h-4 w-4 mr-1" />Reject</Button>
                 </>}
-                <Button size="icon" variant="ghost" className="text-destructive" aria-label="Delete" onClick={() => del(s.id)}><Trash2 className="h-4 w-4" /></Button>
+                <Button size="icon" variant="ghost" className="text-destructive" aria-label="Delete" onClick={() => del(s.id)}><Trash2 className="h-4 w-4" aria-hidden="true" /></Button>
               </div>
             </CardContent>
           </Card>

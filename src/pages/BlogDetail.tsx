@@ -120,10 +120,10 @@ const BlogDetail = () => {
         <div className="navy-gradient pt-24 pb-6">
           <div className="container mx-auto px-4 lg:px-8">
             <nav className="flex items-center gap-1.5 text-sm text-primary-foreground/50">
-              <Link to="/" className="hover:text-secondary transition-colors flex items-center gap-1"><Home className="h-3.5 w-3.5" /> Home</Link>
-              <ChevronRight className="h-3.5 w-3.5" />
+              <Link to="/" className="hover:text-secondary transition-colors flex items-center gap-1"><Home className="h-3.5 w-3.5" aria-hidden="true" /> Home</Link>
+              <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
               <Link to="/blog" className="hover:text-secondary transition-colors">Blog</Link>
-              <ChevronRight className="h-3.5 w-3.5" />
+              <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
               <span className="text-primary-foreground truncate max-w-[200px]">{post.title}</span>
             </nav>
           </div>
@@ -143,9 +143,9 @@ const BlogDetail = () => {
                 <h1 className="font-heading text-2xl md:text-4xl font-bold text-card-foreground leading-tight mb-4">{post.title}</h1>
 
                 <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-8 pb-6 border-b border-border">
-                  <span className="flex items-center gap-1.5"><User className="h-4 w-4" /> {post.author_name}</span>
+                  <span className="flex items-center gap-1.5"><User className="h-4 w-4" aria-hidden="true" /> {post.author_name}</span>
                   <span className="flex items-center gap-1.5"><Calendar className="h-4 w-4" /> {publishDate}</span>
-                  <span className="flex items-center gap-1.5"><Clock className="h-4 w-4" /> {post.read_time || 5} min read</span>
+                  <span className="flex items-center gap-1.5"><Clock className="h-4 w-4" aria-hidden="true" /> {post.read_time || 5} min read</span>
                 </div>
 
                 <article className="prose prose-lg max-w-none">
@@ -154,7 +154,7 @@ const BlogDetail = () => {
 
                 {post.tags && post.tags.length > 0 && (
                   <div className="flex flex-wrap gap-2 mt-8 pt-6 border-t border-border">
-                    <Tag className="h-4 w-4 text-muted-foreground mt-1" />
+                    <Tag className="h-4 w-4 text-muted-foreground mt-1" aria-hidden="true" />
                     {post.tags.map((tag) => (
                       <span key={tag} className="px-3 py-1 rounded-full text-xs bg-muted text-muted-foreground">{tag}</span>
                     ))}

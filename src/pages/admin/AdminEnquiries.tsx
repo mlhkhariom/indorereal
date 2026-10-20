@@ -52,8 +52,8 @@ const AdminEnquiries = () => {
                     <Badge variant={statusColor(e.status) as any}>{e.status}</Badge>
                   </div>
                   <div className="flex flex-wrap gap-3 text-xs text-muted-foreground mt-1">
-                    <span className="flex items-center gap-1"><Phone className="h-3 w-3" />{e.phone}</span>
-                    {e.email && <span className="flex items-center gap-1"><Mail className="h-3 w-3" />{e.email}</span>}
+                    <span className="flex items-center gap-1"><Phone className="h-3 w-3" aria-hidden="true" />{e.phone}</span>
+                    {e.email && <span className="flex items-center gap-1"><Mail className="h-3 w-3" aria-hidden="true" />{e.email}</span>}
                   </div>
                   {e.property_title && <p className="text-xs text-primary mt-1">Property: {e.property_title}</p>}
                   {e.message && <p className="text-sm mt-2 text-foreground/80">{e.message}</p>}
@@ -68,7 +68,7 @@ const AdminEnquiries = () => {
                       <SelectItem value="closed">Closed</SelectItem>
                     </SelectContent>
                   </Select>
-                  <Button size="icon" variant="destructive" className="h-8 w-8" onClick={() => handleDelete(e.id)}><Trash2 className="h-3 w-3" /></Button>
+                  <Button size="icon" variant="destructive" className="h-8 w-8" onClick={() => handleDelete(e.id)}><Trash2 className="h-3 w-3" aria-hidden="true" /></Button>
                 </div>
               </div>
             </CardContent>

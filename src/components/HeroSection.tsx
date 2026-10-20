@@ -74,10 +74,10 @@ const HeroSection = () => {
 
           <motion.div className="flex flex-wrap gap-3 mt-6 sm:mt-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.45 }}>
             <button onClick={() => navigate("/properties")} className="btn-gold px-5 sm:px-7 py-3 sm:py-3.5 rounded-xl text-sm inline-flex items-center gap-2">
-              Explore Properties <ArrowRight className="h-4 w-4" />
+              Explore Properties <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </button>
             <a href={contact.tel} className="glass-card px-5 sm:px-7 py-3 sm:py-3.5 rounded-xl text-sm text-primary-foreground/90 inline-flex items-center gap-2 hover:bg-primary-foreground/10 transition-all">
-              <Play className="h-4 w-4 text-secondary" /> Schedule a Free Visit
+              <Play className="h-4 w-4 text-secondary" aria-hidden="true" /> Schedule a Free Visit
             </a>
           </motion.div>
         </div>
@@ -108,7 +108,7 @@ const HeroSection = () => {
                 </select>
               </div>
               <button onClick={handleSearch} className="h-12 btn-gold rounded-xl font-heading font-semibold text-sm flex items-center justify-center gap-2">
-                <Search className="h-4 w-4" /> Search
+                <Search className="h-4 w-4" aria-hidden="true" /> Search
               </button>
             </div>
           </div>

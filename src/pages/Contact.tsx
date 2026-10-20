@@ -79,9 +79,9 @@ const Contact = () => {
           <div className="container mx-auto px-4 lg:px-8 relative">
             <nav className="flex items-center gap-1.5 text-sm text-primary-foreground/50 mb-6">
               <Link to="/" className="hover:text-secondary transition-colors flex items-center gap-1">
-                <Home className="h-3.5 w-3.5" /> Home
+                <Home className="h-3.5 w-3.5" aria-hidden="true" /> Home
               </Link>
-              <ChevronRight className="h-3.5 w-3.5" />
+              <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
               <span className="text-primary-foreground">Contact Us</span>
             </nav>
             <ScrollReveal>
@@ -142,19 +142,19 @@ const Contact = () => {
                     <Input placeholder="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} className="h-12 rounded-xl" />
                     <Textarea placeholder="Your Message..." value={message} onChange={(e) => setMessage(e.target.value)} rows={5} className="rounded-xl resize-none" />
                     <button type="submit" className="w-full h-13 py-3.5 btn-gold rounded-xl text-sm flex items-center justify-center gap-2">
-                      <Send className="h-4 w-4" /> Send Message
+                      <Send className="h-4 w-4" aria-hidden="true" /> Send Message
                     </button>
                   </form>
 
                   <div className="flex gap-3 mt-5">
                     <a href={contact.wa} target="_blank" rel="noopener noreferrer" className="flex-1">
                       <button type="button" className="w-full h-11 rounded-xl border border-[#25D366]/30 text-[#25D366] hover:bg-[#25D366]/5 text-sm font-medium flex items-center justify-center gap-2 transition-colors">
-                        <MessageCircle className="h-4 w-4" /> WhatsApp
+                        <MessageCircle className="h-4 w-4" aria-hidden="true" /> WhatsApp
                       </button>
                     </a>
                     <a href={contact.tel} className="flex-1">
                       <button type="button" className="w-full h-11 rounded-xl border border-primary/20 text-primary hover:bg-primary/5 text-sm font-medium flex items-center justify-center gap-2 transition-colors">
-                        <Phone className="h-4 w-4" /> Call Now
+                        <Phone className="h-4 w-4" aria-hidden="true" /> Call Now
                       </button>
                     </a>
                   </div>

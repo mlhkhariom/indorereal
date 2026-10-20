@@ -97,7 +97,7 @@ const AdminSEO = ({ groups = settingsGroups as SettingsGroup[], heading = "SEO &
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-bold">{heading}</h2>
         <Button className="btn-gold" onClick={handleSave} disabled={saving}>
-          <Save className="h-4 w-4 mr-1" /> {saving ? "Saving..." : "Save All"}
+          <Save className="h-4 w-4 mr-1" aria-hidden="true" /> {saving ? "Saving..." : "Save All"}
         </Button>
       </div>
 
@@ -107,7 +107,7 @@ const AdminSEO = ({ groups = settingsGroups as SettingsGroup[], heading = "SEO &
           <Card key={group.title}>
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-base">
-                <Icon className="h-4 w-4 text-secondary" /> {group.title}
+                <Icon className="h-4 w-4 text-secondary" aria-hidden="true" /> {group.title}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">

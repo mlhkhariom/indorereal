@@ -102,7 +102,7 @@ const AdminGallery = () => {
         <h2 className="text-lg font-bold">Gallery ({images.length})</h2>
         <Dialog open={dialogOpen} onOpenChange={(v) => { setDialogOpen(v); if (!v) { setForm({ title: "", category: "General", image_url: "" }); setEditId(null); } }}>
           <DialogTrigger asChild>
-            <Button className="btn-gold"><Plus className="h-4 w-4 mr-1" /> Add Image</Button>
+            <Button className="btn-gold"><Plus className="h-4 w-4 mr-1" aria-hidden="true" /> Add Image</Button>
           </DialogTrigger>
           <DialogContent className="max-w-lg">
             <DialogHeader><DialogTitle>{editId ? "Edit Image" : "Add Gallery Image"}</DialogTitle></DialogHeader>
@@ -123,7 +123,7 @@ const AdminGallery = () => {
                 <div className="space-y-2">
                   <input ref={fileRef} type="file" accept="image/*" onChange={handleFileUpload} className="hidden" />
                   <Button type="button" variant="outline" className="w-full" onClick={() => fileRef.current?.click()} disabled={uploading}>
-                    <Upload className="h-4 w-4 mr-2" /> {uploading ? "Uploading..." : "Upload Image"}
+                    <Upload className="h-4 w-4 mr-2" aria-hidden="true" /> {uploading ? "Uploading..." : "Upload Image"}
                   </Button>
                   <div className="text-xs text-muted-foreground text-center">or paste URL below</div>
                   <Input value={form.image_url} onChange={(e) => setForm({ ...form, image_url: e.target.value })} placeholder="https://..." />
@@ -142,8 +142,8 @@ const AdminGallery = () => {
             <div className="relative aspect-square">
               <img src={img.image_url} alt={img.title || ""} className="w-full h-full object-cover" loading="lazy" />
               <div className="absolute inset-0 bg-foreground/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                <Button size="icon" variant="secondary" className="h-8 w-8" onClick={() => handleEdit(img)}><Pencil className="h-3 w-3" /></Button>
-                <Button size="icon" variant="destructive" className="h-8 w-8" onClick={() => handleDelete(img.id)}><Trash2 className="h-3 w-3" /></Button>
+                <Button size="icon" variant="secondary" className="h-8 w-8" onClick={() => handleEdit(img)}><Pencil className="h-3 w-3" aria-hidden="true" /></Button>
+                <Button size="icon" variant="destructive" className="h-8 w-8" onClick={() => handleDelete(img.id)}><Trash2 className="h-3 w-3" aria-hidden="true" /></Button>
               </div>
             </div>
             <CardContent className="p-2">
@@ -154,7 +154,7 @@ const AdminGallery = () => {
         ))}
         {images.length === 0 && (
           <div className="col-span-full text-center py-12 text-muted-foreground">
-            <ImageIcon className="h-12 w-12 mx-auto mb-3 opacity-30" />
+            <ImageIcon className="h-12 w-12 mx-auto mb-3 opacity-30" aria-hidden="true" />
             <p>No gallery images yet. Add your first image!</p>
           </div>
         )}

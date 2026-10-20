@@ -115,7 +115,7 @@ const Header = () => {
 
         <div className="hidden lg:flex items-center gap-3">
           <Link to="/wishlist" aria-label="Wishlist" className="relative h-10 w-10 rounded-xl flex items-center justify-center text-primary-foreground/80 hover:bg-primary-foreground/10">
-            <Heart className="h-5 w-5" />
+            <Heart className="h-5 w-5" aria-hidden="true" />
             {wish.ids.length > 0 && <span className="absolute -top-0.5 -right-0.5 h-5 min-w-5 px-1 rounded-full bg-secondary text-secondary-foreground text-[10px] font-bold flex items-center justify-center">{wish.ids.length}</span>}
           </Link>
           <a href={contact.wa} target="_blank" rel="noopener noreferrer">
@@ -130,7 +130,7 @@ const Header = () => {
           </a>
           <a href={contact.tel}>
             <Button size="sm" className="btn-gold rounded-xl h-10 px-6">
-              <Phone className="h-4 w-4 mr-2" /> Call Now
+              <Phone className="h-4 w-4 mr-2" aria-hidden="true" /> Call Now
             </Button>
           </a>
         </div>
@@ -140,7 +140,7 @@ const Header = () => {
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           onClick={() => setMobileOpen(!mobileOpen)}
         >
-          {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" aria-hidden="true" />}
         </button>
       </div>
 
@@ -162,7 +162,7 @@ const Header = () => {
           <div className="flex gap-3 mt-5">
             <a href={contact.tel} className="flex-1">
               <Button className="w-full btn-gold rounded-xl h-11">
-                <Phone className="h-4 w-4 mr-2" /> Call Now
+                <Phone className="h-4 w-4 mr-2" aria-hidden="true" /> Call Now
               </Button>
             </a>
             <a href={contact.wa} target="_blank" rel="noopener noreferrer" className="flex-1">

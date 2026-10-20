@@ -40,7 +40,7 @@ const TestimonialsSection = () => {
           {testimonials.map((t, i) => (
             <ScrollReveal key={i} delay={i * 0.12}>
               <div className="glass-card rounded-2xl p-7 h-full flex flex-col relative">
-                <Quote className="h-8 w-8 text-secondary/30 absolute top-5 right-5" />
+                <Quote className="h-8 w-8 text-secondary/30 absolute top-5 right-5" aria-hidden="true" />
                 <div className="flex gap-1 mb-4">
                   {Array.from({ length: t.rating }).map((_, j) => (
                     <Star key={j} className="h-4 w-4 fill-secondary text-secondary" />

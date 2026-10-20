@@ -36,9 +36,9 @@ const EMICalculator = () => {
           <div className="container mx-auto px-4 lg:px-8 relative">
             <nav className="flex items-center gap-1.5 text-sm text-primary-foreground/50 mb-6">
               <Link to="/" className="hover:text-secondary transition-colors flex items-center gap-1">
-                <Home className="h-3.5 w-3.5" /> Home
+                <Home className="h-3.5 w-3.5" aria-hidden="true" /> Home
               </Link>
-              <ChevronRight className="h-3.5 w-3.5" />
+              <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
               <span className="text-primary-foreground">EMI Calculator</span>
             </nav>
             <ScrollReveal>
@@ -61,7 +61,7 @@ const EMICalculator = () => {
                 <div className="card-elevated p-8 relative overflow-hidden">
                   <div className="absolute top-0 left-0 right-0 h-1 gold-gradient" />
                   <h2 className="font-heading font-bold text-foreground text-2xl mb-8 flex items-center gap-2">
-                    <Calculator className="h-6 w-6 text-secondary" /> Loan Details
+                    <Calculator className="h-6 w-6 text-secondary" aria-hidden="true" /> Loan Details
                   </h2>
 
                   <div className="space-y-8">
@@ -139,7 +139,7 @@ const EMICalculator = () => {
                     <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-secondary/30 to-transparent" />
                     <p className="text-primary-foreground/50 text-sm font-medium uppercase tracking-widest">Monthly EMI</p>
                     <p className="font-heading text-4xl md:text-5xl font-extrabold text-secondary mt-2 flex items-center justify-center gap-1">
-                      <IndianRupee className="h-8 w-8" />
+                      <IndianRupee className="h-8 w-8" aria-hidden="true" />
                       {result.emi.toLocaleString("en-IN")}
                     </p>
                     <p className="text-primary-foreground/40 text-xs mt-2">per month</p>
@@ -183,7 +183,7 @@ const EMICalculator = () => {
                   {/* CTA */}
                   <a href={contact.tel} className="block">
                     <button className="w-full btn-gold py-4 rounded-xl text-sm inline-flex items-center justify-center gap-2">
-                      <Phone className="h-4 w-4" /> Get Best Loan Rates — Call Now
+                      <Phone className="h-4 w-4" aria-hidden="true" /> Get Best Loan Rates — Call Now
                     </button>
                   </a>
                 </div>

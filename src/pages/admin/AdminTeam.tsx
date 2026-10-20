@@ -42,7 +42,7 @@ const AdminTeam = () => {
   return (
     <div className="space-y-4 max-w-3xl">
       <Card>
-        <CardHeader><CardTitle className="text-base flex items-center gap-2"><UserPlus className="h-4 w-4 text-secondary" />Add team member</CardTitle></CardHeader>
+        <CardHeader><CardTitle className="text-base flex items-center gap-2"><UserPlus className="h-4 w-4 text-secondary" aria-hidden="true" />Add team member</CardTitle></CardHeader>
         <CardContent className="space-y-3">
           <p className="text-xs text-muted-foreground">The person must first create an account at <b>/admin/login</b> (Sign up). Then enter their email here and choose a role.</p>
           <form onSubmit={(e) => { e.preventDefault(); if (email.trim()) assign(email.trim(), role); }} className="flex flex-col sm:flex-row gap-2">
@@ -59,7 +59,7 @@ const AdminTeam = () => {
         </CardContent>
       </Card>
       <Card>
-        <CardHeader><CardTitle className="text-base flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-secondary" />Team ({team.length})</CardTitle></CardHeader>
+        <CardHeader><CardTitle className="text-base flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-secondary" aria-hidden="true" />Team ({team.length})</CardTitle></CardHeader>
         <CardContent className="space-y-2">
           {team.map((m) => (
             <div key={m.user_id + m.role} className="flex items-center justify-between gap-2 rounded-lg border border-border p-3">
@@ -71,7 +71,7 @@ const AdminTeam = () => {
                   <SelectTrigger className="h-8 w-28 text-xs"><SelectValue /></SelectTrigger>
                   <SelectContent><SelectItem value="admin">Admin</SelectItem><SelectItem value="editor">Editor</SelectItem><SelectItem value="agent">Agent</SelectItem></SelectContent>
                 </Select>
-                {m.user_id !== user?.id && <Button size="icon" variant="ghost" className="h-8 w-8 text-destructive" aria-label="Remove" onClick={() => remove(m.user_id)}><Trash2 className="h-4 w-4" /></Button>}
+                {m.user_id !== user?.id && <Button size="icon" variant="ghost" className="h-8 w-8 text-destructive" aria-label="Remove" onClick={() => remove(m.user_id)}><Trash2 className="h-4 w-4" aria-hidden="true" /></Button>}
               </div>
             </div>
           ))}

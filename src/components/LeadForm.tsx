@@ -61,19 +61,19 @@ const LeadForm = ({ propertyTitle }: LeadFormProps) => {
         <Input placeholder="Email (optional)" value={email} onChange={(e) => setEmail(e.target.value)} className="h-11 rounded-xl" type="email" />
         <Textarea placeholder="Message (optional)" value={message} onChange={(e) => setMessage(e.target.value)} rows={3} className="rounded-xl resize-none" />
         <button type="submit" disabled={loading} className="w-full h-12 btn-gold rounded-xl text-sm flex items-center justify-center gap-2 disabled:opacity-50">
-          <Send className="h-4 w-4" /> {loading ? "Sending..." : "Send Enquiry"}
+          <Send className="h-4 w-4" aria-hidden="true" /> {loading ? "Sending..." : "Send Enquiry"}
         </button>
       </form>
 
       <div className="flex gap-2 mt-4">
         <a href={contact.wa} target="_blank" rel="noopener noreferrer" className="flex-1">
           <button type="button" className="w-full h-10 rounded-xl border border-[#25D366]/30 text-[#25D366] hover:bg-[#25D366]/5 text-sm font-medium flex items-center justify-center gap-1.5 transition-colors">
-            <MessageCircle className="h-4 w-4" /> WhatsApp
+            <MessageCircle className="h-4 w-4" aria-hidden="true" /> WhatsApp
           </button>
         </a>
         <a href={contact.tel} className="flex-1">
           <button type="button" className="w-full h-10 rounded-xl border border-primary/20 text-primary hover:bg-primary/5 text-sm font-medium flex items-center justify-center gap-1.5 transition-colors">
-            <Phone className="h-4 w-4" /> Call Now
+            <Phone className="h-4 w-4" aria-hidden="true" /> Call Now
           </button>
         </a>
       </div>

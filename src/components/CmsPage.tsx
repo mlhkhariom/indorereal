@@ -21,8 +21,8 @@ const CmsPage = ({ slug, children }: { slug: string; children: ReactNode }) => {
         <section className="navy-gradient pt-28 pb-12">
           <div className="container mx-auto px-4 lg:px-8">
             <nav className="flex items-center gap-1.5 text-sm text-primary-foreground/60 mb-4">
-              <Link to="/" className="hover:text-secondary flex items-center gap-1"><Home className="h-3.5 w-3.5" /> Home</Link>
-              <ChevronRight className="h-3.5 w-3.5" /><span className="text-primary-foreground">{data.title}</span>
+              <Link to="/" className="hover:text-secondary flex items-center gap-1"><Home className="h-3.5 w-3.5" aria-hidden="true" /> Home</Link>
+              <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" /><span className="text-primary-foreground">{data.title}</span>
             </nav>
             <h1 className="font-heading text-3xl md:text-5xl font-bold text-primary-foreground">{data.title}</h1>
           </div>

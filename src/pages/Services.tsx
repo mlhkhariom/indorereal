@@ -64,9 +64,9 @@ const Services = () => {
           <div className="container mx-auto px-4 lg:px-8 relative">
             <nav className="flex items-center gap-1.5 text-sm text-primary-foreground/50 mb-6">
               <Link to="/" className="hover:text-secondary transition-colors flex items-center gap-1">
-                <Home className="h-3.5 w-3.5" /> Home
+                <Home className="h-3.5 w-3.5" aria-hidden="true" /> Home
               </Link>
-              <ChevronRight className="h-3.5 w-3.5" />
+              <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
               <span className="text-primary-foreground">Our Services</span>
             </nav>
             <ScrollReveal>
@@ -147,11 +147,11 @@ const Services = () => {
                   <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
                     <a href={contact.tel}>
                       <button className="btn-gold px-8 py-3.5 rounded-xl text-sm inline-flex items-center gap-2 w-full sm:w-auto justify-center">
-                        <Phone className="h-4 w-4" /> Free Consultation
+                        <Phone className="h-4 w-4" aria-hidden="true" /> Free Consultation
                       </button>
                     </a>
                     <Link to="/contact" className="glass-card px-8 py-3.5 rounded-xl text-sm text-primary-foreground/80 inline-flex items-center gap-2 hover:bg-primary-foreground/10 transition-all justify-center">
-                      Contact Us <ArrowRight className="h-4 w-4" />
+                      Contact Us <ArrowRight className="h-4 w-4" aria-hidden="true" />
                     </Link>
                   </div>
                 </div>

@@ -40,7 +40,7 @@ const FeaturedProperties = () => {
         <ScrollReveal className="text-center mt-14">
           <Link to="/properties" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl border-2 border-primary text-primary font-heading font-semibold text-sm hover:bg-primary hover:text-primary-foreground transition-all duration-300 group">
             View All Properties
-            <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
           </Link>
         </ScrollReveal>
       </div>

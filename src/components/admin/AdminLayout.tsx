@@ -69,8 +69,8 @@ const AdminLayout = () => {
             return (
               <Link key={item.path} to={item.path}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${isActive ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}>
-                <Icon className="h-4 w-4" /> {item.label}
-                {isActive && <ChevronRight className="h-3 w-3 ml-auto" />}
+                <Icon className="h-4 w-4" aria-hidden="true" /> {item.label}
+                {isActive && <ChevronRight className="h-3 w-3 ml-auto" aria-hidden="true" />}
               </Link>
             );
           })}
@@ -82,17 +82,17 @@ const AdminLayout = () => {
             {user.email} <span className="text-primary font-medium">({userRole || "no role"})</span>
           </div>
           <Button variant="ghost" size="sm" className="w-full justify-start text-destructive hover:text-destructive" onClick={() => { signOut(); navigate("/admin/login"); }}>
-            <LogOut className="h-4 w-4 mr-2" /> Sign Out
+            <LogOut className="h-4 w-4 mr-2" aria-hidden="true" /> Sign Out
           </Button>
           <Link to="/" className="block text-xs text-center text-muted-foreground hover:text-foreground mt-2">← Back to Website</Link>
         </div>
       </aside>
 
-      {sidebarOpen && <div className="fixed inset-0 bg-black/50 z-40 lg:hidden" onClick={() => setSidebarOpen(false)} />}
+      {sidebarOpen && <div className="fixed inset-0 bg-black/50 z-40 lg:hidden" aria-hidden="true" onClick={() => setSidebarOpen(false)} />}
 
       <main className="flex-1 lg:ml-64">
         <header className="bg-card border-b border-border px-4 py-3 flex items-center gap-3 sticky top-0 z-30">
-          <button className="lg:hidden" onClick={() => setSidebarOpen(true)}><Menu className="h-5 w-5" /></button>
+          <button className="lg:hidden" onClick={() => setSidebarOpen(true)}><Menu className="h-5 w-5" aria-hidden="true" /></button>
           <h1 className="font-heading font-bold text-base sm:text-lg truncate">
             {navItems.find((n) => n.path === location.pathname)?.label || "Admin"}
           </h1>

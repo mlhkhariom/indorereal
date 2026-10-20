@@ -23,7 +23,7 @@ const Compare = () => {
     <PageShell title="Compare Properties" subtitle="See up to 3 properties side by side." seoTitle="Compare Properties | Indore Realty" seoDescription="Compare Indore properties side by side: price, area, amenities." path="/compare">
       {!isLoading && items.length === 0 ? (
         <div className="text-center py-16">
-          <GitCompare className="h-12 w-12 mx-auto text-muted-foreground/40" />
+          <GitCompare className="h-12 w-12 mx-auto text-muted-foreground/40" aria-hidden="true" />
           <p className="mt-4 text-muted-foreground">Nothing to compare yet. Tap the compare icon on any property.</p>
           <Link to="/properties" className="btn-gold inline-block mt-6 px-6 py-3 rounded-xl text-sm">Browse Properties</Link>
         </div>

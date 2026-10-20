@@ -60,12 +60,12 @@ const AdminLogin = () => {
               <div className="relative">
                 <Input id="password" minLength={mode === "signup" ? 8 : undefined} type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="••••••••" />
                 <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  {showPassword ? <EyeOff className="h-4 w-4" aria-hidden="true" /> : <Eye className="h-4 w-4" aria-hidden="true" />}
                 </button>
               </div>
             </div>
             <Button type="submit" className="w-full btn-gold" disabled={loading}>
-              <LogIn className="h-4 w-4 mr-2" /> {loading ? "Please wait..." : mode === "login" ? "Login" : "Create account"}
+              <LogIn className="h-4 w-4 mr-2" aria-hidden="true" /> {loading ? "Please wait..." : mode === "login" ? "Login" : "Create account"}
             </Button>
             <button type="button" onClick={() => setMode(mode === "login" ? "signup" : "login")} className="w-full text-sm text-muted-foreground hover:text-foreground">
               {mode === "login" ? "New team member? Create an account" : "Already have an account? Log in"}

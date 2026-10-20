@@ -16,10 +16,10 @@ const NotFound = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center mt-8">
             <Link to="/" className="btn-gold px-8 py-3.5 rounded-xl text-sm inline-flex items-center gap-2 justify-center">
-              <Home className="h-4 w-4" /> Go Home
+              <Home className="h-4 w-4" aria-hidden="true" /> Go Home
             </Link>
             <Link to="/properties" className="px-8 py-3.5 rounded-xl border-2 border-primary text-primary font-heading font-semibold text-sm hover:bg-primary hover:text-primary-foreground transition-all inline-flex items-center gap-2 justify-center">
-              Browse Properties <ArrowRight className="h-4 w-4" />
+              Browse Properties <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
         </div>

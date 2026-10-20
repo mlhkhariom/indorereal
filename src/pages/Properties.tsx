@@ -129,13 +129,13 @@ const Properties = () => {
           <div className="container mx-auto px-4 lg:px-8">
             <nav className="flex items-center gap-1.5 text-sm text-primary-foreground/50 mb-4">
               <Link to="/" className="hover:text-secondary transition-colors flex items-center gap-1">
-                <Home className="h-3.5 w-3.5" /> Home
+                <Home className="h-3.5 w-3.5" aria-hidden="true" /> Home
               </Link>
-              <ChevronRight className="h-3.5 w-3.5" />
+              <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
               <span className="text-primary-foreground">Properties</span>
               {location && (
                 <>
-                  <ChevronRight className="h-3.5 w-3.5" />
+                  <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
                   <span className="text-secondary">{location}</span>
                 </>
               )}
@@ -159,7 +159,7 @@ const Properties = () => {
         <div className="container mx-auto px-4 lg:px-8 py-8 sm:py-10">
           <div className="lg:hidden mb-6">
             <Button variant="outline" onClick={() => setShowFilters(!showFilters)} className="w-full rounded-xl h-11">
-              <SlidersHorizontal className="h-4 w-4 mr-2" />
+              <SlidersHorizontal className="h-4 w-4 mr-2" aria-hidden="true" />
               {showFilters ? "Hide Filters" : "Show Filters"}
             </Button>
             {showFilters && (
@@ -171,7 +171,7 @@ const Properties = () => {
             <aside className="hidden lg:block w-72 flex-shrink-0">
               <div className="card-elevated p-6 sticky top-24">
                 <h3 className="font-heading font-bold text-foreground text-sm uppercase tracking-wider mb-5 flex items-center gap-2">
-                  <SlidersHorizontal className="h-4 w-4 text-secondary" /> Filters
+                  <SlidersHorizontal className="h-4 w-4 text-secondary" aria-hidden="true" /> Filters
                 </h3>
                 <FilterControls />
               </div>

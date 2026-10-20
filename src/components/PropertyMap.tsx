@@ -13,7 +13,7 @@ const PropertyMap = ({ location, lat, lng }: { location: string; lat?: number | 
       </div>
       <a href={`https://www.google.com/maps/search/?api=1&query=${la},${lo}`} target="_blank" rel="noopener noreferrer"
         className="inline-flex items-center gap-1 text-sm text-secondary font-medium mt-2 hover:underline">
-        <MapPin className="h-4 w-4" /> Open in Google Maps <ExternalLink className="h-3 w-3" />
+        <MapPin className="h-4 w-4" aria-hidden="true" /> Open in Google Maps <ExternalLink className="h-3 w-3" aria-hidden="true" />
       </a>
     </div>
   );

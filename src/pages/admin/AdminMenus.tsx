@@ -45,8 +45,8 @@ const AdminMenus = () => {
             <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0">
               <div><CardTitle className="text-base">{m.label}</CardTitle>{m.help && <p className="text-xs text-muted-foreground mt-1">{m.help}</p>}</div>
               <div className="flex gap-2">
-                <Button variant="outline" size="sm" onClick={() => edit(m.key, () => DEFAULT_MENUS[m.key])}><RotateCcw className="h-4 w-4 mr-1" />Reset</Button>
-                <Button size="sm" className="btn-gold" onClick={() => save(m.key)}><Save className="h-4 w-4 mr-1" />Save</Button>
+                <Button variant="outline" size="sm" onClick={() => edit(m.key, () => DEFAULT_MENUS[m.key])}><RotateCcw className="h-4 w-4 mr-1" aria-hidden="true" />Reset</Button>
+                <Button size="sm" className="btn-gold" onClick={() => save(m.key)}><Save className="h-4 w-4 mr-1" aria-hidden="true" />Save</Button>
               </div>
             </CardHeader>
             <CardContent className="space-y-2">
@@ -55,13 +55,13 @@ const AdminMenus = () => {
                   <Input value={l.label} placeholder="Label" onChange={(e) => edit(m.key, (a) => { a[i] = { ...a[i], label: e.target.value }; return a; })} />
                   <Input value={l.path} placeholder="/page or https://…" onChange={(e) => edit(m.key, (a) => { a[i] = { ...a[i], path: e.target.value }; return a; })} />
                   <div className="flex gap-1 shrink-0">
-                    <Button size="icon" variant="ghost" aria-label="Move up" onClick={() => edit(m.key, (a) => { if (i > 0) [a[i - 1], a[i]] = [a[i], a[i - 1]]; return a; })}><ArrowUp className="h-4 w-4" /></Button>
-                    <Button size="icon" variant="ghost" aria-label="Move down" onClick={() => edit(m.key, (a) => { if (i < a.length - 1) [a[i + 1], a[i]] = [a[i], a[i + 1]]; return a; })}><ArrowDown className="h-4 w-4" /></Button>
-                    <Button size="icon" variant="ghost" aria-label="Remove" className="text-destructive" onClick={() => edit(m.key, (a) => a.filter((_, k) => k !== i))}><Trash2 className="h-4 w-4" /></Button>
+                    <Button size="icon" variant="ghost" aria-label="Move up" onClick={() => edit(m.key, (a) => { if (i > 0) [a[i - 1], a[i]] = [a[i], a[i - 1]]; return a; })}><ArrowUp className="h-4 w-4" aria-hidden="true" /></Button>
+                    <Button size="icon" variant="ghost" aria-label="Move down" onClick={() => edit(m.key, (a) => { if (i < a.length - 1) [a[i + 1], a[i]] = [a[i], a[i + 1]]; return a; })}><ArrowDown className="h-4 w-4" aria-hidden="true" /></Button>
+                    <Button size="icon" variant="ghost" aria-label="Remove" className="text-destructive" onClick={() => edit(m.key, (a) => a.filter((_, k) => k !== i))}><Trash2 className="h-4 w-4" aria-hidden="true" /></Button>
                   </div>
                 </div>
               ))}
-              <Button variant="outline" size="sm" onClick={() => edit(m.key, (a) => [...a, { label: "", path: "/" }])}><Plus className="h-4 w-4 mr-1" />Add link</Button>
+              <Button variant="outline" size="sm" onClick={() => edit(m.key, (a) => [...a, { label: "", path: "/" }])}><Plus className="h-4 w-4 mr-1" aria-hidden="true" />Add link</Button>
             </CardContent>
           </Card>
         </TabsContent>

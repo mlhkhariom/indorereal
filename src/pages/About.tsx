@@ -42,9 +42,9 @@ const About = () => {
           <div className="container mx-auto px-4 lg:px-8 relative">
             <nav className="flex items-center gap-1.5 text-sm text-primary-foreground/50 mb-6">
               <Link to="/" className="hover:text-secondary transition-colors flex items-center gap-1">
-                <Home className="h-3.5 w-3.5" /> Home
+                <Home className="h-3.5 w-3.5" aria-hidden="true" /> Home
               </Link>
-              <ChevronRight className="h-3.5 w-3.5" />
+              <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
               <span className="text-primary-foreground">About Us</span>
             </nav>
             <ScrollReveal>
@@ -107,7 +107,7 @@ const About = () => {
               <ScrollReveal>
                 <div className="card-elevated p-8 h-full">
                   <div className="h-14 w-14 rounded-2xl gold-gradient flex items-center justify-center mb-5 shadow-md">
-                    <Target className="h-7 w-7 text-primary" />
+                    <Target className="h-7 w-7 text-primary" aria-hidden="true" />
                   </div>
                   <h3 className="font-heading font-bold text-foreground text-xl mb-3">Our Mission</h3>
                   <p className="text-muted-foreground leading-relaxed">
@@ -118,7 +118,7 @@ const About = () => {
               <ScrollReveal delay={0.1}>
                 <div className="card-elevated p-8 h-full">
                   <div className="h-14 w-14 rounded-2xl gold-gradient flex items-center justify-center mb-5 shadow-md">
-                    <Eye className="h-7 w-7 text-primary" />
+                    <Eye className="h-7 w-7 text-primary" aria-hidden="true" />
                   </div>
                   <h3 className="font-heading font-bold text-foreground text-xl mb-3">Our Vision</h3>
                   <p className="text-muted-foreground leading-relaxed">
@@ -198,10 +198,10 @@ const About = () => {
               <p className="section-subtitle">Let Indore Realty help you find the perfect property.</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
                 <Link to="/properties" className="btn-gold px-10 py-4 rounded-xl text-sm inline-flex items-center gap-2 justify-center">
-                  <Building className="h-5 w-5" /> Browse Properties
+                  <Building className="h-5 w-5" aria-hidden="true" /> Browse Properties
                 </Link>
                 <Link to="/contact" className="px-10 py-4 rounded-xl border-2 border-primary text-primary font-heading font-semibold text-sm hover:bg-primary hover:text-primary-foreground transition-all inline-flex items-center gap-2 justify-center">
-                  <MapPin className="h-5 w-5" /> Contact Us
+                  <MapPin className="h-5 w-5" aria-hidden="true" /> Contact Us
                 </Link>
               </div>
             </ScrollReveal>
