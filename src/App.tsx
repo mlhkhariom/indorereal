@@ -34,6 +34,17 @@ import AdminGallery from "./pages/admin/AdminGallery";
 import AdminLocations from "./pages/admin/AdminLocations";
 import AdminCRM from "./pages/admin/AdminCRM";
 import AdminSiteSettings from "./pages/admin/AdminSiteSettings";
+import AdminMenus from "./pages/admin/AdminMenus";
+import AdminPages from "./pages/admin/AdminPages";
+import AdminVisits from "./pages/admin/AdminVisits";
+import AdminTeam from "./pages/admin/AdminTeam";
+import AdminSubmissions from "./pages/admin/AdminSubmissions";
+import Wishlist from "./pages/Wishlist";
+import Compare from "./pages/Compare";
+import PostProperty from "./pages/PostProperty";
+import AreaPage from "./pages/AreaPage";
+import CompareBar from "./components/CompareBar";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +57,7 @@ const App = () => (
             <Toaster />
             <Sonner />
             <BrowserRouter>
+              <ScrollToTop />
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/properties" element={<Properties />} />
@@ -61,6 +73,10 @@ const App = () => (
                 <Route path="/emi-calculator" element={<EMICalculator />} />
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="/terms-conditions" element={<TermsConditions />} />
+                <Route path="/wishlist" element={<Wishlist />} />
+                <Route path="/compare" element={<Compare />} />
+                <Route path="/post-property" element={<PostProperty />} />
+                <Route path="/area/:slug" element={<AreaPage />} />
                 <Route path="/admin/login" element={<AdminLogin />} />
                 <Route path="/admin" element={<AdminLayout />}>
                   <Route index element={<AdminDashboard />} />
@@ -69,6 +85,11 @@ const App = () => (
                   <Route path="enquiries" element={<AdminEnquiries />} />
                   <Route path="crm" element={<AdminCRM />} />
                   <Route path="settings" element={<AdminSiteSettings />} />
+                  <Route path="menus" element={<AdminMenus />} />
+                  <Route path="pages" element={<AdminPages />} />
+                  <Route path="visits" element={<AdminVisits />} />
+                  <Route path="team" element={<AdminTeam />} />
+                  <Route path="submissions" element={<AdminSubmissions />} />
                   <Route path="seo" element={<AdminSEO />} />
                   <Route path="homepage" element={<AdminHomepage />} />
                   <Route path="gallery" element={<AdminGallery />} />
@@ -77,6 +98,7 @@ const App = () => (
                 <Route path="*" element={<NotFound />} />
               </Routes>
               <MobileBottomBar />
+              <CompareBar />
             </BrowserRouter>
           </SiteSettingsProvider>
         </AuthProvider>

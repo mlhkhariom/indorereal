@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate, Outlet } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
-import { LayoutDashboard, Building2, FileText, MessageSquare, LogOut, Menu, X, ChevronRight, Search, Home, Image, MapPin, KanbanSquare, Settings } from "lucide-react";
+import { LayoutDashboard, Building2, FileText, MessageSquare, LogOut, Menu, X, ChevronRight, Search, Home, Image, MapPin, KanbanSquare, Settings, CalendarCheck, Inbox, FileEdit, ListTree, UserCog } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 
@@ -8,6 +8,8 @@ const navGroups = [
   { title: "Overview", items: [{ label: "Dashboard", path: "/admin", icon: LayoutDashboard }] },
   { title: "CRM", items: [
     { label: "Leads & Pipeline", path: "/admin/crm", icon: KanbanSquare },
+    { label: "Site Visits", path: "/admin/visits", icon: CalendarCheck },
+    { label: "Owner Submissions", path: "/admin/submissions", icon: Inbox },
     { label: "Enquiries (simple)", path: "/admin/enquiries", icon: MessageSquare },
   ] },
   { title: "Listings", content: true, items: [
@@ -18,10 +20,13 @@ const navGroups = [
     { label: "Homepage", path: "/admin/homepage", icon: Home },
     { label: "Blog Posts", path: "/admin/blog", icon: FileText },
     { label: "Gallery", path: "/admin/gallery", icon: Image },
+    { label: "Pages", path: "/admin/pages", icon: FileEdit },
+    { label: "Menus", path: "/admin/menus", icon: ListTree },
   ] },
   { title: "Settings", content: true, items: [
     { label: "Site Settings", path: "/admin/settings", icon: Settings },
     { label: "SEO Settings", path: "/admin/seo", icon: Search },
+    { label: "Team & Roles", path: "/admin/team", icon: UserCog },
   ] },
 ];
 const navItems = navGroups.flatMap((g) => g.items);
