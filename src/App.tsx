@@ -32,6 +32,8 @@ import AdminSEO from "./pages/admin/AdminSEO";
 import AdminHomepage from "./pages/admin/AdminHomepage";
 import AdminGallery from "./pages/admin/AdminGallery";
 import AdminLocations from "./pages/admin/AdminLocations";
+import AdminCRM from "./pages/admin/AdminCRM";
+import AdminSiteSettings from "./pages/admin/AdminSiteSettings";
 
 const queryClient = new QueryClient();
 
@@ -65,6 +67,8 @@ const App = () => (
                   <Route path="properties" element={<AdminProperties />} />
                   <Route path="blog" element={<AdminBlog />} />
                   <Route path="enquiries" element={<AdminEnquiries />} />
+                  <Route path="crm" element={<AdminCRM />} />
+                  <Route path="settings" element={<AdminSiteSettings />} />
                   <Route path="seo" element={<AdminSEO />} />
                   <Route path="homepage" element={<AdminHomepage />} />
                   <Route path="gallery" element={<AdminGallery />} />

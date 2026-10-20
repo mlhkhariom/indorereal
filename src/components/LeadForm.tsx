@@ -33,7 +33,10 @@ const LeadForm = ({ propertyTitle }: LeadFormProps) => {
       email: email || null,
       message: message || null,
       property_title: propertyTitle || null,
-      source: "website",
+      source: propertyTitle ? "property_page" : "website",
+      page_url: window.location.href,
+      utm_source: new URLSearchParams(window.location.search).get("utm_source"),
+      utm_campaign: new URLSearchParams(window.location.search).get("utm_campaign"),
     });
     setLoading(false);
     if (error) {
