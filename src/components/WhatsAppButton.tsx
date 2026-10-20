@@ -6,7 +6,7 @@ const WhatsAppButton = () => {
       href={contact.wa}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-32 lg:bottom-6 right-6 z-50 group"
+      className="hidden lg:block fixed bottom-6 right-6 z-50 group"
       aria-label="Chat on WhatsApp"
     >
       {/* Pulse ring */}

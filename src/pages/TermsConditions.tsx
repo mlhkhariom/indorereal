@@ -1,3 +1,4 @@
+import CmsPage from "@/components/CmsPage";
 import { useContact } from "@/hooks/useContact";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -218,4 +219,5 @@ const TermsConditions = () => {
   );
 };
 
-export default TermsConditions;
+const TermsConditionsPage = () => <CmsPage slug="terms-conditions"><TermsConditions /></CmsPage>;
+export default TermsConditionsPage;

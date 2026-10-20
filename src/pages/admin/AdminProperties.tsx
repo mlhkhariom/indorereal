@@ -12,17 +12,20 @@ import { useToast } from "@/hooks/use-toast";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useAllLocations } from "@/hooks/useLocations";
+import ImageUploader from "@/components/admin/ImageUploader";
+import { Search, Eye } from "lucide-react";
 
 interface Property {
   id: string; slug: string; title: string; price: number; location: string; type: string;
   bedrooms: number; area: number; area_unit: string; description: string | null;
   amenities: string[]; images: string[]; featured: boolean; status: string;
+  view_count?: number; latitude?: number | null; longitude?: number | null;
 }
 
 const emptyProperty = {
   slug: "", title: "", price: 0, location: "", type: "Flat", bedrooms: 0,
-  area: 0, area_unit: "sq.ft", description: "", amenities: "", images: "",
-  featured: false, status: "Sale",
+  area: 0, area_unit: "sq.ft", description: "", amenities: "", images: [] as string[],
+  featured: false, status: "Sale", latitude: "", longitude: "",
 };
 
 const AdminProperties = () => {
@@ -34,6 +37,8 @@ const AdminProperties = () => {
   const { toast } = useToast();
   const { user } = useAuth();
   const { data: locations = [] } = useAllLocations();
+  const [q, setQ] = useState("");
+  const shown = properties.filter((p) => !q || `${p.title} ${p.location} ${p.type}`.toLowerCase().includes(q.toLowerCase()));
 
   const fetchProperties = async () => {
     const { data } = await supabase.from("properties").select("*").order("created_at", { ascending: false });
@@ -53,7 +58,8 @@ const AdminProperties = () => {
       bedrooms: form.bedrooms, area: form.area, area_unit: form.area_unit,
       description: form.description,
       amenities: form.amenities.split(",").map((s: string) => s.trim()).filter(Boolean),
-      images: form.images.split(",").map((s: string) => s.trim()).filter(Boolean),
+      images: form.images,
+      latitude: form.latitude ? Number(form.latitude) : null, longitude: form.longitude ? Number(form.longitude) : null,
       featured: form.featured, status: form.status,
       created_by: user?.id,
     };
@@ -81,8 +87,8 @@ const AdminProperties = () => {
     setForm({
       slug: p.slug, title: p.title, price: p.price, location: p.location, type: p.type,
       bedrooms: p.bedrooms, area: p.area, area_unit: p.area_unit, description: p.description || "",
-      amenities: p.amenities?.join(", ") || "", images: p.images?.join(", ") || "",
-      featured: p.featured, status: p.status,
+      amenities: p.amenities?.join(", ") || "", images: p.images || [],
+      featured: p.featured, status: p.status, latitude: p.latitude?.toString() || "", longitude: p.longitude?.toString() || "",
     });
     setDialogOpen(true);
   };
@@ -137,7 +143,11 @@ const AdminProperties = () => {
               </div>
               <div><Label>Description</Label><Textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} rows={3} /></div>
               <div><Label>Amenities (comma separated)</Label><Input value={form.amenities} onChange={(e) => setForm({ ...form, amenities: e.target.value })} placeholder="Pool, Gym, Parking" /></div>
-              <div><Label>Image URLs (comma separated)</Label><Input value={form.images} onChange={(e) => setForm({ ...form, images: e.target.value })} placeholder="https://..." /></div>
+              <div><Label>Photos</Label><ImageUploader value={form.images} onChange={(images) => setForm({ ...form, images })} /></div>
+              <div className="grid grid-cols-2 gap-3">
+                <div><Label>Map latitude (optional)</Label><Input value={form.latitude} onChange={(e) => setForm({ ...form, latitude: e.target.value })} placeholder="22.7533" /></div>
+                <div><Label>Map longitude (optional)</Label><Input value={form.longitude} onChange={(e) => setForm({ ...form, longitude: e.target.value })} placeholder="75.8937" /></div>
+              </div>
               <div className="flex items-center gap-2"><Switch checked={form.featured} onCheckedChange={(v) => setForm({ ...form, featured: v })} /><Label>Featured</Label></div>
               <Button type="submit" className="w-full btn-gold" disabled={loading}>{loading ? "Saving..." : editId ? "Update Property" : "Add Property"}</Button>
             </form>
@@ -145,15 +155,19 @@ const AdminProperties = () => {
         </Dialog>
       </div>
 
+      <div className="relative">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search by title, area or type…" className="pl-9" />
+      </div>
       <div className="grid gap-3">
-        {properties.map((p) => (
+        {shown.map((p) => (
           <Card key={p.id}>
-            <CardContent className="flex items-center justify-between py-4">
+            <CardContent className="flex items-center justify-between gap-3 py-4">
               <div className="flex items-center gap-4 min-w-0">
-                {p.images?.[0] && <img src={p.images[0]} alt="" className="h-14 w-14 rounded-lg object-cover hidden sm:block" />}
+                {p.images?.[0] && <img loading="lazy" decoding="async" src={p.images[0]} alt="" className="h-14 w-14 rounded-lg object-cover hidden sm:block" />}
                 <div className="min-w-0">
                   <p className="font-semibold text-sm truncate">{p.title}</p>
-                  <p className="text-xs text-muted-foreground">{p.location} • {p.type} • {formatPrice(p.price)} {p.featured && <span className="text-primary font-medium">⭐ Featured</span>}</p>
+                  <p className="text-xs text-muted-foreground">{p.location} • {p.type} • {formatPrice(p.price)} {p.featured && <span className="text-primary font-medium">⭐ Featured</span>} <span className="inline-flex items-center gap-0.5 ml-1"><Eye className="h-3 w-3" />{p.view_count || 0}</span></p>
                 </div>
               </div>
               <div className="flex gap-2 flex-shrink-0">

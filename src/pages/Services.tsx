@@ -1,3 +1,4 @@
+import CmsPage from "@/components/CmsPage";
 import { useContact } from "@/hooks/useContact";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -166,4 +167,5 @@ const Services = () => {
   );
 };
 
-export default Services;
+const ServicesPage = () => <CmsPage slug="services"><Services /></CmsPage>;
+export default ServicesPage;

@@ -1,3 +1,4 @@
+import { useHomepageSection } from "@/hooks/useHomepageContent";
 import { useContact } from "@/hooks/useContact";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -8,7 +9,7 @@ import { Link } from "react-router-dom";
 import { Home, ChevronRight, Phone, MessageCircle } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
-const faqs = [
+const defaultFaqs = [
   {
     category: "General",
     items: [
@@ -45,9 +46,9 @@ const faqs = [
   },
 ];
 
-const allFaqItems = faqs.flatMap(s => s.items);
 
-const faqSchema = {
+
+const buildFaqSchema = (allFaqItems: { q: string; a: string }[]) => ({
   "@context": "https://schema.org",
   "@type": "FAQPage",
   mainEntity: allFaqItems.map(faq => ({
@@ -58,9 +59,19 @@ const faqSchema = {
       text: faq.a,
     },
   })),
-};
+});
 
 const FAQ = () => {
+  const { data: rows = [] } = useHomepageSection("faq");
+  const faqs = rows.length
+    ? Object.values(rows.reduce((acc: Record<string, { category: string; items: { q: string; a: string }[] }>, r) => {
+        const c = r.subtitle || "General";
+        (acc[c] ||= { category: c, items: [] }).items.push({ q: r.title || "", a: r.description || "" });
+        return acc;
+      }, {}))
+    : defaultFaqs;
+  const allFaqItems = faqs.flatMap((s) => s.items);
+  const faqSchema = buildFaqSchema(allFaqItems);
   const contact = useContact();
   return (
     <div className="min-h-screen flex flex-col">

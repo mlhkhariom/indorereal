@@ -368,13 +368,16 @@ export type Database = {
           featured: boolean | null
           id: string
           images: string[] | null
+          latitude: number | null
           location: string
+          longitude: number | null
           price: number
           slug: string
           status: string
           title: string
           type: string
           updated_at: string
+          view_count: number
         }
         Insert: {
           amenities?: string[] | null
@@ -387,13 +390,16 @@ export type Database = {
           featured?: boolean | null
           id?: string
           images?: string[] | null
+          latitude?: number | null
           location: string
+          longitude?: number | null
           price: number
           slug: string
           status?: string
           title: string
           type: string
           updated_at?: string
+          view_count?: number
         }
         Update: {
           amenities?: string[] | null
@@ -406,12 +412,99 @@ export type Database = {
           featured?: boolean | null
           id?: string
           images?: string[] | null
+          latitude?: number | null
           location?: string
+          longitude?: number | null
           price?: number
           slug?: string
           status?: string
           title?: string
           type?: string
+          updated_at?: string
+          view_count?: number
+        }
+        Relationships: []
+      }
+      property_submissions: {
+        Row: {
+          area: number | null
+          bedrooms: number | null
+          created_at: string
+          description: string | null
+          id: string
+          images: string[] | null
+          location: string
+          owner_email: string | null
+          owner_name: string
+          owner_phone: string
+          price: number | null
+          review_status: string
+          status: string
+          title: string
+          type: string
+        }
+        Insert: {
+          area?: number | null
+          bedrooms?: number | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          images?: string[] | null
+          location: string
+          owner_email?: string | null
+          owner_name: string
+          owner_phone: string
+          price?: number | null
+          review_status?: string
+          status?: string
+          title: string
+          type: string
+        }
+        Update: {
+          area?: number | null
+          bedrooms?: number | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          images?: string[] | null
+          location?: string
+          owner_email?: string | null
+          owner_name?: string
+          owner_phone?: string
+          price?: number | null
+          review_status?: string
+          status?: string
+          title?: string
+          type?: string
+        }
+        Relationships: []
+      }
+      site_pages: {
+        Row: {
+          content: string
+          id: string
+          seo_description: string | null
+          seo_title: string | null
+          slug: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          content?: string
+          id?: string
+          seo_description?: string | null
+          seo_title?: string | null
+          slug: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string
+          id?: string
+          seo_description?: string | null
+          seo_title?: string | null
+          slug?: string
+          title?: string
           updated_at?: string
         }
         Relationships: []
@@ -440,6 +533,63 @@ export type Database = {
         }
         Relationships: []
       }
+      site_visits: {
+        Row: {
+          agent_id: string | null
+          client_name: string
+          client_phone: string
+          created_at: string
+          enquiry_id: string | null
+          id: string
+          notes: string | null
+          property_id: string | null
+          property_title: string | null
+          status: string
+          visit_at: string
+        }
+        Insert: {
+          agent_id?: string | null
+          client_name: string
+          client_phone: string
+          created_at?: string
+          enquiry_id?: string | null
+          id?: string
+          notes?: string | null
+          property_id?: string | null
+          property_title?: string | null
+          status?: string
+          visit_at: string
+        }
+        Update: {
+          agent_id?: string | null
+          client_name?: string
+          client_phone?: string
+          created_at?: string
+          enquiry_id?: string | null
+          id?: string
+          notes?: string | null
+          property_id?: string | null
+          property_title?: string | null
+          status?: string
+          visit_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "site_visits_enquiry_id_fkey"
+            columns: ["enquiry_id"]
+            isOneToOne: false
+            referencedRelation: "enquiries"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "site_visits_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           id: string
@@ -463,6 +613,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      assign_role_by_email: {
+        Args: { _email: string; _role: Database["public"]["Enums"]["app_role"] }
+        Returns: string
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -478,6 +632,11 @@ export type Database = {
           role: Database["public"]["Enums"]["app_role"]
           user_id: string
         }[]
+      }
+      remove_team_member: { Args: { _user_id: string }; Returns: undefined }
+      track_property_view: {
+        Args: { _property_id: string }
+        Returns: undefined
       }
     }
     Enums: {

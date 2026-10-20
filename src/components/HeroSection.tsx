@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { PROPERTY_TYPES, BUDGET_RANGES } from "@/types/property";
 import { useHomepageSection } from "@/hooks/useHomepageContent";
 import { useLocations } from "@/hooks/useLocations";
-import heroBg from "@/assets/hero-bg.jpg";
+import heroBg from "@/assets/hero-bg.webp";
 
 const defaultStats = [
   { value: "500+", label: "Properties Listed" },
@@ -41,8 +41,8 @@ const HeroSection = () => {
   return (
     <section className="relative min-h-[85vh] lg:min-h-screen flex items-center overflow-hidden">
       <div className="absolute inset-0">
-        <img src={heroBg} alt="" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-br from-navy-dark/92 via-navy-dark/80 to-navy/70" />
+        <img src={heroBg} alt="" className="w-full h-full object-cover" fetchPriority="high" decoding="async" width={1920} height={1080} />
+        <div className="absolute inset-0 bg-gradient-to-br from-navy-dark/95 via-navy-dark/85 to-navy/70" />
         <div className="absolute inset-0 opacity-[0.03]" style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
           backgroundSize: "40px 40px"

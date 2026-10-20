@@ -127,7 +127,7 @@ const AdminGallery = () => {
                   </Button>
                   <div className="text-xs text-muted-foreground text-center">or paste URL below</div>
                   <Input value={form.image_url} onChange={(e) => setForm({ ...form, image_url: e.target.value })} placeholder="https://..." />
-                  {form.image_url && <img src={form.image_url} alt="Preview" className="h-32 w-full object-cover rounded-lg" />}
+                  {form.image_url && <img loading="lazy" decoding="async" src={form.image_url} alt="Preview" className="h-32 w-full object-cover rounded-lg" />}
                 </div>
               </div>
               <Button type="submit" className="w-full btn-gold">{editId ? "Update" : "Add Image"}</Button>

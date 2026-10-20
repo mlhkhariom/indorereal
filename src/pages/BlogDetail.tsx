@@ -134,7 +134,7 @@ const BlogDetail = () => {
             <ScrollReveal>
               {post.cover_image && (
                 <div className="rounded-2xl overflow-hidden aspect-video shadow-lg mb-8">
-                  <img src={post.cover_image} alt={post.title} className="w-full h-full object-cover" />
+                  <img loading="lazy" decoding="async" src={post.cover_image} alt={post.title} className="w-full h-full object-cover" />
                 </div>
               )}
 
@@ -169,7 +169,7 @@ const BlogDetail = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {relatedPosts.map((rp) => (
                     <Link key={rp.id} to={`/blog/${rp.slug}`} className="card-elevated overflow-hidden group">
-                      {rp.cover_image && <img src={rp.cover_image} alt={rp.title} className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-500" />}
+                      {rp.cover_image && <img loading="lazy" decoding="async" src={rp.cover_image} alt={rp.title} className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-500" />}
                       <div className="p-4">
                         <h3 className="font-heading font-semibold text-sm text-foreground line-clamp-2 group-hover:text-secondary transition-colors">{rp.title}</h3>
                         <p className="text-xs text-muted-foreground mt-1">{new Date(rp.created_at).toLocaleDateString("en-IN", { month: "short", day: "numeric", year: "numeric" })}</p>

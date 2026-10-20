@@ -107,7 +107,7 @@ const AdminLocations = () => {
               <div>
                 <label className="text-xs font-medium text-muted-foreground mb-1 block">Image URL</label>
                 <Input value={form.image_url} onChange={(e) => setForm({ ...form, image_url: e.target.value })} placeholder="https://..." />
-                {form.image_url && <img src={form.image_url} alt="Preview" className="h-24 w-full object-cover rounded-lg mt-2" />}
+                {form.image_url && <img loading="lazy" decoding="async" src={form.image_url} alt="Preview" className="h-24 w-full object-cover rounded-lg mt-2" />}
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -136,7 +136,7 @@ const AdminLocations = () => {
           <Card key={loc.id}>
             <CardContent className="flex items-center justify-between py-4">
               <div className="flex items-center gap-4 min-w-0">
-                {loc.image_url && <img src={loc.image_url} alt="" className="h-12 w-12 rounded-lg object-cover hidden sm:block" />}
+                {loc.image_url && <img loading="lazy" decoding="async" src={loc.image_url} alt="" className="h-12 w-12 rounded-lg object-cover hidden sm:block" />}
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
                     <MapPin className="h-3.5 w-3.5 text-secondary flex-shrink-0" />
