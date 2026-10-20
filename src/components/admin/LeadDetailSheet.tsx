@@ -33,7 +33,7 @@ const LeadDetailSheet = ({ lead, staff, onClose, onChanged }: Props) => {
 
   if (!lead) return null;
 
-  const update = async (patch: Record<string, any>) => {
+  const update = async (patch: any) => {
     const { error } = await supabase.from("enquiries").update(patch).eq("id", lead.id);
     if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
     else { onChanged(); load(lead.id); }
