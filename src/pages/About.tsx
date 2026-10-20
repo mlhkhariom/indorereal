@@ -1,3 +1,4 @@
+import CmsPage from "@/components/CmsPage";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -213,4 +214,5 @@ const About = () => {
   );
 };
 
-export default About;
+const AboutPage = () => <CmsPage slug="about"><About /></CmsPage>;
+export default AboutPage;

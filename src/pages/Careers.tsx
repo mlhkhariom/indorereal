@@ -1,3 +1,4 @@
+import { useHomepageSection } from "@/hooks/useHomepageContent";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -5,7 +6,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import { Link } from "react-router-dom";
 import { Home, ChevronRight, MapPin, Briefcase, Clock, Send, Users, TrendingUp, Award, Heart } from "lucide-react";
 
-const openings = [
+const defaultOpenings = [
   { title: "Senior Sales Executive", location: "Indore", type: "Full-time", department: "Sales", experience: "3-5 years" },
   { title: "Digital Marketing Specialist", location: "Indore", type: "Full-time", department: "Marketing", experience: "2-4 years" },
   { title: "Property Consultant", location: "Indore", type: "Full-time", department: "Sales", experience: "1-3 years" },
@@ -22,6 +23,10 @@ const perks = [
 ];
 
 const Careers = () => {
+  const { data: rows = [] } = useHomepageSection("job");
+  const openings = rows.length
+    ? rows.map((r) => ({ title: r.title || "", department: r.subtitle || "", location: r.extra_data?.location || "Indore", type: r.extra_data?.type || "Full-time", experience: r.extra_data?.experience || "" }))
+    : defaultOpenings;
   return (
     <div className="min-h-screen flex flex-col">
       <Header />

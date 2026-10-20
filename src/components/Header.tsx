@@ -1,6 +1,8 @@
 import { useContact } from "@/hooks/useContact";
 import { Link, useLocation } from "react-router-dom";
-import { Phone, Menu, X, ChevronDown } from "lucide-react";
+import { Phone, Menu, X, ChevronDown, Heart } from "lucide-react";
+import { useMenu } from "@/hooks/useMenu";
+import { useWishlist } from "@/hooks/useShortlist";
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 
@@ -33,36 +35,13 @@ const Header = () => {
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
-  const mainLinks = [
-    { label: "Home", path: "/" },
-    { label: "Properties", path: "/properties" },
-    {
-      label: "Pages",
-      children: [
-        { label: "About Us", path: "/about" },
-        { label: "Our Services", path: "/services" },
-        { label: "Gallery", path: "/gallery" },
-        { label: "Blog", path: "/blog" },
-        { label: "FAQ", path: "/faq" },
-        { label: "Careers", path: "/careers" },
-        { label: "EMI Calculator", path: "/emi-calculator" },
-      ],
-    },
-    { label: "Contact", path: "/contact" },
-  ];
-
-  const allMobileLinks = [
-    { label: "Home", path: "/" },
-    { label: "Properties", path: "/properties" },
-    { label: "About Us", path: "/about" },
-    { label: "Our Services", path: "/services" },
-    { label: "Gallery", path: "/gallery" },
-    { label: "Blog", path: "/blog" },
-    { label: "FAQ", path: "/faq" },
-    { label: "Careers", path: "/careers" },
-    { label: "EMI Calculator", path: "/emi-calculator" },
-    { label: "Contact", path: "/contact" },
-  ];
+  const menu = useMenu("menu_header");
+  const wish = useWishlist();
+  const mainLinks: { label: string; path?: string; children?: { label: string; path: string }[] }[] =
+    menu.length > 4
+      ? [...menu.slice(0, 2), { label: "Pages", children: menu.slice(2, -1) }, menu[menu.length - 1]]
+      : menu;
+  const allMobileLinks = menu;
 
   const isHome = location.pathname === "/";
   const headerBg = scrolled || !isHome
@@ -102,7 +81,7 @@ const Header = () => {
                 </button>
                 {dropdownOpen === link.label && (
                   <div className="absolute top-full left-0 mt-2 w-52 rounded-xl bg-card border border-border shadow-xl py-2 animate-fade-in z-50">
-                    {link.children.map((child) => (
+                    {link.children!.map((child) => (
                       <Link
                         key={child.path}
                         to={child.path}
@@ -135,6 +114,10 @@ const Header = () => {
         </nav>
 
         <div className="hidden lg:flex items-center gap-3">
+          <Link to="/wishlist" aria-label="Wishlist" className="relative h-10 w-10 rounded-xl flex items-center justify-center text-primary-foreground/80 hover:bg-primary-foreground/10">
+            <Heart className="h-5 w-5" />
+            {wish.ids.length > 0 && <span className="absolute -top-0.5 -right-0.5 h-5 min-w-5 px-1 rounded-full bg-secondary text-secondary-foreground text-[10px] font-bold flex items-center justify-center">{wish.ids.length}</span>}
+          </Link>
           <a href={contact.wa} target="_blank" rel="noopener noreferrer">
             <Button
               size="sm"
@@ -154,6 +137,7 @@ const Header = () => {
 
         <button
           className="lg:hidden text-primary-foreground p-2"
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
           onClick={() => setMobileOpen(!mobileOpen)}
         >
           {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}

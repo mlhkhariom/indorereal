@@ -1,9 +1,15 @@
+import { useMenu } from "@/hooks/useMenu";
+import { useLocations } from "@/hooks/useLocations";
+import { areaSlug } from "@/lib/areas";
 import { useContact } from "@/hooks/useContact";
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail, ArrowRight } from "lucide-react";
 
 const Footer = () => {
   const contact = useContact();
+  const quickLinks = useMenu("menu_footer_quick");
+  const usefulLinks = useMenu("menu_footer_useful");
+  const { data: locs = [] } = useLocations();
   return (
     <footer className="navy-gradient text-primary-foreground relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-secondary/30 to-transparent" />
@@ -51,16 +57,7 @@ const Footer = () => {
           <div>
             <h4 className="font-heading font-semibold text-sm uppercase tracking-wider text-secondary mb-5">Quick Links</h4>
             <ul className="space-y-2.5">
-              {[
-                { label: "Home", path: "/" },
-                { label: "All Properties", path: "/properties" },
-                { label: "Our Services", path: "/services" },
-                { label: "About Us", path: "/about" },
-                { label: "Blog", path: "/blog" },
-                { label: "Gallery", path: "/gallery" },
-                { label: "FAQ", path: "/faq" },
-                { label: "Contact", path: "/contact" },
-              ].map((l) => (
+              {quickLinks.map((l) => (
                 <li key={l.label}>
                   <Link to={l.path} className="text-sm text-primary-foreground/60 hover:text-secondary transition-colors inline-flex items-center gap-1.5 group">
                     <ArrowRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
@@ -75,12 +72,7 @@ const Footer = () => {
           <div>
             <h4 className="font-heading font-semibold text-sm uppercase tracking-wider text-secondary mb-5">Useful Links</h4>
             <ul className="space-y-2.5">
-              {[
-                { label: "EMI Calculator", path: "/emi-calculator" },
-                { label: "Careers", path: "/careers" },
-                { label: "Privacy Policy", path: "/privacy-policy" },
-                { label: "Terms & Conditions", path: "/terms-conditions" },
-              ].map((l) => (
+              {usefulLinks.map((l) => (
                 <li key={l.label}>
                   <Link to={l.path} className="text-sm text-primary-foreground/60 hover:text-secondary transition-colors inline-flex items-center gap-1.5 group">
                     <ArrowRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
@@ -91,9 +83,9 @@ const Footer = () => {
               <li className="pt-3">
                 <h4 className="font-heading font-semibold text-sm uppercase tracking-wider text-secondary mb-3">Top Locations</h4>
                 <ul className="space-y-2.5">
-                  {["Vijay Nagar", "Super Corridor", "Rau", "AB Road"].map((loc) => (
+                  {(locs.length ? locs.slice(0, 5).map((l) => l.name) : ["Vijay Nagar", "Super Corridor", "Rau", "AB Road"]).map((loc) => (
                     <li key={loc}>
-                      <Link to={`/properties?location=${loc}`} className="text-sm text-primary-foreground/60 hover:text-secondary transition-colors inline-flex items-center gap-1.5">
+                      <Link to={`/area/${areaSlug(loc)}`} className="text-sm text-primary-foreground/60 hover:text-secondary transition-colors inline-flex items-center gap-1.5">
                         <MapPin className="h-3 w-3 text-secondary/60" /> {loc}
                       </Link>
                     </li>

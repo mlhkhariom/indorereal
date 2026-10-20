@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Save, Trash2, GripVertical, BarChart3, MapPin, MessageSquare, Lightbulb, Footprints } from "lucide-react";
+import { Plus, Save, Trash2, GripVertical, BarChart3, MapPin, MessageSquare, Lightbulb, Footprints, HelpCircle, Briefcase } from "lucide-react";
 
 interface ContentItem {
   id?: string;
@@ -25,6 +25,8 @@ const sectionConfig = [
   { key: "location", label: "Locations", icon: MapPin, fields: ["title", "subtitle", "image"], extraFields: ["count"] },
   { key: "how_it_works", label: "How It Works", icon: Footprints, fields: ["title", "description", "icon"], extraFields: [] },
   { key: "why_choose_us", label: "Why Choose Us", icon: Lightbulb, fields: ["title", "description", "icon"], extraFields: [] },
+  { key: "faq", label: "FAQ Page", icon: HelpCircle, fields: ["title", "subtitle", "description"], extraFields: [], labels: { title: "Question", subtitle: "Category", description: "Answer" } },
+  { key: "job", label: "Job Openings", icon: Briefcase, fields: ["title", "subtitle", "description"], extraFields: ["location", "type", "experience"], labels: { title: "Job Title", subtitle: "Department", description: "Short description" } },
 ];
 
 const fieldLabels: Record<string, string> = {
@@ -35,6 +37,9 @@ const fieldLabels: Record<string, string> = {
   icon: "Icon Name",
   rating: "Rating (1-5)",
   count: "Listings Count",
+  location: "Job Location",
+  type: "Job Type (Full-time / Part-time)",
+  experience: "Experience",
 };
 
 const AdminHomepage = () => {
