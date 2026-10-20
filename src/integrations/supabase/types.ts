@@ -76,40 +76,70 @@ export type Database = {
       }
       enquiries: {
         Row: {
+          assigned_to: string | null
+          budget: string | null
           created_at: string
           email: string | null
+          follow_up_at: string | null
           id: string
           message: string | null
           name: string
+          page_url: string | null
           phone: string
+          preferred_location: string | null
+          priority: string
           property_id: string | null
           property_title: string | null
           source: string | null
           status: string
+          tags: string[] | null
+          updated_at: string
+          utm_campaign: string | null
+          utm_source: string | null
         }
         Insert: {
+          assigned_to?: string | null
+          budget?: string | null
           created_at?: string
           email?: string | null
+          follow_up_at?: string | null
           id?: string
           message?: string | null
           name: string
+          page_url?: string | null
           phone: string
+          preferred_location?: string | null
+          priority?: string
           property_id?: string | null
           property_title?: string | null
           source?: string | null
           status?: string
+          tags?: string[] | null
+          updated_at?: string
+          utm_campaign?: string | null
+          utm_source?: string | null
         }
         Update: {
+          assigned_to?: string | null
+          budget?: string | null
           created_at?: string
           email?: string | null
+          follow_up_at?: string | null
           id?: string
           message?: string | null
           name?: string
+          page_url?: string | null
           phone?: string
+          preferred_location?: string | null
+          priority?: string
           property_id?: string | null
           property_title?: string | null
           source?: string | null
           status?: string
+          tags?: string[] | null
+          updated_at?: string
+          utm_campaign?: string | null
+          utm_source?: string | null
         }
         Relationships: [
           {
@@ -192,6 +222,76 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      lead_activities: {
+        Row: {
+          action: string
+          actor_id: string | null
+          created_at: string
+          details: string | null
+          enquiry_id: string
+          id: string
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          created_at?: string
+          details?: string | null
+          enquiry_id: string
+          id?: string
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          created_at?: string
+          details?: string | null
+          enquiry_id?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lead_activities_enquiry_id_fkey"
+            columns: ["enquiry_id"]
+            isOneToOne: false
+            referencedRelation: "enquiries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lead_notes: {
+        Row: {
+          author_email: string | null
+          author_id: string | null
+          created_at: string
+          enquiry_id: string
+          id: string
+          note: string
+        }
+        Insert: {
+          author_email?: string | null
+          author_id?: string | null
+          created_at?: string
+          enquiry_id: string
+          id?: string
+          note: string
+        }
+        Update: {
+          author_email?: string | null
+          author_id?: string | null
+          created_at?: string
+          enquiry_id?: string
+          id?: string
+          note?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lead_notes_enquiry_id_fkey"
+            columns: ["enquiry_id"]
+            isOneToOne: false
+            referencedRelation: "enquiries"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       locations: {
         Row: {
@@ -369,6 +469,15 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      is_staff: { Args: { _uid: string }; Returns: boolean }
+      list_staff: {
+        Args: never
+        Returns: {
+          email: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }[]
       }
     }
     Enums: {
