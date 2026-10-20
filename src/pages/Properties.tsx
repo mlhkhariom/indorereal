@@ -58,28 +58,28 @@ const Properties = () => {
     <div className="space-y-5">
       <div>
         <label className="text-xs font-heading font-semibold text-foreground mb-1.5 block uppercase tracking-wider">Location</label>
-        <select value={location} onChange={(e) => updateFilter("location", e.target.value)} className={selectClass}>
+        <select aria-label="Location" value={location} onChange={(e) => updateFilter("location", e.target.value)} className={selectClass}>
           <option value="">All Locations</option>
           {locations.map((l) => <option key={l.id} value={l.name}>{l.name}</option>)}
         </select>
       </div>
       <div>
         <label className="text-xs font-heading font-semibold text-foreground mb-1.5 block uppercase tracking-wider">Property Type</label>
-        <select value={type} onChange={(e) => updateFilter("type", e.target.value)} className={selectClass}>
+        <select aria-label="Property type" value={type} onChange={(e) => updateFilter("type", e.target.value)} className={selectClass}>
           <option value="">All Types</option>
           {PROPERTY_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
         </select>
       </div>
       <div>
         <label className="text-xs font-heading font-semibold text-foreground mb-1.5 block uppercase tracking-wider">Budget</label>
-        <select value={budget} onChange={(e) => updateFilter("budget", e.target.value)} className={selectClass}>
+        <select aria-label="Budget range" value={budget} onChange={(e) => updateFilter("budget", e.target.value)} className={selectClass}>
           <option value="">Any Budget</option>
           {BUDGET_RANGES.map((b) => <option key={b.label} value={b.label}>{b.label}</option>)}
         </select>
       </div>
       <div>
         <label className="text-xs font-heading font-semibold text-foreground mb-1.5 block uppercase tracking-wider">Status</label>
-        <select value={status} onChange={(e) => updateFilter("status", e.target.value)} className={selectClass}>
+        <select aria-label="Buy or rent" value={status} onChange={(e) => updateFilter("status", e.target.value)} className={selectClass}>
           <option value="">All</option>
           <option value="Sale">For Sale</option>
           <option value="Rent">For Rent</option>

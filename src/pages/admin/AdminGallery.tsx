@@ -113,7 +113,7 @@ const AdminGallery = () => {
               </div>
               <div>
                 <label className="text-xs font-medium text-muted-foreground mb-1 block">Category</label>
-                <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}
+                <select aria-label="Category" value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}
                   className="w-full h-10 rounded-lg bg-muted/60 border border-border px-3 text-sm">
                   {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
                 </select>

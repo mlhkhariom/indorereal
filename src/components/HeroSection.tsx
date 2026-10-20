@@ -88,21 +88,21 @@ const HeroSection = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
               <div className="relative">
                 <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <select value={location} onChange={(e) => setLocation(e.target.value)} className={selectClass}>
+                <select aria-label="Location" value={location} onChange={(e) => setLocation(e.target.value)} className={selectClass}>
                   <option value="">All Locations</option>
                   {locations.map((loc) => <option key={loc.id} value={loc.name}>{loc.name}</option>)}
                 </select>
               </div>
               <div className="relative">
                 <Building className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <select value={type} onChange={(e) => setType(e.target.value)} className={selectClass}>
+                <select aria-label="Property type" value={type} onChange={(e) => setType(e.target.value)} className={selectClass}>
                   <option value="">Property Type</option>
                   {PROPERTY_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
                 </select>
               </div>
               <div className="relative">
                 <Banknote className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <select value={budget} onChange={(e) => setBudget(e.target.value)} className={selectClass}>
+                <select aria-label="Budget range" value={budget} onChange={(e) => setBudget(e.target.value)} className={selectClass}>
                   <option value="">Budget Range</option>
                   {BUDGET_RANGES.map((b) => <option key={b.label} value={b.label}>{b.label}</option>)}
                 </select>
