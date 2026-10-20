@@ -14,6 +14,9 @@ export interface Property {
   featured: boolean;
   status: "Sale" | "Rent";
   created_at?: string;
+  view_count?: number;
+  latitude?: number | null;
+  longitude?: number | null;
 }
 
 export interface Enquiry {

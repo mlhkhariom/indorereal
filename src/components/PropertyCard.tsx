@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
-import { MapPin, Bed, Maximize, ArrowUpRight } from "lucide-react";
+import { MapPin, Bed, Maximize, Heart, GitCompare } from "lucide-react";
+import { useWishlist, useCompare, COMPARE_MAX } from "@/hooks/useShortlist";
+import { toast } from "@/hooks/use-toast";
 import { Property, formatPrice } from "@/types/property";
 
 interface PropertyCardProps {
@@ -7,13 +9,19 @@ interface PropertyCardProps {
 }
 
 const PropertyCard = ({ property }: PropertyCardProps) => {
+  const wish = useWishlist();
+  const cmp = useCompare();
+  const stop = (e: React.MouseEvent) => { e.preventDefault(); e.stopPropagation(); };
   return (
     <Link
       to={`/property/${property.slug}`}
       className="group block card-elevated overflow-hidden"
     >
-      <div className="relative overflow-hidden aspect-[16/11]">
+      <div className="relative overflow-hidden aspect-[16/11] bg-muted">
         <img
+          decoding="async"
+          width={640}
+          height={440}
           src={property.images[0]}
           alt={property.title}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
@@ -41,9 +49,17 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
           </span>
         </div>
 
-        {/* Arrow on hover */}
-        <div className="absolute top-3 right-3 h-8 w-8 rounded-full bg-primary-foreground/10 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0">
-          <ArrowUpRight className="h-4 w-4 text-primary-foreground" />
+        <div className="absolute top-3 right-3 flex flex-col gap-2">
+          <button type="button" aria-label={wish.has(property.id) ? "Remove from wishlist" : "Save to wishlist"}
+            onClick={(e) => { stop(e); wish.toggle(property.id); }}
+            className="h-9 w-9 rounded-full bg-background/90 backdrop-blur flex items-center justify-center shadow-md hover:scale-110 transition-transform">
+            <Heart className={`h-4 w-4 ${wish.has(property.id) ? "fill-destructive text-destructive" : "text-foreground"}`} />
+          </button>
+          <button type="button" aria-label="Add to compare"
+            onClick={(e) => { stop(e); if (!cmp.toggle(property.id)) toast({ title: `You can compare up to ${COMPARE_MAX} properties` }); }}
+            className={`h-9 w-9 rounded-full backdrop-blur flex items-center justify-center shadow-md hover:scale-110 transition-transform ${cmp.has(property.id) ? "bg-secondary text-secondary-foreground" : "bg-background/90 text-foreground"}`}>
+            <GitCompare className="h-4 w-4" />
+          </button>
         </div>
       </div>
 
