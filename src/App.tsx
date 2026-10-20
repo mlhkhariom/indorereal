@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -7,42 +8,42 @@ import { HelmetProvider } from "react-helmet-async";
 import { AuthProvider } from "@/hooks/useAuth";
 import { SiteSettingsProvider } from "@/hooks/useSiteSettings";
 import Index from "./pages/Index";
-import Properties from "./pages/Properties";
-import PropertyDetail from "./pages/PropertyDetail";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import Blog from "./pages/Blog";
-import BlogDetail from "./pages/BlogDetail";
-import Services from "./pages/Services";
-import FAQ from "./pages/FAQ";
-import Gallery from "./pages/Gallery";
-import Careers from "./pages/Careers";
-import EMICalculator from "./pages/EMICalculator";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import TermsConditions from "./pages/TermsConditions";
-import NotFound from "./pages/NotFound";
+const Properties = lazy(() => import("./pages/Properties"));
+const PropertyDetail = lazy(() => import("./pages/PropertyDetail"));
+const About = lazy(() => import("./pages/About"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Blog = lazy(() => import("./pages/Blog"));
+const BlogDetail = lazy(() => import("./pages/BlogDetail"));
+const Services = lazy(() => import("./pages/Services"));
+const FAQ = lazy(() => import("./pages/FAQ"));
+const Gallery = lazy(() => import("./pages/Gallery"));
+const Careers = lazy(() => import("./pages/Careers"));
+const EMICalculator = lazy(() => import("./pages/EMICalculator"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const TermsConditions = lazy(() => import("./pages/TermsConditions"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 import MobileBottomBar from "./components/MobileBottomBar";
-import AdminLogin from "./pages/AdminLogin";
+const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 import AdminLayout from "./components/admin/AdminLayout";
-import AdminDashboard from "./pages/admin/AdminDashboard";
-import AdminProperties from "./pages/admin/AdminProperties";
-import AdminBlog from "./pages/admin/AdminBlog";
-import AdminEnquiries from "./pages/admin/AdminEnquiries";
-import AdminSEO from "./pages/admin/AdminSEO";
-import AdminHomepage from "./pages/admin/AdminHomepage";
-import AdminGallery from "./pages/admin/AdminGallery";
-import AdminLocations from "./pages/admin/AdminLocations";
-import AdminCRM from "./pages/admin/AdminCRM";
-import AdminSiteSettings from "./pages/admin/AdminSiteSettings";
-import AdminMenus from "./pages/admin/AdminMenus";
-import AdminPages from "./pages/admin/AdminPages";
-import AdminVisits from "./pages/admin/AdminVisits";
-import AdminTeam from "./pages/admin/AdminTeam";
-import AdminSubmissions from "./pages/admin/AdminSubmissions";
-import Wishlist from "./pages/Wishlist";
-import Compare from "./pages/Compare";
-import PostProperty from "./pages/PostProperty";
-import AreaPage from "./pages/AreaPage";
+const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
+const AdminProperties = lazy(() => import("./pages/admin/AdminProperties"));
+const AdminBlog = lazy(() => import("./pages/admin/AdminBlog"));
+const AdminEnquiries = lazy(() => import("./pages/admin/AdminEnquiries"));
+const AdminSEO = lazy(() => import("./pages/admin/AdminSEO"));
+const AdminHomepage = lazy(() => import("./pages/admin/AdminHomepage"));
+const AdminGallery = lazy(() => import("./pages/admin/AdminGallery"));
+const AdminLocations = lazy(() => import("./pages/admin/AdminLocations"));
+const AdminCRM = lazy(() => import("./pages/admin/AdminCRM"));
+const AdminSiteSettings = lazy(() => import("./pages/admin/AdminSiteSettings"));
+const AdminMenus = lazy(() => import("./pages/admin/AdminMenus"));
+const AdminPages = lazy(() => import("./pages/admin/AdminPages"));
+const AdminVisits = lazy(() => import("./pages/admin/AdminVisits"));
+const AdminTeam = lazy(() => import("./pages/admin/AdminTeam"));
+const AdminSubmissions = lazy(() => import("./pages/admin/AdminSubmissions"));
+const Wishlist = lazy(() => import("./pages/Wishlist"));
+const Compare = lazy(() => import("./pages/Compare"));
+const PostProperty = lazy(() => import("./pages/PostProperty"));
+const AreaPage = lazy(() => import("./pages/AreaPage"));
 import CompareBar from "./components/CompareBar";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -58,6 +59,7 @@ const App = () => (
             <Sonner />
             <BrowserRouter>
               <ScrollToTop />
+              <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="animate-spin h-8 w-8 border-4 border-secondary border-t-transparent rounded-full" /></div>}>
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/properties" element={<Properties />} />
@@ -97,6 +99,7 @@ const App = () => (
                 </Route>
                 <Route path="*" element={<NotFound />} />
               </Routes>
+              </Suspense>
               <MobileBottomBar />
               <CompareBar />
             </BrowserRouter>

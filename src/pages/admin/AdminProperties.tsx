@@ -164,7 +164,7 @@ const AdminProperties = () => {
           <Card key={p.id}>
             <CardContent className="flex items-center justify-between gap-3 py-4">
               <div className="flex items-center gap-4 min-w-0">
-                {p.images?.[0] && <img src={p.images[0]} alt="" className="h-14 w-14 rounded-lg object-cover hidden sm:block" />}
+                {p.images?.[0] && <img loading="lazy" decoding="async" src={p.images[0]} alt="" className="h-14 w-14 rounded-lg object-cover hidden sm:block" />}
                 <div className="min-w-0">
                   <p className="font-semibold text-sm truncate">{p.title}</p>
                   <p className="text-xs text-muted-foreground">{p.location} • {p.type} • {formatPrice(p.price)} {p.featured && <span className="text-primary font-medium">⭐ Featured</span>} <span className="inline-flex items-center gap-0.5 ml-1"><Eye className="h-3 w-3" />{p.view_count || 0}</span></p>
