@@ -50,7 +50,7 @@ const AdminLayout = () => {
 
   return (
     <div className="min-h-screen bg-muted/20 flex">
-      <aside aria-label="Admin sidebar" className={`fixed inset-y-0 left-0 z-50 w-64 bg-card border-r border-border transform transition-transform lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
+      <aside aria-label="Admin sidebar" className={`fixed inset-y-0 left-0 z-50 w-64 bg-card border-r border-border transform transition-transform lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full invisible lg:visible"}`}>
         <div className="flex items-center gap-3 p-4 border-b border-border">
           <img loading="lazy" decoding="async" src="/logo.png" alt="Logo" className="h-9 w-9 rounded-lg" />
           <div>
