@@ -174,7 +174,7 @@ const AdminHomepage = () => {
             <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {config.fields.map(field => (
                 <div key={field}>
-                  <label className="text-xs font-medium text-muted-foreground mb-1 block">{fieldLabels[field]}</label>
+                  <label className="text-xs font-medium text-muted-foreground mb-1 block">{(config as any).labels?.[field] || fieldLabels[field]}</label>
                   {field === "description" ? (
                     <Textarea value={(item as any)[field] || ""} onChange={(e) => updateItem(idx, field, e.target.value)} rows={3} />
                   ) : (
@@ -184,7 +184,7 @@ const AdminHomepage = () => {
               ))}
               {config.extraFields.map(field => (
                 <div key={field}>
-                  <label className="text-xs font-medium text-muted-foreground mb-1 block">{fieldLabels[field]}</label>
+                  <label className="text-xs font-medium text-muted-foreground mb-1 block">{(config as any).labels?.[field] || fieldLabels[field]}</label>
                   <Input type="number" value={item.extra_data?.[field] || ""} onChange={(e) => updateItem(idx, field, e.target.value)} />
                 </div>
               ))}
