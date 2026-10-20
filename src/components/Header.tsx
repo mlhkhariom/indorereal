@@ -45,7 +45,7 @@ const Header = () => {
 
   const isHome = location.pathname === "/";
   const headerBg = scrolled || !isHome
-    ? "bg-primary/98 backdrop-blur-md shadow-lg"
+    ? "bg-primary/95 backdrop-blur-md shadow-lg"
     : "bg-transparent";
 
   return (
