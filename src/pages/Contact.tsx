@@ -12,33 +12,34 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
 
-const contactInfo = [
+const getContactInfo = (c: ReturnType<typeof useContact>) => [
   {
     icon: MapPin,
     title: "Visit Our Office",
-    lines: ["123 Business Park, Vijay Nagar", "Indore, Madhya Pradesh 452010"],
+    lines: [c.address],
   },
   {
     icon: Phone,
     title: "Call Us",
-    lines: ["+91 98765 43210", "+91 731 234 5678"],
-    links: ["tel:+919876543210", "tel:+917312345678"],
+    lines: [c.phone],
+    links: [c.tel],
   },
   {
     icon: Mail,
     title: "Email Us",
-    lines: ["info@indorerealty.in", "sales@indorerealty.in"],
-    links: ["mailto:info@indorerealty.in", "mailto:sales@indorerealty.in"],
+    lines: [c.email],
+    links: [c.mailto],
   },
   {
     icon: Clock,
     title: "Working Hours",
-    lines: ["Mon – Sat: 9:00 AM – 7:00 PM", "Sunday: 10:00 AM – 4:00 PM"],
+    lines: [c.hours],
   },
 ];
 
 const Contact = () => {
   const contact = useContact();
+  const contactInfo = getContactInfo(contact);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -56,7 +57,7 @@ const Contact = () => {
     setLoading(true);
     const { error } = await supabase.from("enquiries").insert({
       name, phone, email: email || null, message: `${subject ? `[${subject}] ` : ""}${message}`.trim() || null,
-      source: "contact_page",
+      source: "contact_page", page_url: window.location.href,
     });
     setLoading(false);
     if (error) {
