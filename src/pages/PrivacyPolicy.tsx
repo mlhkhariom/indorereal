@@ -1,3 +1,4 @@
+import { useContact } from "@/hooks/useContact";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -6,6 +7,7 @@ import { Link } from "react-router-dom";
 import { Home, ChevronRight } from "lucide-react";
 
 const PrivacyPolicy = () => {
+  const contact = useContact();
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -128,7 +130,7 @@ const PrivacyPolicy = () => {
                     <li><strong className="text-foreground">Opt-out:</strong> Unsubscribe from marketing communications at any time</li>
                     <li><strong className="text-foreground">Withdraw Consent:</strong> Withdraw consent for data processing where consent was the basis</li>
                   </ul>
-                  <p className="mt-3">To exercise any of these rights, please contact us at <a href="mailto:info@indorerealty.in" className="text-secondary hover:underline">info@indorerealty.in</a>.</p>
+                  <p className="mt-3">To exercise any of these rights, please contact us at <a href={contact.mailto} className="text-secondary hover:underline">{contact.email}</a>.</p>
                 </div>
 
                 <div>
@@ -158,8 +160,8 @@ const PrivacyPolicy = () => {
                   <div className="mt-3 p-5 rounded-xl bg-muted/60 border border-border space-y-2">
                     <p><strong className="text-foreground">Indore Realty</strong> (A brand of MLHK Infotech)</p>
                     <p>123 Business Park, Vijay Nagar, Indore, MP 452010</p>
-                    <p>Phone: <a href="tel:+919876543210" className="text-secondary hover:underline">+91 98765 43210</a></p>
-                    <p>Email: <a href="mailto:info@indorerealty.in" className="text-secondary hover:underline">info@indorerealty.in</a></p>
+                    <p>Phone: <a href={contact.tel} className="text-secondary hover:underline">{contact.phone}</a></p>
+                    <p>Email: <a href={contact.mailto} className="text-secondary hover:underline">{contact.email}</a></p>
                   </div>
                 </div>
 

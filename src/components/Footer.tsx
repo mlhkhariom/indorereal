@@ -1,7 +1,9 @@
+import { useContact } from "@/hooks/useContact";
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail, ArrowRight } from "lucide-react";
 
 const Footer = () => {
+  const contact = useContact();
   return (
     <footer className="navy-gradient text-primary-foreground relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-secondary/30 to-transparent" />
@@ -116,7 +118,7 @@ const Footer = () => {
                   <Phone className="h-4 w-4 text-secondary" />
                 </div>
                 <div>
-                  <a href="tel:+919876543210" className="hover:text-secondary transition-colors block">+91 98765 43210</a>
+                  <a href={contact.tel} className="hover:text-secondary transition-colors block">{contact.phone}</a>
                   <a href="tel:+917312345678" className="hover:text-secondary transition-colors block">+91 731 234 5678</a>
                 </div>
               </li>
@@ -124,7 +126,7 @@ const Footer = () => {
                 <div className="h-9 w-9 rounded-lg bg-secondary/10 flex items-center justify-center flex-shrink-0">
                   <Mail className="h-4 w-4 text-secondary" />
                 </div>
-                <a href="mailto:info@indorerealty.in" className="hover:text-secondary transition-colors">info@indorerealty.in</a>
+                <a href={contact.mailto} className="hover:text-secondary transition-colors">{contact.email}</a>
               </li>
             </ul>
           </div>

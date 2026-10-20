@@ -1,7 +1,9 @@
+import { useContact } from "@/hooks/useContact";
 import { Phone, MessageCircle, ArrowRight } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 
 const CTABanner = () => {
+  const contact = useContact();
   return (
     <section className="section-padding bg-background relative overflow-hidden">
       <div className="container mx-auto px-4 lg:px-8">
@@ -23,12 +25,12 @@ const CTABanner = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
-                <a href="tel:+919876543210">
+                <a href={contact.tel}>
                   <button className="btn-gold px-10 py-4 rounded-xl text-base inline-flex items-center gap-2 w-full sm:w-auto justify-center">
                     <Phone className="h-5 w-5" /> Call Now — Free Consultation
                   </button>
                 </a>
-                <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer">
+                <a href={contact.wa} target="_blank" rel="noopener noreferrer">
                   <button className="glass-card px-10 py-4 rounded-xl text-base text-primary-foreground/80 inline-flex items-center gap-2 hover:bg-primary-foreground/10 transition-all w-full sm:w-auto justify-center">
                     <MessageCircle className="h-5 w-5" /> Chat on WhatsApp <ArrowRight className="h-4 w-4" />
                   </button>
