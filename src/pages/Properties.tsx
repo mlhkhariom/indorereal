@@ -52,7 +52,7 @@ const Properties = () => {
   }, [properties, location, type, budget, status, searchQuery]);
 
   const hasFilters = location || type || budget || status;
-  const selectClass = "w-full h-11 rounded-xl bg-muted/60 border border-border px-4 text-sm font-body text-foreground focus:outline-none focus:ring-2 focus:ring-secondary/40 appearance-none cursor-pointer";
+  const selectClass = "w-full h-11 rounded-xl bg-muted/60 border border-border px-4 text-sm font-body text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus:ring-2 focus:ring-secondary/40 appearance-none cursor-pointer";
 
   const FilterControls = () => (
     <div className="space-y-5">
@@ -151,7 +151,7 @@ const Properties = () => {
                 placeholder="Search by property name or location..." aria-label="Search by property name or location..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-12 rounded-xl bg-primary-foreground/10 border border-primary-foreground/20 pl-11 pr-4 text-sm text-primary-foreground placeholder:text-primary-foreground/40 focus:outline-none focus:ring-2 focus:ring-secondary/50 backdrop-blur-sm"
+                className="w-full h-12 rounded-xl bg-primary-foreground/10 border border-primary-foreground/20 pl-11 pr-4 text-sm text-primary-foreground placeholder:text-primary-foreground/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus:ring-2 focus:ring-secondary/50 backdrop-blur-sm"
               />
             </div>
           </div>

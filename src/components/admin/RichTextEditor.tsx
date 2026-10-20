@@ -8,7 +8,7 @@ const RichTextEditor = ({ value, onChange }: { value: string; onChange: (html: s
     extensions: [StarterKit],
     content: value,
     onUpdate: ({ editor }) => onChange(editor.getHTML()),
-    editorProps: { attributes: { class: "prose prose-sm max-w-none min-h-[280px] p-4 focus:outline-none" } },
+    editorProps: { attributes: { class: "prose prose-sm max-w-none min-h-[280px] p-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary" } },
   });
   useEffect(() => {
     if (editor && value !== editor.getHTML()) editor.commands.setContent(value || "", { emitUpdate: false });

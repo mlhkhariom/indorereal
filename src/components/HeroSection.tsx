@@ -36,7 +36,7 @@ const HeroSection = () => {
     navigate(`/properties?${params.toString()}`);
   };
 
-  const selectClass = "w-full h-12 rounded-xl bg-muted/50 pl-10 pr-4 text-sm font-body text-foreground focus:outline-none focus:ring-2 focus:ring-secondary/50 border-0 appearance-none cursor-pointer";
+  const selectClass = "w-full h-12 rounded-xl bg-muted/50 pl-10 pr-4 text-sm font-body text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus:ring-2 focus:ring-secondary/50 border-0 appearance-none cursor-pointer";
 
   return (
     <section className="relative min-h-[85vh] lg:min-h-screen flex items-center overflow-hidden">
