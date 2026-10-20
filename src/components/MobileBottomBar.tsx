@@ -46,16 +46,12 @@ const MobileBottomBar = () => {
       <div className="bg-card/95 backdrop-blur-xl border-t border-border px-3 pt-1.5 pb-2 safe-area-bottom">
         {/* Quick action buttons */}
         <div className="flex gap-2 mb-1.5">
-          <a href={contact.tel} className="flex-1">
-            <button className="w-full h-10 rounded-xl btn-gold text-xs flex items-center justify-center gap-1.5">
+          <a href={contact.tel} className="flex-1 w-full inline-flex h-10 rounded-xl btn-gold text-xs flex items-center justify-center gap-1.5">
               <Phone className="h-3.5 w-3.5" aria-hidden="true" /> Call Now
-            </button>
-          </a>
-          <a href={contact.wa} target="_blank" rel="noopener noreferrer" className="flex-1">
-            <button className="w-full h-10 rounded-xl bg-[#25D366] text-primary-foreground font-heading font-semibold text-xs flex items-center justify-center gap-1.5 shadow-md">
+            </a>
+          <a href={contact.wa} target="_blank" rel="noopener noreferrer" className="flex-1 w-full inline-flex h-10 rounded-xl bg-[#25D366] text-primary-foreground font-heading font-semibold text-xs flex items-center justify-center gap-1.5 shadow-md">
               <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" /> WhatsApp
-            </button>
-          </a>
+            </a>
         </div>
 
         {/* Navigation tabs */}

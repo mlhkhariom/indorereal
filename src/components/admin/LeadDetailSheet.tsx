@@ -56,7 +56,7 @@ const LeadDetailSheet = ({ lead, staff, onClose, onChanged }: Props) => {
         <div className="space-y-5 mt-4">
           <div className="flex gap-2">
             <a href={`tel:${lead.phone}`} className="flex-1"><Button variant="outline" className="w-full" size="sm"><Phone className="h-4 w-4 mr-1" aria-hidden="true" />Call</Button></a>
-            <a href={wa} target="_blank" rel="noopener noreferrer" className="flex-1"><Button variant="outline" className="w-full" size="sm"><MessageCircle className="h-4 w-4 mr-1" aria-hidden="true" />WhatsApp</Button></a>
+            <Button asChild variant="outline" className="w-full" size="sm"><a href={wa} target="_blank" rel="noopener noreferrer" className="flex-1"><MessageCircle className="h-4 w-4 mr-1" aria-hidden="true" />WhatsApp</a></Button>
             {lead.email && <a href={`mailto:${lead.email}`} className="flex-1"><Button variant="outline" className="w-full" size="sm"><Mail className="h-4 w-4 mr-1" aria-hidden="true" />Email</Button></a>}
           </div>
 

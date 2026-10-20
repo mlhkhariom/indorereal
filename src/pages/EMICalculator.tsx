@@ -181,11 +181,9 @@ const EMICalculator = () => {
                   </div>
 
                   {/* CTA */}
-                  <a href={contact.tel} className="block">
-                    <button className="w-full btn-gold py-4 rounded-xl text-sm inline-flex items-center justify-center gap-2">
+                  <a href={contact.tel} className="block w-full inline-flex btn-gold py-4 rounded-xl text-sm inline-flex items-center justify-center gap-2">
                       <Phone className="h-4 w-4" aria-hidden="true" /> Get Best Loan Rates — Call Now
-                    </button>
-                  </a>
+                    </a>
                 </div>
               </ScrollReveal>
             </div>

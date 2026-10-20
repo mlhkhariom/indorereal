@@ -66,16 +66,12 @@ const LeadForm = ({ propertyTitle }: LeadFormProps) => {
       </form>
 
       <div className="flex gap-2 mt-4">
-        <a href={contact.wa} target="_blank" rel="noopener noreferrer" className="flex-1">
-          <button type="button" className="w-full h-10 rounded-xl border border-[#25D366]/30 text-[#25D366] hover:bg-[#25D366]/5 text-sm font-medium flex items-center justify-center gap-1.5 transition-colors">
+        <a href={contact.wa} target="_blank" rel="noopener noreferrer" className="flex-1 w-full inline-flex h-10 rounded-xl border border-[#25D366]/30 text-[#25D366] hover:bg-[#25D366]/5 text-sm font-medium flex items-center justify-center gap-1.5 transition-colors">
             <MessageCircle className="h-4 w-4" aria-hidden="true" /> WhatsApp
-          </button>
-        </a>
-        <a href={contact.tel} className="flex-1">
-          <button type="button" className="w-full h-10 rounded-xl border border-primary/20 text-primary hover:bg-primary/5 text-sm font-medium flex items-center justify-center gap-1.5 transition-colors">
+          </a>
+        <a href={contact.tel} className="flex-1 w-full inline-flex h-10 rounded-xl border border-primary/20 text-primary hover:bg-primary/5 text-sm font-medium flex items-center justify-center gap-1.5 transition-colors">
             <Phone className="h-4 w-4" aria-hidden="true" /> Call Now
-          </button>
-        </a>
+          </a>
       </div>
     </div>
   );
