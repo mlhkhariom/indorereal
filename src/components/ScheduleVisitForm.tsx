@@ -30,8 +30,8 @@ const ScheduleVisitForm = ({ propertyId, propertyTitle }: { propertyId: string; 
   return (
     <form onSubmit={submit} className="card-elevated p-5 space-y-3">
       <h4 className="font-heading font-semibold text-card-foreground flex items-center gap-2"><CalendarCheck className="h-4 w-4 text-secondary" aria-hidden="true" /> Schedule a Free Site Visit</h4>
-      <Input placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)} maxLength={80} className="h-10 rounded-xl" />
-      <Input placeholder="Phone number" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} maxLength={15} className="h-10 rounded-xl" />
+      <Input placeholder="Your name" aria-label="Your name" value={name} onChange={(e) => setName(e.target.value)} maxLength={80} className="h-10 rounded-xl" />
+      <Input placeholder="Phone number" aria-label="Phone number" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} maxLength={15} className="h-10 rounded-xl" />
       <Input type="datetime-local" min={minDate} value={when} onChange={(e) => setWhen(e.target.value)} className="h-10 rounded-xl" aria-label="Preferred date and time" />
       <button disabled={loading} className="w-full h-11 btn-gold rounded-xl text-sm disabled:opacity-50">{loading ? "Booking…" : "Book Visit"}</button>
     </form>

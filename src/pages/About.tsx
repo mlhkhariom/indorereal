@@ -35,7 +35,7 @@ const About = () => {
     <div className="min-h-screen flex flex-col">
       <SEOHead title="About Indore Realty — Indore's Trusted Real Estate Partner" description="Learn about Indore Realty — Indore's #1 trusted real estate agency with 500+ verified properties, 1200+ happy families, and 15+ years of experience." keywords="about Indore Realty, real estate agency Indore, property dealer Indore, trusted real estate" canonical="https://indorerealty.in/about" />
       <Header />
-      <main className="flex-1">
+      <main id="main" className="outline-none flex-1">
         {/* Hero */}
         <section className="navy-gradient pt-28 pb-16 relative overflow-hidden">
           <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-secondary/10 blur-[100px]" />

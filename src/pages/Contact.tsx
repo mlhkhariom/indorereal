@@ -72,7 +72,7 @@ const Contact = () => {
     <div className="min-h-screen flex flex-col">
       <SEOHead title="Contact Indore Realty — Get Free Property Consultation" description="Contact Indore Realty for free property consultation. Call us or visit our Vijay Nagar office. Expert guidance for buying, selling & renting in Indore." keywords="contact Indore Realty, property consultation Indore, real estate agent contact, property dealer Indore phone" canonical="https://indorerealty.in/contact" />
       <Header />
-      <main className="flex-1">
+      <main id="main" className="outline-none flex-1">
         {/* Hero */}
         <section className="navy-gradient pt-28 pb-16 relative overflow-hidden">
           <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-secondary/10 blur-[100px]" />
@@ -135,12 +135,12 @@ const Contact = () => {
 
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <Input placeholder="Your Full Name *" value={name} onChange={(e) => setName(e.target.value)} className="h-12 rounded-xl" />
-                      <Input placeholder="Phone Number *" value={phone} onChange={(e) => setPhone(e.target.value)} className="h-12 rounded-xl" type="tel" />
+                      <Input placeholder="Your Full Name *" aria-label="Your Full Name" value={name} onChange={(e) => setName(e.target.value)} className="h-12 rounded-xl" />
+                      <Input placeholder="Phone Number *" aria-label="Phone Number" value={phone} onChange={(e) => setPhone(e.target.value)} className="h-12 rounded-xl" type="tel" />
                     </div>
-                    <Input placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)} className="h-12 rounded-xl" type="email" />
-                    <Input placeholder="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} className="h-12 rounded-xl" />
-                    <Textarea placeholder="Your Message..." value={message} onChange={(e) => setMessage(e.target.value)} rows={5} className="rounded-xl resize-none" />
+                    <Input placeholder="Email Address" aria-label="Email Address" value={email} onChange={(e) => setEmail(e.target.value)} className="h-12 rounded-xl" type="email" />
+                    <Input placeholder="Subject" aria-label="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} className="h-12 rounded-xl" />
+                    <Textarea placeholder="Your Message..." aria-label="Your Message..." value={message} onChange={(e) => setMessage(e.target.value)} rows={5} className="rounded-xl resize-none" />
                     <button type="submit" className="w-full h-13 py-3.5 btn-gold rounded-xl text-sm flex items-center justify-center gap-2">
                       <Send className="h-4 w-4" aria-hidden="true" /> Send Message
                     </button>

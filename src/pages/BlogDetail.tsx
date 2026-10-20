@@ -50,7 +50,7 @@ const BlogDetail = () => {
     return (
       <div className="min-h-screen flex flex-col">
         <Header />
-        <main className="flex-1 flex items-center justify-center bg-muted">
+        <main id="main" className="outline-none flex-1 flex items-center justify-center bg-muted">
           <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full" />
         </main>
         <Footer />
@@ -62,7 +62,7 @@ const BlogDetail = () => {
     return (
       <div className="min-h-screen flex flex-col">
         <Header />
-        <main className="flex-1 flex items-center justify-center bg-muted">
+        <main id="main" className="outline-none flex-1 flex items-center justify-center bg-muted">
           <div className="text-center">
             <h1 className="font-heading text-2xl font-bold text-foreground mb-2">Blog Post Not Found</h1>
             <Link to="/blog" className="text-secondary hover:underline font-medium">Browse all posts</Link>
@@ -116,7 +116,7 @@ const BlogDetail = () => {
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       </Helmet>
       <Header />
-      <main className="flex-1 bg-muted">
+      <main id="main" className="outline-none flex-1 bg-muted">
         <div className="navy-gradient pt-24 pb-6">
           <div className="container mx-auto px-4 lg:px-8">
             <nav className="flex items-center gap-1.5 text-sm text-primary-foreground/50">

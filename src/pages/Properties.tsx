@@ -124,7 +124,7 @@ const Properties = () => {
         schema={propertySchema}
       />
       <Header />
-      <main className="flex-1 bg-muted">
+      <main id="main" className="outline-none flex-1 bg-muted">
         <div className="navy-gradient pt-28 pb-10">
           <div className="container mx-auto px-4 lg:px-8">
             <nav className="flex items-center gap-1.5 text-sm text-primary-foreground/50 mb-4">
@@ -148,7 +148,7 @@ const Properties = () => {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-primary-foreground/40" />
               <input
                 type="text"
-                placeholder="Search by property name or location..."
+                placeholder="Search by property name or location..." aria-label="Search by property name or location..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full h-12 rounded-xl bg-primary-foreground/10 border border-primary-foreground/20 pl-11 pr-4 text-sm text-primary-foreground placeholder:text-primary-foreground/40 focus:outline-none focus:ring-2 focus:ring-secondary/50 backdrop-blur-sm"

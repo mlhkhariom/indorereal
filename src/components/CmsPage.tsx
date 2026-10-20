@@ -17,7 +17,7 @@ const CmsPage = ({ slug, children }: { slug: string; children: ReactNode }) => {
     <div className="min-h-screen flex flex-col">
       <SEOHead title={data.seo_title || `${data.title} | Indore Realty`} description={data.seo_description || undefined} canonical={`https://indorerealty.in/${slug}`} />
       <Header />
-      <main className="flex-1">
+      <main id="main" className="outline-none flex-1">
         <section className="navy-gradient pt-28 pb-12">
           <div className="container mx-auto px-4 lg:px-8">
             <nav className="flex items-center gap-1.5 text-sm text-primary-foreground/60 mb-4">

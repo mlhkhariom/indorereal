@@ -46,7 +46,7 @@ const AdminTeam = () => {
         <CardContent className="space-y-3">
           <p className="text-xs text-muted-foreground">The person must first create an account at <b>/admin/login</b> (Sign up). Then enter their email here and choose a role.</p>
           <form onSubmit={(e) => { e.preventDefault(); if (email.trim()) assign(email.trim(), role); }} className="flex flex-col sm:flex-row gap-2">
-            <Input type="email" placeholder="email@example.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <Input type="email" placeholder="email@example.com" aria-label="email@example.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
             <Select value={role} onValueChange={setRole}>
               <SelectTrigger className="sm:w-36"><SelectValue /></SelectTrigger>
               <SelectContent><SelectItem value="admin">Admin</SelectItem><SelectItem value="editor">Editor</SelectItem><SelectItem value="agent">Agent</SelectItem></SelectContent>

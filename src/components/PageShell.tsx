@@ -13,7 +13,7 @@ const PageShell = ({ title, subtitle, seoTitle, seoDescription, path, children }
   <div className="min-h-screen flex flex-col">
     <SEOHead title={seoTitle} description={seoDescription} canonical={`https://indorerealty.in${path}`} />
     <Header />
-    <main className="flex-1 bg-muted/40">
+    <main id="main" className="outline-none flex-1 bg-muted/40">
       <section className="navy-gradient pt-28 pb-12">
         <div className="container mx-auto px-4 lg:px-8">
           <nav className="flex items-center gap-1.5 text-sm text-primary-foreground/60 mb-4">

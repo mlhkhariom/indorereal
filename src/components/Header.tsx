@@ -51,7 +51,7 @@ const Header = () => {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${headerBg}`}>
       <div className="container mx-auto flex items-center justify-between py-3 lg:py-4 px-4 lg:px-8">
-        <Link to="/" className="flex items-center gap-2.5 group flex-shrink-0">
+        <Link to="/" aria-label="Indore Realty home" className="flex items-center gap-2.5 group flex-shrink-0">
           <img src="/logo.png" alt="Indore Realty Logo" className="h-9 w-9 lg:h-10 lg:w-10 rounded-xl shadow-md group-hover:scale-105 transition-transform object-contain" />
           <div className="min-w-0">
             <span className="font-heading text-base lg:text-lg font-bold text-primary-foreground leading-none block">
@@ -64,12 +64,15 @@ const Header = () => {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-1" ref={dropdownRef}>
+        <nav aria-label="Main menu" className="hidden lg:flex items-center gap-1" ref={dropdownRef} onKeyDown={(e) => { if (e.key === "Escape") setDropdownOpen(null); }}>
           {mainLinks.map((link) =>
             link.children ? (
               <div key={link.label} className="relative">
                 <button
                   onClick={() => setDropdownOpen(dropdownOpen === link.label ? null : link.label)}
+                  aria-expanded={dropdownOpen === link.label}
+                  aria-haspopup="true"
+                  onKeyDown={(e) => { if (e.key === "Escape") setDropdownOpen(null); }}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 inline-flex items-center gap-1 ${
                     link.children.some((c) => location.pathname === c.path)
                       ? "text-secondary bg-secondary/10"
@@ -85,6 +88,7 @@ const Header = () => {
                       <Link
                         key={child.path}
                         to={child.path}
+                aria-current={location.pathname === child.path ? "page" : undefined}
                         className={`block px-4 py-2.5 text-sm transition-colors ${
                           location.pathname === child.path
                             ? "text-secondary bg-secondary/5 font-medium"
@@ -101,6 +105,7 @@ const Header = () => {
               <Link
                 key={link.path}
                 to={link.path!}
+                aria-current={location.pathname === link.path ? "page" : undefined}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   location.pathname === link.path
                     ? "text-secondary bg-secondary/10"
@@ -138,6 +143,8 @@ const Header = () => {
         <button
           className="lg:hidden text-primary-foreground p-2"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-nav"
           onClick={() => setMobileOpen(!mobileOpen)}
         >
           {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" aria-hidden="true" />}
@@ -146,11 +153,12 @@ const Header = () => {
 
       {/* Mobile Nav */}
       {mobileOpen && (
-        <div className="lg:hidden navy-gradient border-t border-primary-foreground/10 px-4 pb-5 animate-fade-in max-h-[70vh] overflow-y-auto">
+        <nav id="mobile-nav" aria-label="Mobile menu" className="lg:hidden navy-gradient border-t border-primary-foreground/10 px-4 pb-5 animate-fade-in max-h-[70vh] overflow-y-auto">
           {allMobileLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
+                aria-current={location.pathname === link.path ? "page" : undefined}
               onClick={() => setMobileOpen(false)}
               className={`block py-3 text-sm font-medium border-b border-primary-foreground/5 ${
                 location.pathname === link.path ? "text-secondary" : "text-primary-foreground/75"
@@ -171,7 +179,7 @@ const Header = () => {
               </Button>
             </a>
           </div>
-        </div>
+        </nav>
       )}
     </header>
   );

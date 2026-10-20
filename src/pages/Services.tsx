@@ -57,7 +57,7 @@ const Services = () => {
     <div className="min-h-screen flex flex-col">
       <SEOHead title="Real Estate Services in Indore — Buy, Sell, Rent Properties" description="Explore Indore Realty's comprehensive real estate services — property search, legal assistance, home loans, vastu consultation, interior design & property management in Indore." keywords="real estate services Indore, property services, home loan assistance, vastu consultation, property management Indore" canonical="https://indorerealty.in/services" />
       <Header />
-      <main className="flex-1">
+      <main id="main" className="outline-none flex-1">
         {/* Hero */}
         <section className="navy-gradient pt-28 pb-16 relative overflow-hidden">
           <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-secondary/10 blur-[100px]" />
