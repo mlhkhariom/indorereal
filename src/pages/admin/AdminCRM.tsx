@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { DndContext, useDraggable, useDroppable, PointerSensor, TouchSensor, useSensor, useSensors, DragEndEvent } from "@dnd-kit/core";
+import { DndContext, useDraggable, useDroppable, PointerSensor, TouchSensor, KeyboardSensor, useSensor, useSensors, DragEndEvent } from "@dnd-kit/core";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -27,14 +27,14 @@ const LeadCard = ({ lead, onOpen, staffName }: { lead: Lead; onOpen: () => void;
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id: lead.id });
   const fb = followUpBucket(lead.follow_up_at);
   return (
-    <div ref={setNodeRef} {...listeners} {...attributes} onClick={onOpen}
+    <div ref={setNodeRef} {...listeners} {...attributes} onClick={onOpen} aria-label={`Lead ${lead.name}. Press Enter to open, Space to pick up and move with arrow keys`} onKeyDown={(e) => { if (e.key === "Enter") onOpen(); else listeners?.onKeyDown?.(e as any); }}
       style={transform ? { transform: `translate(${transform.x}px, ${transform.y}px)` } : undefined}
-      className={`rounded-lg border border-border bg-card p-3 text-sm shadow-sm cursor-grab touch-none ${isDragging ? "opacity-70 z-50 relative" : ""}`}>
+      className={`rounded-lg border border-border bg-card p-3 text-sm shadow-sm cursor-grab touch-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${isDragging ? "opacity-70 z-50 relative" : ""}`}>
       <div className="flex items-center justify-between gap-2">
         <p className="font-semibold truncate">{lead.name}</p>
         <Badge variant={priorityVariant(lead.priority)} className="text-[10px] capitalize">{lead.priority}</Badge>
       </div>
-      <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1"><Phone className="h-3 w-3" />{lead.phone}</p>
+      <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1"><Phone className="h-3 w-3" aria-hidden="true" />{lead.phone}</p>
       {lead.property_title && <p className="text-xs text-primary truncate mt-1">{lead.property_title}</p>}
       <div className="flex items-center justify-between mt-2 text-[10px] text-muted-foreground">
         <span className="truncate">{staffName || "Unassigned"}</span>
@@ -47,7 +47,7 @@ const LeadCard = ({ lead, onOpen, staffName }: { lead: Lead; onOpen: () => void;
 const Column = ({ id, label, children, count }: { id: string; label: string; children: React.ReactNode; count: number }) => {
   const { setNodeRef, isOver } = useDroppable({ id });
   return (
-    <div ref={setNodeRef} className={`w-72 shrink-0 rounded-xl p-2 transition-colors ${isOver ? "bg-primary/10" : "bg-muted/50"}`}>
+    <div ref={setNodeRef} role="region" aria-label={`${label} stage, ${count} leads`} className={`w-72 shrink-0 rounded-xl p-2 transition-colors ${isOver ? "bg-primary/10" : "bg-muted/50"}`}>
       <div className="flex items-center justify-between px-1 pb-2">
         <h3 className="font-semibold text-sm">{label}</h3>
         <Badge variant="outline">{count}</Badge>
@@ -64,7 +64,7 @@ const AdminCRM = () => {
   const [stage, setStage] = useState("all");
   const [openId, setOpenId] = useState<string | null>(null);
   const { toast } = useToast();
-  const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }), useSensor(TouchSensor, { activationConstraint: { delay: 200, tolerance: 6 } }));
+  const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }), useSensor(TouchSensor, { activationConstraint: { delay: 200, tolerance: 6 } }), useSensor(KeyboardSensor));
 
   const load = async () => {
     const [l, s] = await Promise.all([
@@ -129,7 +129,7 @@ const AdminCRM = () => {
             {PIPELINE_STAGES.map((s) => <SelectItem key={s.id} value={s.id}>{s.label}</SelectItem>)}
           </SelectContent>
         </Select>
-        <Button variant="outline" onClick={exportCSV}><Download className="h-4 w-4 mr-1" />Export CSV</Button>
+        <Button variant="outline" onClick={exportCSV}><Download className="h-4 w-4 mr-1" aria-hidden="true" />Export CSV</Button>
       </div>
 
       <Tabs defaultValue="pipeline">
@@ -160,7 +160,7 @@ const AdminCRM = () => {
               <TableHeader><TableRow><TableHead>Name</TableHead><TableHead>Phone</TableHead><TableHead>Property</TableHead><TableHead>Stage</TableHead><TableHead>Priority</TableHead><TableHead>Assigned</TableHead><TableHead>Created</TableHead></TableRow></TableHeader>
               <TableBody>
                 {filtered.map((l) => (
-                  <TableRow key={l.id} className="cursor-pointer" onClick={() => setOpenId(l.id)}>
+                  <TableRow key={l.id} className="cursor-pointer focus-visible:outline-none focus-visible:bg-muted" onClick={() => setOpenId(l.id)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setOpenId(l.id); } }} aria-label={`Open lead ${l.name}`}>
                     <TableCell className="font-medium">{l.name}</TableCell>
                     <TableCell>{l.phone}</TableCell>
                     <TableCell className="max-w-[180px] truncate">{l.property_title || "—"}</TableCell>
@@ -181,14 +181,14 @@ const AdminCRM = () => {
           {followUps.map((l) => {
             const overdue = followUpBucket(l.follow_up_at) === "overdue";
             return (
-              <Card key={l.id} className="cursor-pointer" onClick={() => setOpenId(l.id)}>
+              <Card key={l.id} className="cursor-pointer focus-visible:ring-2 focus-visible:ring-ring" onClick={() => setOpenId(l.id)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setOpenId(l.id); } }} aria-label={`Open lead ${l.name}`}>
                 <CardContent className="p-3 flex items-center justify-between gap-3">
                   <div className="min-w-0">
                     <p className="font-semibold text-sm">{l.name} <span className="text-muted-foreground font-normal">· {l.phone}</span></p>
                     <p className="text-xs text-muted-foreground truncate">{stageLabel(normalizeStage(l.status))} · {l.property_title || l.message || ""}</p>
                   </div>
                   <span className={`text-xs whitespace-nowrap flex items-center gap-1 ${overdue ? "text-destructive font-semibold" : ""}`}>
-                    {overdue && <AlertCircle className="h-3 w-3" />}{new Date(l.follow_up_at!).toLocaleString()}
+                    {overdue && <AlertCircle className="h-3 w-3" aria-hidden="true" />}{new Date(l.follow_up_at!).toLocaleString()}
                   </span>
                 </CardContent>
               </Card>

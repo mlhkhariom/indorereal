@@ -52,34 +52,34 @@ const Properties = () => {
   }, [properties, location, type, budget, status, searchQuery]);
 
   const hasFilters = location || type || budget || status;
-  const selectClass = "w-full h-11 rounded-xl bg-muted/60 border border-border px-4 text-sm font-body text-foreground focus:outline-none focus:ring-2 focus:ring-secondary/40 appearance-none cursor-pointer";
+  const selectClass = "w-full h-11 rounded-xl bg-muted/60 border border-border px-4 text-sm font-body text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus:ring-2 focus:ring-secondary/40 appearance-none cursor-pointer";
 
   const FilterControls = () => (
     <div className="space-y-5">
       <div>
         <label className="text-xs font-heading font-semibold text-foreground mb-1.5 block uppercase tracking-wider">Location</label>
-        <select value={location} onChange={(e) => updateFilter("location", e.target.value)} className={selectClass}>
+        <select aria-label="Location" value={location} onChange={(e) => updateFilter("location", e.target.value)} className={selectClass}>
           <option value="">All Locations</option>
           {locations.map((l) => <option key={l.id} value={l.name}>{l.name}</option>)}
         </select>
       </div>
       <div>
         <label className="text-xs font-heading font-semibold text-foreground mb-1.5 block uppercase tracking-wider">Property Type</label>
-        <select value={type} onChange={(e) => updateFilter("type", e.target.value)} className={selectClass}>
+        <select aria-label="Property type" value={type} onChange={(e) => updateFilter("type", e.target.value)} className={selectClass}>
           <option value="">All Types</option>
           {PROPERTY_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
         </select>
       </div>
       <div>
         <label className="text-xs font-heading font-semibold text-foreground mb-1.5 block uppercase tracking-wider">Budget</label>
-        <select value={budget} onChange={(e) => updateFilter("budget", e.target.value)} className={selectClass}>
+        <select aria-label="Budget range" value={budget} onChange={(e) => updateFilter("budget", e.target.value)} className={selectClass}>
           <option value="">Any Budget</option>
           {BUDGET_RANGES.map((b) => <option key={b.label} value={b.label}>{b.label}</option>)}
         </select>
       </div>
       <div>
         <label className="text-xs font-heading font-semibold text-foreground mb-1.5 block uppercase tracking-wider">Status</label>
-        <select value={status} onChange={(e) => updateFilter("status", e.target.value)} className={selectClass}>
+        <select aria-label="Buy or rent" value={status} onChange={(e) => updateFilter("status", e.target.value)} className={selectClass}>
           <option value="">All</option>
           <option value="Sale">For Sale</option>
           <option value="Rent">For Rent</option>
@@ -124,18 +124,18 @@ const Properties = () => {
         schema={propertySchema}
       />
       <Header />
-      <main className="flex-1 bg-muted">
+      <main id="main" className="outline-none flex-1 bg-muted">
         <div className="navy-gradient pt-28 pb-10">
           <div className="container mx-auto px-4 lg:px-8">
             <nav className="flex items-center gap-1.5 text-sm text-primary-foreground/50 mb-4">
               <Link to="/" className="hover:text-secondary transition-colors flex items-center gap-1">
-                <Home className="h-3.5 w-3.5" /> Home
+                <Home className="h-3.5 w-3.5" aria-hidden="true" /> Home
               </Link>
-              <ChevronRight className="h-3.5 w-3.5" />
+              <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
               <span className="text-primary-foreground">Properties</span>
               {location && (
                 <>
-                  <ChevronRight className="h-3.5 w-3.5" />
+                  <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
                   <span className="text-secondary">{location}</span>
                 </>
               )}
@@ -148,10 +148,10 @@ const Properties = () => {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-primary-foreground/40" />
               <input
                 type="text"
-                placeholder="Search by property name or location..."
+                placeholder="Search by property name or location..." aria-label="Search by property name or location..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-12 rounded-xl bg-primary-foreground/10 border border-primary-foreground/20 pl-11 pr-4 text-sm text-primary-foreground placeholder:text-primary-foreground/40 focus:outline-none focus:ring-2 focus:ring-secondary/50 backdrop-blur-sm"
+                className="w-full h-12 rounded-xl bg-primary-foreground/10 border border-primary-foreground/20 pl-11 pr-4 text-sm text-primary-foreground placeholder:text-primary-foreground/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus:ring-2 focus:ring-secondary/50 backdrop-blur-sm"
               />
             </div>
           </div>
@@ -159,7 +159,7 @@ const Properties = () => {
         <div className="container mx-auto px-4 lg:px-8 py-8 sm:py-10">
           <div className="lg:hidden mb-6">
             <Button variant="outline" onClick={() => setShowFilters(!showFilters)} className="w-full rounded-xl h-11">
-              <SlidersHorizontal className="h-4 w-4 mr-2" />
+              <SlidersHorizontal className="h-4 w-4 mr-2" aria-hidden="true" />
               {showFilters ? "Hide Filters" : "Show Filters"}
             </Button>
             {showFilters && (
@@ -171,7 +171,7 @@ const Properties = () => {
             <aside className="hidden lg:block w-72 flex-shrink-0">
               <div className="card-elevated p-6 sticky top-24">
                 <h3 className="font-heading font-bold text-foreground text-sm uppercase tracking-wider mb-5 flex items-center gap-2">
-                  <SlidersHorizontal className="h-4 w-4 text-secondary" /> Filters
+                  <SlidersHorizontal className="h-4 w-4 text-secondary" aria-hidden="true" /> Filters
                 </h3>
                 <FilterControls />
               </div>

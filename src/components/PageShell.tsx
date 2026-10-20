@@ -13,12 +13,12 @@ const PageShell = ({ title, subtitle, seoTitle, seoDescription, path, children }
   <div className="min-h-screen flex flex-col">
     <SEOHead title={seoTitle} description={seoDescription} canonical={`https://indorerealty.in${path}`} />
     <Header />
-    <main className="flex-1 bg-muted/40">
+    <main id="main" className="outline-none flex-1 bg-muted/40">
       <section className="navy-gradient pt-28 pb-12">
         <div className="container mx-auto px-4 lg:px-8">
           <nav className="flex items-center gap-1.5 text-sm text-primary-foreground/60 mb-4">
-            <Link to="/" className="hover:text-secondary flex items-center gap-1"><Home className="h-3.5 w-3.5" /> Home</Link>
-            <ChevronRight className="h-3.5 w-3.5" /><span className="text-primary-foreground">{title}</span>
+            <Link to="/" className="hover:text-secondary flex items-center gap-1"><Home className="h-3.5 w-3.5" aria-hidden="true" /> Home</Link>
+            <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" /><span className="text-primary-foreground">{title}</span>
           </nav>
           <h1 className="font-heading text-3xl md:text-5xl font-bold text-primary-foreground">{title}</h1>
           {subtitle && <p className="text-primary-foreground/70 mt-3 max-w-2xl">{subtitle}</p>}

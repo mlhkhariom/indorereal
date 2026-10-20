@@ -136,7 +136,7 @@ const AdminHomepage = () => {
       <div className="flex items-center justify-between flex-wrap gap-3">
         <h2 className="text-lg font-bold">Homepage Content Manager</h2>
         <Button className="btn-gold" onClick={handleSave} disabled={saving}>
-          <Save className="h-4 w-4 mr-1" /> {saving ? "Saving..." : "Save Changes"}
+          <Save className="h-4 w-4 mr-1" aria-hidden="true" /> {saving ? "Saving..." : "Save Changes"}
         </Button>
       </div>
 
@@ -149,7 +149,7 @@ const AdminHomepage = () => {
               className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
                 activeSection === s.key ? "bg-primary text-primary-foreground" : "bg-card border border-border text-muted-foreground hover:text-foreground"
               }`}>
-              <Icon className="h-4 w-4" /> {s.label}
+              <Icon className="h-4 w-4" aria-hidden="true" /> {s.label}
               <span className="text-xs opacity-60">({items.filter(i => i.section === s.key).length})</span>
             </button>
           );
@@ -163,11 +163,11 @@ const AdminHomepage = () => {
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center justify-between text-sm">
                 <span className="flex items-center gap-2">
-                  <GripVertical className="h-4 w-4 text-muted-foreground" />
+                  <GripVertical className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
                   {config.label} #{idx + 1}
                 </span>
                 <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive" onClick={() => removeItem(idx)}>
-                  <Trash2 className="h-4 w-4" />
+                  <Trash2 className="h-4 w-4" aria-hidden="true" />
                 </Button>
               </CardTitle>
             </CardHeader>
@@ -194,7 +194,7 @@ const AdminHomepage = () => {
       </div>
 
       <Button variant="outline" className="w-full rounded-xl" onClick={addItem}>
-        <Plus className="h-4 w-4 mr-1" /> Add {config.label} Item
+        <Plus className="h-4 w-4 mr-1" aria-hidden="true" /> Add {config.label} Item
       </Button>
     </div>
   );

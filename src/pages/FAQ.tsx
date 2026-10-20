@@ -82,15 +82,15 @@ const FAQ = () => {
         schema={faqSchema}
       />
       <Header />
-      <main className="flex-1">
+      <main id="main" className="outline-none flex-1">
         <section className="navy-gradient pt-28 pb-16 relative overflow-hidden">
           <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-secondary/10 blur-[100px]" />
           <div className="container mx-auto px-4 lg:px-8 relative">
             <nav className="flex items-center gap-1.5 text-sm text-primary-foreground/50 mb-6">
               <Link to="/" className="hover:text-secondary transition-colors flex items-center gap-1">
-                <Home className="h-3.5 w-3.5" /> Home
+                <Home className="h-3.5 w-3.5" aria-hidden="true" /> Home
               </Link>
-              <ChevronRight className="h-3.5 w-3.5" />
+              <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
               <span className="text-primary-foreground">FAQ</span>
             </nav>
             <ScrollReveal>
@@ -137,16 +137,12 @@ const FAQ = () => {
               <h2 className="section-title">Still Have Questions?</h2>
               <p className="section-subtitle">Our team is always ready to help. Reach out to us anytime.</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-                <a href={contact.tel}>
-                  <button className="btn-gold px-8 py-3.5 rounded-xl text-sm inline-flex items-center gap-2 w-full sm:w-auto justify-center">
-                    <Phone className="h-4 w-4" /> Call Us Now
-                  </button>
-                </a>
-                <a href={contact.wa} target="_blank" rel="noopener noreferrer">
-                  <button className="px-8 py-3.5 rounded-xl border-2 border-primary text-primary font-heading font-semibold text-sm hover:bg-primary hover:text-primary-foreground transition-all inline-flex items-center gap-2 w-full sm:w-auto justify-center">
-                    <MessageCircle className="h-4 w-4" /> WhatsApp
-                  </button>
-                </a>
+                <a href={contact.tel} className="btn-gold px-8 py-3.5 rounded-xl text-sm inline-flex items-center gap-2 w-full inline-flex sm:w-auto justify-center">
+                    <Phone className="h-4 w-4" aria-hidden="true" /> Call Us Now
+                  </a>
+                <a href={contact.wa} target="_blank" rel="noopener noreferrer" className="px-8 py-3.5 rounded-xl border-2 border-primary text-primary font-heading font-semibold text-sm hover:bg-primary hover:text-primary-foreground transition-all inline-flex items-center gap-2 w-full inline-flex sm:w-auto justify-center">
+                    <MessageCircle className="h-4 w-4" aria-hidden="true" /> WhatsApp
+                  </a>
               </div>
             </ScrollReveal>
           </div>

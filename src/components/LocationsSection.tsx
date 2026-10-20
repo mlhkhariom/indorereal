@@ -31,7 +31,7 @@ const LocationsSection = () => {
                   <div className="flex items-end justify-between">
                     <div>
                       <h3 className="font-heading font-bold text-primary-foreground text-sm sm:text-lg md:text-xl flex items-center gap-1.5 sm:gap-2">
-                        <MapPin className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-secondary" /> {loc.name}
+                        <MapPin className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-secondary" aria-hidden="true" /> {loc.name}
                       </h3>
                       <p className="text-primary-foreground/50 text-xs sm:text-sm mt-0.5 hidden sm:block">{loc.description}</p>
                       <span className="inline-block mt-1.5 sm:mt-2 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-secondary/20 text-secondary text-[10px] sm:text-xs font-semibold border border-secondary/20">
@@ -39,7 +39,7 @@ const LocationsSection = () => {
                       </span>
                     </div>
                     <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-primary-foreground/10 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all translate-y-3 group-hover:translate-y-0 flex-shrink-0 hidden sm:flex">
-                      <ArrowUpRight className="h-4 w-4 sm:h-5 sm:w-5 text-primary-foreground" />
+                      <ArrowUpRight className="h-4 w-4 sm:h-5 sm:w-5 text-primary-foreground" aria-hidden="true" />
                     </div>
                   </div>
                 </div>

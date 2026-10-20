@@ -25,16 +25,12 @@ const CTABanner = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
-                <a href={contact.tel}>
-                  <button className="btn-gold px-10 py-4 rounded-xl text-base inline-flex items-center gap-2 w-full sm:w-auto justify-center">
-                    <Phone className="h-5 w-5" /> Call Now — Free Consultation
-                  </button>
-                </a>
-                <a href={contact.wa} target="_blank" rel="noopener noreferrer">
-                  <button className="glass-card px-10 py-4 rounded-xl text-base text-primary-foreground/80 inline-flex items-center gap-2 hover:bg-primary-foreground/10 transition-all w-full sm:w-auto justify-center">
-                    <MessageCircle className="h-5 w-5" /> Chat on WhatsApp <ArrowRight className="h-4 w-4" />
-                  </button>
-                </a>
+                <a href={contact.tel} className="btn-gold px-10 py-4 rounded-xl text-base inline-flex items-center gap-2 w-full inline-flex sm:w-auto justify-center">
+                    <Phone className="h-5 w-5" aria-hidden="true" /> Call Now — Free Consultation
+                  </a>
+                <a href={contact.wa} target="_blank" rel="noopener noreferrer" className="glass-card px-10 py-4 rounded-xl text-base text-primary-foreground/80 inline-flex items-center gap-2 hover:bg-primary-foreground/10 transition-all w-full inline-flex sm:w-auto justify-center">
+                    <MessageCircle className="h-5 w-5" aria-hidden="true" /> Chat on WhatsApp <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  </a>
               </div>
 
               {/* Trust badges */}

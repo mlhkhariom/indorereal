@@ -57,16 +57,16 @@ const Services = () => {
     <div className="min-h-screen flex flex-col">
       <SEOHead title="Real Estate Services in Indore — Buy, Sell, Rent Properties" description="Explore Indore Realty's comprehensive real estate services — property search, legal assistance, home loans, vastu consultation, interior design & property management in Indore." keywords="real estate services Indore, property services, home loan assistance, vastu consultation, property management Indore" canonical="https://indorerealty.in/services" />
       <Header />
-      <main className="flex-1">
+      <main id="main" className="outline-none flex-1">
         {/* Hero */}
         <section className="navy-gradient pt-28 pb-16 relative overflow-hidden">
           <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-secondary/10 blur-[100px]" />
           <div className="container mx-auto px-4 lg:px-8 relative">
             <nav className="flex items-center gap-1.5 text-sm text-primary-foreground/50 mb-6">
               <Link to="/" className="hover:text-secondary transition-colors flex items-center gap-1">
-                <Home className="h-3.5 w-3.5" /> Home
+                <Home className="h-3.5 w-3.5" aria-hidden="true" /> Home
               </Link>
-              <ChevronRight className="h-3.5 w-3.5" />
+              <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
               <span className="text-primary-foreground">Our Services</span>
             </nav>
             <ScrollReveal>
@@ -145,13 +145,11 @@ const Services = () => {
                     Every property journey is unique. Talk to our experts for personalized guidance.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-                    <a href={contact.tel}>
-                      <button className="btn-gold px-8 py-3.5 rounded-xl text-sm inline-flex items-center gap-2 w-full sm:w-auto justify-center">
-                        <Phone className="h-4 w-4" /> Free Consultation
-                      </button>
-                    </a>
+                    <a href={contact.tel} className="btn-gold px-8 py-3.5 rounded-xl text-sm inline-flex items-center gap-2 w-full inline-flex sm:w-auto justify-center">
+                        <Phone className="h-4 w-4" aria-hidden="true" /> Free Consultation
+                      </a>
                     <Link to="/contact" className="glass-card px-8 py-3.5 rounded-xl text-sm text-primary-foreground/80 inline-flex items-center gap-2 hover:bg-primary-foreground/10 transition-all justify-center">
-                      Contact Us <ArrowRight className="h-4 w-4" />
+                      Contact Us <ArrowRight className="h-4 w-4" aria-hidden="true" />
                     </Link>
                   </div>
                 </div>

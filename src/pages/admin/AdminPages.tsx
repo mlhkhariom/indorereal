@@ -52,7 +52,7 @@ const AdminPages = () => {
         ))}
         <div className="pt-3 text-xs text-muted-foreground space-y-2 px-1">
           <p>FAQ and Job openings are edited under <Link to="/admin/homepage" className="text-secondary underline">Homepage → FAQ / Jobs</Link>.</p>
-          <p className="flex items-center gap-1"><HelpCircle className="h-3 w-3" /><Briefcase className="h-3 w-3" /></p>
+          <p className="flex items-center gap-1"><HelpCircle className="h-3 w-3" aria-hidden="true" /><Briefcase className="h-3 w-3" aria-hidden="true" /></p>
         </div>
       </div>
       {row && (
@@ -61,8 +61,8 @@ const AdminPages = () => {
             <div className="flex items-center justify-between gap-2">
               <p className="text-xs text-muted-foreground">Leave the content empty to keep the built-in designed page.</p>
               <div className="flex gap-2">
-                <a href={`/${active}`} target="_blank" rel="noreferrer"><Button variant="outline" size="sm"><ExternalLink className="h-4 w-4 mr-1" />View</Button></a>
-                <Button size="sm" className="btn-gold" onClick={save} disabled={saving}><Save className="h-4 w-4 mr-1" />{saving ? "Saving…" : "Save"}</Button>
+                <Button asChild variant="outline" size="sm"><a href={`/${active}`} target="_blank" rel="noreferrer"><ExternalLink className="h-4 w-4 mr-1" aria-hidden="true" />View<span className="sr-only"> (opens in new tab)</span></a></Button>
+                <Button size="sm" className="btn-gold" onClick={save} disabled={saving}><Save className="h-4 w-4 mr-1" aria-hidden="true" />{saving ? "Saving…" : "Save"}</Button>
               </div>
             </div>
             <div><Label>Page heading</Label><Input value={row.title} onChange={(e) => set({ title: e.target.value })} /></div>

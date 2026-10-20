@@ -13,7 +13,7 @@ const Wishlist = () => {
     <PageShell title="My Wishlist" subtitle="Properties you saved on this device." seoTitle="My Wishlist | Indore Realty" seoDescription="Your saved properties in Indore." path="/wishlist">
       {!isLoading && items.length === 0 ? (
         <div className="text-center py-16">
-          <Heart className="h-12 w-12 mx-auto text-muted-foreground/40" />
+          <Heart className="h-12 w-12 mx-auto text-muted-foreground/40" aria-hidden="true" />
           <p className="mt-4 text-muted-foreground">No saved properties yet. Tap the heart on any property to save it.</p>
           <Link to="/properties" className="btn-gold inline-block mt-6 px-6 py-3 rounded-xl text-sm">Browse Properties</Link>
         </div>

@@ -90,7 +90,7 @@ const AdminDashboard = () => {
       </div>
       <div className="grid lg:grid-cols-2 gap-4">
         <Card>
-          <CardHeader><CardTitle className="text-base flex items-center gap-2"><Eye className="h-4 w-4" />Most viewed properties</CardTitle></CardHeader>
+          <CardHeader><CardTitle className="text-base flex items-center gap-2"><Eye className="h-4 w-4" aria-hidden="true" />Most viewed properties</CardTitle></CardHeader>
           <CardContent className="space-y-2">
             {topProps.map((p) => (
               <div key={p.id} className="flex items-center justify-between text-sm gap-2">

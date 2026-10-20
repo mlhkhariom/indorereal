@@ -58,7 +58,7 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
           <button type="button" aria-label="Add to compare"
             onClick={(e) => { stop(e); if (!cmp.toggle(property.id)) toast({ title: `You can compare up to ${COMPARE_MAX} properties` }); }}
             className={`h-9 w-9 rounded-full backdrop-blur flex items-center justify-center shadow-md hover:scale-110 transition-transform ${cmp.has(property.id) ? "bg-secondary text-secondary-foreground" : "bg-background/90 text-foreground"}`}>
-            <GitCompare className="h-4 w-4" />
+            <GitCompare className="h-4 w-4" aria-hidden="true" />
           </button>
         </div>
       </div>
@@ -68,17 +68,17 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
           {property.title}
         </h3>
         <p className="flex items-center gap-1.5 text-muted-foreground text-sm mt-1.5">
-          <MapPin className="h-3.5 w-3.5 text-secondary" /> {property.location}, Indore
+          <MapPin className="h-3.5 w-3.5 text-secondary" aria-hidden="true" /> {property.location}, Indore
         </p>
 
         <div className="flex items-center gap-4 mt-4 pt-4 border-t border-border text-xs text-muted-foreground font-medium">
           {property.bedrooms > 0 && (
             <span className="flex items-center gap-1.5">
-              <Bed className="h-3.5 w-3.5 text-navy-light" /> {property.bedrooms} BHK
+              <Bed className="h-3.5 w-3.5 text-navy-light" aria-hidden="true" /> {property.bedrooms} BHK
             </span>
           )}
           <span className="flex items-center gap-1.5">
-            <Maximize className="h-3.5 w-3.5 text-navy-light" /> {property.area} {property.area_unit}
+            <Maximize className="h-3.5 w-3.5 text-navy-light" aria-hidden="true" /> {property.area} {property.area_unit}
           </span>
           <span className="ml-auto px-2.5 py-1 rounded-md bg-muted text-muted-foreground text-[11px] font-semibold uppercase">
             {property.type}

@@ -29,12 +29,12 @@ const PropertyGallery = ({ images, title }: { images: string[]; title: string })
         </div>
         {list.length > 1 && (
           <>
-            <button aria-label="Previous photo" onClick={() => embla?.scrollPrev()} className="absolute left-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-background/90 flex items-center justify-center shadow"><ChevronLeft className="h-5 w-5" /></button>
-            <button aria-label="Next photo" onClick={() => embla?.scrollNext()} className="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-background/90 flex items-center justify-center shadow"><ChevronRight className="h-5 w-5" /></button>
+            <button aria-label="Previous photo" onClick={() => embla?.scrollPrev()} className="absolute left-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-background/90 flex items-center justify-center shadow"><ChevronLeft className="h-5 w-5" aria-hidden="true" /></button>
+            <button aria-label="Next photo" onClick={() => embla?.scrollNext()} className="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-background/90 flex items-center justify-center shadow"><ChevronRight className="h-5 w-5" aria-hidden="true" /></button>
           </>
         )}
         <button onClick={() => setOpen(true)} className="absolute bottom-3 right-3 rounded-lg bg-background/90 px-3 py-1.5 text-xs font-semibold flex items-center gap-1 shadow">
-          <Expand className="h-3.5 w-3.5" /> {index + 1} / {list.length}
+          <Expand className="h-3.5 w-3.5" aria-hidden="true" /> {index + 1} / {list.length}
         </button>
       </div>
       {list.length > 1 && (

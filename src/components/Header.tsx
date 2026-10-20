@@ -51,7 +51,7 @@ const Header = () => {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${headerBg}`}>
       <div className="container mx-auto flex items-center justify-between py-3 lg:py-4 px-4 lg:px-8">
-        <Link to="/" className="flex items-center gap-2.5 group flex-shrink-0">
+        <Link to="/" aria-label="Indore Realty home" className="flex items-center gap-2.5 group flex-shrink-0">
           <img src="/logo.png" alt="Indore Realty Logo" className="h-9 w-9 lg:h-10 lg:w-10 rounded-xl shadow-md group-hover:scale-105 transition-transform object-contain" />
           <div className="min-w-0">
             <span className="font-heading text-base lg:text-lg font-bold text-primary-foreground leading-none block">
@@ -64,12 +64,15 @@ const Header = () => {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-1" ref={dropdownRef}>
+        <nav aria-label="Main menu" className="hidden lg:flex items-center gap-1" ref={dropdownRef} onKeyDown={(e) => { if (e.key === "Escape") setDropdownOpen(null); }}>
           {mainLinks.map((link) =>
             link.children ? (
               <div key={link.label} className="relative">
                 <button
                   onClick={() => setDropdownOpen(dropdownOpen === link.label ? null : link.label)}
+                  aria-expanded={dropdownOpen === link.label}
+                  aria-haspopup="true"
+                  onKeyDown={(e) => { if (e.key === "Escape") setDropdownOpen(null); }}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 inline-flex items-center gap-1 ${
                     link.children.some((c) => location.pathname === c.path)
                       ? "text-secondary bg-secondary/10"
@@ -85,6 +88,7 @@ const Header = () => {
                       <Link
                         key={child.path}
                         to={child.path}
+                aria-current={location.pathname === child.path ? "page" : undefined}
                         className={`block px-4 py-2.5 text-sm transition-colors ${
                           location.pathname === child.path
                             ? "text-secondary bg-secondary/5 font-medium"
@@ -101,6 +105,7 @@ const Header = () => {
               <Link
                 key={link.path}
                 to={link.path!}
+                aria-current={location.pathname === link.path ? "page" : undefined}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   location.pathname === link.path
                     ? "text-secondary bg-secondary/10"
@@ -115,42 +120,40 @@ const Header = () => {
 
         <div className="hidden lg:flex items-center gap-3">
           <Link to="/wishlist" aria-label="Wishlist" className="relative h-10 w-10 rounded-xl flex items-center justify-center text-primary-foreground/80 hover:bg-primary-foreground/10">
-            <Heart className="h-5 w-5" />
+            <Heart className="h-5 w-5" aria-hidden="true" />
             {wish.ids.length > 0 && <span className="absolute -top-0.5 -right-0.5 h-5 min-w-5 px-1 rounded-full bg-secondary text-secondary-foreground text-[10px] font-bold flex items-center justify-center">{wish.ids.length}</span>}
           </Link>
-          <a href={contact.wa} target="_blank" rel="noopener noreferrer">
-            <Button
+          <Button asChild
               size="sm"
               variant="outline"
-              className="bg-transparent border-primary-foreground/20 text-primary-foreground/80 hover:bg-primary-foreground/10 hover:text-primary-foreground rounded-xl h-10 px-5"
-            >
+              className="bg-transparent border-primary-foreground/20 text-primary-foreground/80 hover:bg-primary-foreground/10 hover:text-primary-foreground rounded-xl h-10 px-5"><a href={contact.wa} target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" className="h-4 w-4 mr-2 fill-current"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
               WhatsApp
-            </Button>
-          </a>
-          <a href={contact.tel}>
-            <Button size="sm" className="btn-gold rounded-xl h-10 px-6">
-              <Phone className="h-4 w-4 mr-2" /> Call Now
-            </Button>
-          </a>
+            </a></Button>
+          <Button asChild size="sm" className="btn-gold rounded-xl h-10 px-6"><a href={contact.tel}>
+              <Phone className="h-4 w-4 mr-2" aria-hidden="true" /> Call Now
+            </a></Button>
         </div>
 
         <button
           className="lg:hidden text-primary-foreground p-2"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-nav"
           onClick={() => setMobileOpen(!mobileOpen)}
         >
-          {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" aria-hidden="true" />}
         </button>
       </div>
 
       {/* Mobile Nav */}
       {mobileOpen && (
-        <div className="lg:hidden navy-gradient border-t border-primary-foreground/10 px-4 pb-5 animate-fade-in max-h-[70vh] overflow-y-auto">
+        <nav id="mobile-nav" aria-label="Mobile menu" className="lg:hidden navy-gradient border-t border-primary-foreground/10 px-4 pb-5 animate-fade-in max-h-[70vh] overflow-y-auto">
           {allMobileLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
+                aria-current={location.pathname === link.path ? "page" : undefined}
               onClick={() => setMobileOpen(false)}
               className={`block py-3 text-sm font-medium border-b border-primary-foreground/5 ${
                 location.pathname === link.path ? "text-secondary" : "text-primary-foreground/75"
@@ -160,18 +163,14 @@ const Header = () => {
             </Link>
           ))}
           <div className="flex gap-3 mt-5">
-            <a href={contact.tel} className="flex-1">
-              <Button className="w-full btn-gold rounded-xl h-11">
-                <Phone className="h-4 w-4 mr-2" /> Call Now
-              </Button>
-            </a>
-            <a href={contact.wa} target="_blank" rel="noopener noreferrer" className="flex-1">
-              <Button variant="outline" className="w-full bg-transparent border-primary-foreground/20 text-primary-foreground rounded-xl h-11">
+            <Button asChild className="w-full btn-gold rounded-xl h-11"><a href={contact.tel} className="flex-1">
+                <Phone className="h-4 w-4 mr-2" aria-hidden="true" /> Call Now
+              </a></Button>
+            <Button asChild variant="outline" className="w-full bg-transparent border-primary-foreground/20 text-primary-foreground rounded-xl h-11"><a href={contact.wa} target="_blank" rel="noopener noreferrer" className="flex-1">
                 WhatsApp
-              </Button>
-            </a>
+              </a></Button>
           </div>
-        </div>
+        </nav>
       )}
     </header>
   );

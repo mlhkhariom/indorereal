@@ -30,16 +30,16 @@ const Careers = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-1">
+      <main id="main" className="outline-none flex-1">
         {/* Hero */}
         <section className="navy-gradient pt-28 pb-16 relative overflow-hidden">
           <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-secondary/10 blur-[100px]" />
           <div className="container mx-auto px-4 lg:px-8 relative">
             <nav className="flex items-center gap-1.5 text-sm text-primary-foreground/50 mb-6">
               <Link to="/" className="hover:text-secondary transition-colors flex items-center gap-1">
-                <Home className="h-3.5 w-3.5" /> Home
+                <Home className="h-3.5 w-3.5" aria-hidden="true" /> Home
               </Link>
-              <ChevronRight className="h-3.5 w-3.5" />
+              <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
               <span className="text-primary-foreground">Careers</span>
             </nav>
             <ScrollReveal>
@@ -96,18 +96,16 @@ const Careers = () => {
                     <div>
                       <h3 className="font-heading font-bold text-foreground text-lg">{job.title}</h3>
                       <div className="flex flex-wrap items-center gap-3 mt-2 text-sm text-muted-foreground">
-                        <span className="flex items-center gap-1"><MapPin className="h-3.5 w-3.5 text-secondary" /> {job.location}</span>
-                        <span className="flex items-center gap-1"><Briefcase className="h-3.5 w-3.5 text-secondary" /> {job.type}</span>
-                        <span className="flex items-center gap-1"><Clock className="h-3.5 w-3.5 text-secondary" /> {job.experience}</span>
+                        <span className="flex items-center gap-1"><MapPin className="h-3.5 w-3.5 text-secondary" aria-hidden="true" /> {job.location}</span>
+                        <span className="flex items-center gap-1"><Briefcase className="h-3.5 w-3.5 text-secondary" aria-hidden="true" /> {job.type}</span>
+                        <span className="flex items-center gap-1"><Clock className="h-3.5 w-3.5 text-secondary" aria-hidden="true" /> {job.experience}</span>
                       </div>
                       <span className="inline-block mt-2 px-3 py-1 rounded-full bg-secondary/10 text-secondary text-xs font-semibold">
                         {job.department}
                       </span>
                     </div>
-                    <a href={`mailto:careers@indorerealty.in?subject=Application for ${job.title}`}>
-                      <button className="btn-gold px-6 py-2.5 rounded-xl text-sm inline-flex items-center gap-2 whitespace-nowrap">
-                        <Send className="h-4 w-4" /> Apply Now
-                      </button>
+                    <a href={`mailto:careers@indorerealty.in?subject=Application for ${job.title}`} className="btn-gold px-6 py-2.5 rounded-xl text-sm inline-flex items-center gap-2 whitespace-nowrap">
+                      <Send className="h-4 w-4" aria-hidden="true" /> Apply Now<span className="sr-only"> for {job.title}</span>
                     </a>
                   </div>
                 </ScrollReveal>

@@ -23,7 +23,7 @@ const Footer = () => {
             <p className="text-primary-foreground/60 text-sm mt-1">Get expert guidance from Indore's #1 real estate team</p>
           </div>
           <Link to="/properties" className="btn-gold px-8 py-3 rounded-xl text-sm inline-flex items-center gap-2">
-            Explore Properties <ArrowRight className="h-4 w-4" />
+            Explore Properties <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
         </div>
 
@@ -60,7 +60,7 @@ const Footer = () => {
               {quickLinks.map((l) => (
                 <li key={l.label}>
                   <Link to={l.path} className="text-sm text-primary-foreground/60 hover:text-secondary transition-colors inline-flex items-center gap-1.5 group">
-                    <ArrowRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                    <ArrowRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" aria-hidden="true" />
                     {l.label}
                   </Link>
                 </li>
@@ -75,7 +75,7 @@ const Footer = () => {
               {usefulLinks.map((l) => (
                 <li key={l.label}>
                   <Link to={l.path} className="text-sm text-primary-foreground/60 hover:text-secondary transition-colors inline-flex items-center gap-1.5 group">
-                    <ArrowRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                    <ArrowRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" aria-hidden="true" />
                     {l.label}
                   </Link>
                 </li>
@@ -86,7 +86,7 @@ const Footer = () => {
                   {(locs.length ? locs.slice(0, 5).map((l) => l.name) : ["Vijay Nagar", "Super Corridor", "Rau", "AB Road"]).map((loc) => (
                     <li key={loc}>
                       <Link to={`/area/${areaSlug(loc)}`} className="text-sm text-primary-foreground/60 hover:text-secondary transition-colors inline-flex items-center gap-1.5">
-                        <MapPin className="h-3 w-3 text-secondary/60" /> {loc}
+                        <MapPin className="h-3 w-3 text-secondary/60" aria-hidden="true" /> {loc}
                       </Link>
                     </li>
                   ))}
@@ -101,13 +101,13 @@ const Footer = () => {
             <ul className="space-y-4">
               <li className="flex items-start gap-3 text-sm text-primary-foreground/60">
                 <div className="h-9 w-9 rounded-lg bg-secondary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <MapPin className="h-4 w-4 text-secondary" />
+                  <MapPin className="h-4 w-4 text-secondary" aria-hidden="true" />
                 </div>
                 <span>{contact.address}</span>
               </li>
               <li className="flex items-center gap-3 text-sm text-primary-foreground/60">
                 <div className="h-9 w-9 rounded-lg bg-secondary/10 flex items-center justify-center flex-shrink-0">
-                  <Phone className="h-4 w-4 text-secondary" />
+                  <Phone className="h-4 w-4 text-secondary" aria-hidden="true" />
                 </div>
                 <div>
                   <a href={contact.tel} className="hover:text-secondary transition-colors block">{contact.phone}</a>
@@ -116,7 +116,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-3 text-sm text-primary-foreground/60">
                 <div className="h-9 w-9 rounded-lg bg-secondary/10 flex items-center justify-center flex-shrink-0">
-                  <Mail className="h-4 w-4 text-secondary" />
+                  <Mail className="h-4 w-4 text-secondary" aria-hidden="true" />
                 </div>
                 <a href={contact.mailto} className="hover:text-secondary transition-colors">{contact.email}</a>
               </li>

@@ -50,16 +50,16 @@ const AdminLayout = () => {
 
   return (
     <div className="min-h-screen bg-muted/20 flex">
-      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-card border-r border-border transform transition-transform lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
+      <aside aria-label="Admin sidebar" className={`fixed inset-y-0 left-0 z-50 w-64 bg-card border-r border-border transform transition-transform lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full invisible lg:visible"}`}>
         <div className="flex items-center gap-3 p-4 border-b border-border">
           <img loading="lazy" decoding="async" src="/logo.png" alt="Logo" className="h-9 w-9 rounded-lg" />
           <div>
             <p className="font-heading font-bold text-sm">Indore Realty</p>
             <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Admin Panel</p>
           </div>
-          <button className="lg:hidden ml-auto" onClick={() => setSidebarOpen(false)}><X className="h-5 w-5" /></button>
+          <button className="lg:hidden ml-auto p-2" aria-label="Close menu" onClick={() => setSidebarOpen(false)}><X className="h-5 w-5" /></button>
         </div>
-        <nav className="p-3 space-y-1 overflow-y-auto max-h-[calc(100vh-140px)]">
+        <nav aria-label="Admin menu" className="p-3 space-y-1 overflow-y-auto max-h-[calc(100vh-140px)]">
           {navGroups.filter((g) => !(userRole === "agent" && g.content)).map((g) => (
             <div key={g.title} className="pb-2">
               <p className="px-3 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70">{g.title}</p>
@@ -67,10 +67,10 @@ const AdminLayout = () => {
             const Icon = item.icon;
             const isActive = location.pathname === item.path;
             return (
-              <Link key={item.path} to={item.path}
+              <Link key={item.path} to={item.path} aria-current={isActive ? "page" : undefined}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${isActive ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}>
-                <Icon className="h-4 w-4" /> {item.label}
-                {isActive && <ChevronRight className="h-3 w-3 ml-auto" />}
+                <Icon className="h-4 w-4" aria-hidden="true" /> {item.label}
+                {isActive && <ChevronRight className="h-3 w-3 ml-auto" aria-hidden="true" />}
               </Link>
             );
           })}
@@ -82,17 +82,17 @@ const AdminLayout = () => {
             {user.email} <span className="text-primary font-medium">({userRole || "no role"})</span>
           </div>
           <Button variant="ghost" size="sm" className="w-full justify-start text-destructive hover:text-destructive" onClick={() => { signOut(); navigate("/admin/login"); }}>
-            <LogOut className="h-4 w-4 mr-2" /> Sign Out
+            <LogOut className="h-4 w-4 mr-2" aria-hidden="true" /> Sign Out
           </Button>
           <Link to="/" className="block text-xs text-center text-muted-foreground hover:text-foreground mt-2">← Back to Website</Link>
         </div>
       </aside>
 
-      {sidebarOpen && <div className="fixed inset-0 bg-black/50 z-40 lg:hidden" onClick={() => setSidebarOpen(false)} />}
+      {sidebarOpen && <div className="fixed inset-0 bg-black/50 z-40 lg:hidden" aria-hidden="true" onClick={() => setSidebarOpen(false)} />}
 
-      <main className="flex-1 lg:ml-64">
+      <main id="main" className="outline-none flex-1 lg:ml-64">
         <header className="bg-card border-b border-border px-4 py-3 flex items-center gap-3 sticky top-0 z-30">
-          <button className="lg:hidden" onClick={() => setSidebarOpen(true)}><Menu className="h-5 w-5" /></button>
+          <button className="lg:hidden p-2 -ml-2" aria-label="Open menu" aria-expanded={sidebarOpen} onClick={() => setSidebarOpen(true)}><Menu className="h-5 w-5" aria-hidden="true" /></button>
           <h1 className="font-heading font-bold text-base sm:text-lg truncate">
             {navItems.find((n) => n.path === location.pathname)?.label || "Admin"}
           </h1>

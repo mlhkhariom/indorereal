@@ -44,14 +44,14 @@ const ImageUploader = ({ value, onChange, folder = "properties" }: { value: stri
         onDrop={(e) => { e.preventDefault(); setDrag(false); upload(e.dataTransfer.files); }}
         onClick={() => input.current?.click()}
         className={`cursor-pointer rounded-xl border-2 border-dashed p-6 text-center transition-colors ${drag ? "border-secondary bg-secondary/10" : "border-border hover:bg-muted/50"}`}>
-        {busy > 0 ? <Loader2 className="h-7 w-7 mx-auto animate-spin text-secondary" /> : <UploadCloud className="h-7 w-7 mx-auto text-muted-foreground" />}
+        {busy > 0 ? <Loader2 className="h-7 w-7 mx-auto animate-spin text-secondary" aria-hidden="true" /> : <UploadCloud className="h-7 w-7 mx-auto text-muted-foreground" aria-hidden="true" />}
         <p className="text-sm font-medium mt-2">{busy > 0 ? `Uploading ${busy}…` : "Drag photos here or click to choose"}</p>
         <p className="text-xs text-muted-foreground">JPG / PNG / WEBP, up to 8MB each. First photo is the cover.</p>
         <input ref={input} type="file" accept="image/*" multiple hidden onChange={(e) => e.target.files && upload(e.target.files)} />
       </div>
       <div className="flex gap-2">
         <Input value={url} onChange={(e) => setUrl(e.target.value)} placeholder="…or paste an image link" className="h-9" />
-        <Button type="button" variant="outline" size="sm" onClick={() => { if (url.trim()) { onChange([...value, url.trim()]); setUrl(""); } }}><Link2 className="h-4 w-4 mr-1" />Add</Button>
+        <Button type="button" variant="outline" size="sm" onClick={() => { if (url.trim()) { onChange([...value, url.trim()]); setUrl(""); } }}><Link2 className="h-4 w-4 mr-1" aria-hidden="true" />Add</Button>
       </div>
       {value.length > 0 && (
         <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
@@ -60,9 +60,9 @@ const ImageUploader = ({ value, onChange, folder = "properties" }: { value: stri
               <img src={u} alt="" className="w-full h-full object-cover" loading="lazy" />
               {i === 0 && <span className="absolute top-1 left-1 text-[10px] font-semibold bg-secondary text-secondary-foreground px-1.5 py-0.5 rounded">Cover</span>}
               <div className="absolute inset-x-0 bottom-0 flex justify-between p-1 bg-gradient-to-t from-foreground/70 to-transparent">
-                <button type="button" aria-label="Move left" onClick={() => move(i, -1)} className="h-6 w-6 rounded bg-background/90 flex items-center justify-center"><ArrowLeft className="h-3 w-3" /></button>
+                <button type="button" aria-label="Move left" onClick={() => move(i, -1)} className="h-6 w-6 rounded bg-background/90 flex items-center justify-center"><ArrowLeft className="h-3 w-3" aria-hidden="true" /></button>
                 <button type="button" aria-label="Remove" onClick={() => onChange(value.filter((_, k) => k !== i))} className="h-6 w-6 rounded bg-destructive text-destructive-foreground flex items-center justify-center"><X className="h-3 w-3" /></button>
-                <button type="button" aria-label="Move right" onClick={() => move(i, 1)} className="h-6 w-6 rounded bg-background/90 flex items-center justify-center"><ArrowRight className="h-3 w-3" /></button>
+                <button type="button" aria-label="Move right" onClick={() => move(i, 1)} className="h-6 w-6 rounded bg-background/90 flex items-center justify-center"><ArrowRight className="h-3 w-3" aria-hidden="true" /></button>
               </div>
             </div>
           ))}

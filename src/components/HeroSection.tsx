@@ -36,7 +36,7 @@ const HeroSection = () => {
     navigate(`/properties?${params.toString()}`);
   };
 
-  const selectClass = "w-full h-12 rounded-xl bg-muted/50 pl-10 pr-4 text-sm font-body text-foreground focus:outline-none focus:ring-2 focus:ring-secondary/50 border-0 appearance-none cursor-pointer";
+  const selectClass = "w-full h-12 rounded-xl bg-muted/50 pl-10 pr-4 text-sm font-body text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus:ring-2 focus:ring-secondary/50 border-0 appearance-none cursor-pointer";
 
   return (
     <section className="relative min-h-[85vh] lg:min-h-screen flex items-center overflow-hidden">
@@ -74,10 +74,10 @@ const HeroSection = () => {
 
           <motion.div className="flex flex-wrap gap-3 mt-6 sm:mt-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.45 }}>
             <button onClick={() => navigate("/properties")} className="btn-gold px-5 sm:px-7 py-3 sm:py-3.5 rounded-xl text-sm inline-flex items-center gap-2">
-              Explore Properties <ArrowRight className="h-4 w-4" />
+              Explore Properties <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </button>
             <a href={contact.tel} className="glass-card px-5 sm:px-7 py-3 sm:py-3.5 rounded-xl text-sm text-primary-foreground/90 inline-flex items-center gap-2 hover:bg-primary-foreground/10 transition-all">
-              <Play className="h-4 w-4 text-secondary" /> Schedule a Free Visit
+              <Play className="h-4 w-4 text-secondary" aria-hidden="true" /> Schedule a Free Visit
             </a>
           </motion.div>
         </div>
@@ -88,27 +88,27 @@ const HeroSection = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
               <div className="relative">
                 <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <select value={location} onChange={(e) => setLocation(e.target.value)} className={selectClass}>
+                <select aria-label="Location" value={location} onChange={(e) => setLocation(e.target.value)} className={selectClass}>
                   <option value="">All Locations</option>
                   {locations.map((loc) => <option key={loc.id} value={loc.name}>{loc.name}</option>)}
                 </select>
               </div>
               <div className="relative">
                 <Building className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <select value={type} onChange={(e) => setType(e.target.value)} className={selectClass}>
+                <select aria-label="Property type" value={type} onChange={(e) => setType(e.target.value)} className={selectClass}>
                   <option value="">Property Type</option>
                   {PROPERTY_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
                 </select>
               </div>
               <div className="relative">
                 <Banknote className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <select value={budget} onChange={(e) => setBudget(e.target.value)} className={selectClass}>
+                <select aria-label="Budget range" value={budget} onChange={(e) => setBudget(e.target.value)} className={selectClass}>
                   <option value="">Budget Range</option>
                   {BUDGET_RANGES.map((b) => <option key={b.label} value={b.label}>{b.label}</option>)}
                 </select>
               </div>
               <button onClick={handleSearch} className="h-12 btn-gold rounded-xl font-heading font-semibold text-sm flex items-center justify-center gap-2">
-                <Search className="h-4 w-4" /> Search
+                <Search className="h-4 w-4" aria-hidden="true" /> Search
               </button>
             </div>
           </div>

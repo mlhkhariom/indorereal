@@ -108,7 +108,7 @@ const AdminProperties = () => {
         <h2 className="text-lg font-bold">Properties ({properties.length})</h2>
         <Dialog open={dialogOpen} onOpenChange={(v) => { setDialogOpen(v); if (!v) { setForm(emptyProperty); setEditId(null); } }}>
           <DialogTrigger asChild>
-            <Button className="btn-gold"><Plus className="h-4 w-4 mr-1" /> Add Property</Button>
+            <Button className="btn-gold"><Plus className="h-4 w-4 mr-1" aria-hidden="true" /> Add Property</Button>
           </DialogTrigger>
           <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
             <DialogHeader><DialogTitle>{editId ? "Edit Property" : "Add Property"}</DialogTitle></DialogHeader>
@@ -167,12 +167,12 @@ const AdminProperties = () => {
                 {p.images?.[0] && <img loading="lazy" decoding="async" src={p.images[0]} alt="" className="h-14 w-14 rounded-lg object-cover hidden sm:block" />}
                 <div className="min-w-0">
                   <p className="font-semibold text-sm truncate">{p.title}</p>
-                  <p className="text-xs text-muted-foreground">{p.location} • {p.type} • {formatPrice(p.price)} {p.featured && <span className="text-primary font-medium">⭐ Featured</span>} <span className="inline-flex items-center gap-0.5 ml-1"><Eye className="h-3 w-3" />{p.view_count || 0}</span></p>
+                  <p className="text-xs text-muted-foreground">{p.location} • {p.type} • {formatPrice(p.price)} {p.featured && <span className="text-primary font-medium">⭐ Featured</span>} <span className="inline-flex items-center gap-0.5 ml-1"><Eye className="h-3 w-3" aria-hidden="true" />{p.view_count || 0}</span></p>
                 </div>
               </div>
               <div className="flex gap-2 flex-shrink-0">
-                <Button size="icon" variant="outline" onClick={() => handleEdit(p)}><Pencil className="h-4 w-4" /></Button>
-                <Button size="icon" variant="destructive" onClick={() => handleDelete(p.id)}><Trash2 className="h-4 w-4" /></Button>
+                <Button size="icon" variant="outline" onClick={() => handleEdit(p)}><Pencil className="h-4 w-4" aria-hidden="true" /></Button>
+                <Button size="icon" variant="destructive" onClick={() => handleDelete(p.id)}><Trash2 className="h-4 w-4" aria-hidden="true" /></Button>
               </div>
             </CardContent>
           </Card>

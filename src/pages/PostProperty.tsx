@@ -43,7 +43,7 @@ const PostProperty = () => {
         <div className="lg:col-span-2 card-elevated p-5 sm:p-8">
           {done ? (
             <div className="text-center py-12">
-              <CheckCircle2 className="h-14 w-14 text-secondary mx-auto" />
+              <CheckCircle2 className="h-14 w-14 text-secondary mx-auto" aria-hidden="true" />
               <h2 className="font-heading text-2xl font-bold mt-4">Thank you!</h2>
               <p className="text-muted-foreground mt-2">We've received your property. Our team will call you shortly to verify details.</p>
               <button onClick={() => setDone(false)} className="btn-gold mt-6 px-6 py-3 rounded-xl text-sm">Post another</button>
@@ -80,7 +80,7 @@ const PostProperty = () => {
         <aside className="space-y-4">
           {[[ShieldCheck, "Free listing", "No charges to list. Pay only on successful deal."], [Users, "Verified buyers", "We share your property only with genuine, screened buyers."], [Camera, "Pro photos", "Our team visits and shoots professional photos."]].map(([Icon, t, d]: any) => (
             <div key={t} className="card-elevated p-5 flex gap-4">
-              <div className="h-11 w-11 rounded-xl gold-gradient flex items-center justify-center shrink-0"><Icon className="h-5 w-5 text-primary" /></div>
+              <div className="h-11 w-11 rounded-xl gold-gradient flex items-center justify-center shrink-0"><Icon className="h-5 w-5 text-primary" aria-hidden="true" /></div>
               <div><p className="font-heading font-semibold">{t}</p><p className="text-sm text-muted-foreground">{d}</p></div>
             </div>
           ))}

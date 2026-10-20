@@ -23,15 +23,15 @@ const Gallery = () => {
     <div className="min-h-screen flex flex-col">
       <SEOHead title="Property Gallery — Indore Realty" description="Explore stunning visuals of premium properties across Indore. Apartments, villas, homes & commercial spaces." />
       <Header />
-      <main className="flex-1">
+      <main id="main" className="outline-none flex-1">
         <section className="navy-gradient pt-28 pb-16 relative overflow-hidden">
           <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-secondary/10 blur-[100px]" />
           <div className="container mx-auto px-4 lg:px-8 relative">
             <nav className="flex items-center gap-1.5 text-sm text-primary-foreground/50 mb-6">
               <Link to="/" className="hover:text-secondary transition-colors flex items-center gap-1">
-                <Home className="h-3.5 w-3.5" /> Home
+                <Home className="h-3.5 w-3.5" aria-hidden="true" /> Home
               </Link>
-              <ChevronRight className="h-3.5 w-3.5" />
+              <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
               <span className="text-primary-foreground">Gallery</span>
             </nav>
             <ScrollReveal>

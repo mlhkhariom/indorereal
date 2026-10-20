@@ -38,13 +38,13 @@ const Blog = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-1">
+      <main id="main" className="outline-none flex-1">
         <section className="navy-gradient pt-28 pb-16 relative overflow-hidden">
           <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-secondary/10 blur-[100px]" />
           <div className="container mx-auto px-4 lg:px-8 relative">
             <nav className="flex items-center gap-1.5 text-sm text-primary-foreground/50 mb-6">
-              <Link to="/" className="hover:text-secondary transition-colors flex items-center gap-1"><Home className="h-3.5 w-3.5" /> Home</Link>
-              <ChevronRight className="h-3.5 w-3.5" />
+              <Link to="/" className="hover:text-secondary transition-colors flex items-center gap-1"><Home className="h-3.5 w-3.5" aria-hidden="true" /> Home</Link>
+              <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
               <span className="text-primary-foreground">Blog</span>
             </nav>
             <ScrollReveal>
@@ -92,13 +92,13 @@ const Blog = () => {
                         <div className="p-5 flex flex-col flex-1">
                           <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3">
                             <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {new Date(post.created_at).toLocaleDateString("en-IN", { year: "numeric", month: "short", day: "numeric" })}</span>
-                            <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> {post.read_time || 5} min read</span>
+                            <span className="flex items-center gap-1"><Clock className="h-3 w-3" aria-hidden="true" /> {post.read_time || 5} min read</span>
                           </div>
                           <h3 className="font-heading font-bold text-foreground text-lg leading-snug group-hover:text-secondary transition-colors line-clamp-2">{post.title}</h3>
                           <p className="text-muted-foreground text-sm leading-relaxed mt-2 flex-1 line-clamp-3">{post.excerpt}</p>
                           <div className="flex items-center justify-between mt-4 pt-4 border-t border-border">
-                            <span className="flex items-center gap-1.5 text-xs text-muted-foreground"><User className="h-3 w-3" /> {post.author_name}</span>
-                            <span className="text-secondary text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">Read <ArrowRight className="h-3.5 w-3.5" /></span>
+                            <span className="flex items-center gap-1.5 text-xs text-muted-foreground"><User className="h-3 w-3" aria-hidden="true" /> {post.author_name}</span>
+                            <span className="text-secondary text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">Read <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" /></span>
                           </div>
                         </div>
                       </article>

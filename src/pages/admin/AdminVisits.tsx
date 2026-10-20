@@ -53,7 +53,7 @@ const AdminVisits = () => {
       <div className="flex items-center justify-between">
         <p className="text-sm text-muted-foreground"><b className="text-foreground">{upcoming}</b> upcoming visits</p>
         <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger asChild><Button className="btn-gold" size="sm"><Plus className="h-4 w-4 mr-1" />New visit</Button></DialogTrigger>
+          <DialogTrigger asChild><Button className="btn-gold" size="sm"><Plus className="h-4 w-4 mr-1" aria-hidden="true" />New visit</Button></DialogTrigger>
           <DialogContent>
             <DialogHeader><DialogTitle>Schedule site visit</DialogTitle></DialogHeader>
             <form onSubmit={add} className="space-y-3">
@@ -81,12 +81,12 @@ const AdminVisits = () => {
                   <div className="min-w-0">
                     <p className="font-semibold text-sm">{v.client_name} <Badge variant="outline" className="ml-1 capitalize">{v.status.replace("_", " ")}</Badge></p>
                     <p className="text-xs text-muted-foreground flex items-center gap-3 mt-1">
-                      <span className="flex items-center gap-1"><Clock className="h-3 w-3" />{new Date(v.visit_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</span>
-                      <a href={`tel:${v.client_phone}`} className="flex items-center gap-1 hover:text-secondary"><Phone className="h-3 w-3" />{v.client_phone}</a>
+                      <span className="flex items-center gap-1"><Clock className="h-3 w-3" aria-hidden="true" />{new Date(v.visit_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</span>
+                      <a href={`tel:${v.client_phone}`} className="flex items-center gap-1 hover:text-secondary"><Phone className="h-3 w-3" aria-hidden="true" />{v.client_phone}</a>
                     </p>
                     {v.property_title && <p className="text-xs text-primary mt-1 truncate">{v.property_title}</p>}
                   </div>
-                  <Button size="icon" variant="ghost" className="h-8 w-8 text-destructive" aria-label="Delete" onClick={() => remove(v.id)}><Trash2 className="h-4 w-4" /></Button>
+                  <Button size="icon" variant="ghost" className="h-8 w-8 text-destructive" aria-label="Delete" onClick={() => remove(v.id)}><Trash2 className="h-4 w-4" aria-hidden="true" /></Button>
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   <Select value={v.status} onValueChange={(s) => update(v.id, { status: s })}>

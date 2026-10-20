@@ -15,7 +15,7 @@ const Index = () => {
     <div className="min-h-screen flex flex-col">
       <SEOHead />
       <Header />
-      <main className="flex-1">
+      <main id="main" className="outline-none flex-1">
         <HeroSection />
         <FeaturedProperties />
         <LocationsSection />

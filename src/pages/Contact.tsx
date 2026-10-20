@@ -72,16 +72,16 @@ const Contact = () => {
     <div className="min-h-screen flex flex-col">
       <SEOHead title="Contact Indore Realty — Get Free Property Consultation" description="Contact Indore Realty for free property consultation. Call us or visit our Vijay Nagar office. Expert guidance for buying, selling & renting in Indore." keywords="contact Indore Realty, property consultation Indore, real estate agent contact, property dealer Indore phone" canonical="https://indorerealty.in/contact" />
       <Header />
-      <main className="flex-1">
+      <main id="main" className="outline-none flex-1">
         {/* Hero */}
         <section className="navy-gradient pt-28 pb-16 relative overflow-hidden">
           <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-secondary/10 blur-[100px]" />
           <div className="container mx-auto px-4 lg:px-8 relative">
             <nav className="flex items-center gap-1.5 text-sm text-primary-foreground/50 mb-6">
               <Link to="/" className="hover:text-secondary transition-colors flex items-center gap-1">
-                <Home className="h-3.5 w-3.5" /> Home
+                <Home className="h-3.5 w-3.5" aria-hidden="true" /> Home
               </Link>
-              <ChevronRight className="h-3.5 w-3.5" />
+              <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
               <span className="text-primary-foreground">Contact Us</span>
             </nav>
             <ScrollReveal>
@@ -135,28 +135,24 @@ const Contact = () => {
 
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <Input placeholder="Your Full Name *" value={name} onChange={(e) => setName(e.target.value)} className="h-12 rounded-xl" />
-                      <Input placeholder="Phone Number *" value={phone} onChange={(e) => setPhone(e.target.value)} className="h-12 rounded-xl" type="tel" />
+                      <Input placeholder="Your Full Name *" aria-label="Your Full Name" value={name} onChange={(e) => setName(e.target.value)} className="h-12 rounded-xl" />
+                      <Input placeholder="Phone Number *" aria-label="Phone Number" value={phone} onChange={(e) => setPhone(e.target.value)} className="h-12 rounded-xl" type="tel" />
                     </div>
-                    <Input placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)} className="h-12 rounded-xl" type="email" />
-                    <Input placeholder="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} className="h-12 rounded-xl" />
-                    <Textarea placeholder="Your Message..." value={message} onChange={(e) => setMessage(e.target.value)} rows={5} className="rounded-xl resize-none" />
+                    <Input placeholder="Email Address" aria-label="Email Address" value={email} onChange={(e) => setEmail(e.target.value)} className="h-12 rounded-xl" type="email" />
+                    <Input placeholder="Subject" aria-label="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} className="h-12 rounded-xl" />
+                    <Textarea placeholder="Your Message..." aria-label="Your Message..." value={message} onChange={(e) => setMessage(e.target.value)} rows={5} className="rounded-xl resize-none" />
                     <button type="submit" className="w-full h-13 py-3.5 btn-gold rounded-xl text-sm flex items-center justify-center gap-2">
-                      <Send className="h-4 w-4" /> Send Message
+                      <Send className="h-4 w-4" aria-hidden="true" /> Send Message
                     </button>
                   </form>
 
                   <div className="flex gap-3 mt-5">
-                    <a href={contact.wa} target="_blank" rel="noopener noreferrer" className="flex-1">
-                      <button type="button" className="w-full h-11 rounded-xl border border-[#25D366]/30 text-[#25D366] hover:bg-[#25D366]/5 text-sm font-medium flex items-center justify-center gap-2 transition-colors">
-                        <MessageCircle className="h-4 w-4" /> WhatsApp
-                      </button>
-                    </a>
-                    <a href={contact.tel} className="flex-1">
-                      <button type="button" className="w-full h-11 rounded-xl border border-primary/20 text-primary hover:bg-primary/5 text-sm font-medium flex items-center justify-center gap-2 transition-colors">
-                        <Phone className="h-4 w-4" /> Call Now
-                      </button>
-                    </a>
+                    <a href={contact.wa} target="_blank" rel="noopener noreferrer" className="flex-1 w-full inline-flex h-11 rounded-xl border border-[#25D366]/30 text-[#25D366] hover:bg-[#25D366]/5 text-sm font-medium flex items-center justify-center gap-2 transition-colors">
+                        <MessageCircle className="h-4 w-4" aria-hidden="true" /> WhatsApp
+                      </a>
+                    <a href={contact.tel} className="flex-1 w-full inline-flex h-11 rounded-xl border border-primary/20 text-primary hover:bg-primary/5 text-sm font-medium flex items-center justify-center gap-2 transition-colors">
+                        <Phone className="h-4 w-4" aria-hidden="true" /> Call Now
+                      </a>
                   </div>
                 </div>
               </ScrollReveal>

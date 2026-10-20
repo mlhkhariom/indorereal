@@ -55,9 +55,9 @@ const LeadDetailSheet = ({ lead, staff, onClose, onChanged }: Props) => {
         <SheetHeader><SheetTitle className="text-left">{lead.name}</SheetTitle></SheetHeader>
         <div className="space-y-5 mt-4">
           <div className="flex gap-2">
-            <a href={`tel:${lead.phone}`} className="flex-1"><Button variant="outline" className="w-full" size="sm"><Phone className="h-4 w-4 mr-1" />Call</Button></a>
-            <a href={wa} target="_blank" rel="noopener noreferrer" className="flex-1"><Button variant="outline" className="w-full" size="sm"><MessageCircle className="h-4 w-4 mr-1" />WhatsApp</Button></a>
-            {lead.email && <a href={`mailto:${lead.email}`} className="flex-1"><Button variant="outline" className="w-full" size="sm"><Mail className="h-4 w-4 mr-1" />Email</Button></a>}
+            <Button asChild variant="outline" className="flex-1" size="sm"><a href={`tel:${lead.phone}`}><Phone className="h-4 w-4 mr-1" aria-hidden="true" />Call</a></Button>
+            <Button asChild variant="outline" className="w-full" size="sm"><a href={wa} target="_blank" rel="noopener noreferrer" className="flex-1"><MessageCircle className="h-4 w-4 mr-1" aria-hidden="true" />WhatsApp</a></Button>
+            {lead.email && <Button asChild variant="outline" className="flex-1" size="sm"><a href={`mailto:${lead.email}`}><Mail className="h-4 w-4 mr-1" aria-hidden="true" />Email</a></Button>}
           </div>
 
           <div className="text-sm space-y-1 rounded-lg bg-muted/40 p-3">
@@ -109,10 +109,10 @@ const LeadDetailSheet = ({ lead, staff, onClose, onChanged }: Props) => {
           </div>
 
           <div>
-            <h4 className="font-semibold text-sm flex items-center gap-1 mb-2"><StickyNote className="h-4 w-4" />Notes</h4>
+            <h4 className="font-semibold text-sm flex items-center gap-1 mb-2"><StickyNote className="h-4 w-4" aria-hidden="true" />Notes</h4>
             <div className="flex gap-2">
               <Textarea value={note} onChange={(e) => setNote(e.target.value)} rows={2} placeholder="Add a note about this call or visit…" />
-              <Button size="icon" onClick={addNote}><Send className="h-4 w-4" /></Button>
+              <Button aria-label="Add note" size="icon" onClick={addNote}><Send className="h-4 w-4" aria-hidden="true" /></Button>
             </div>
             <div className="space-y-2 mt-3">
               {notes.map((n) => (
@@ -125,7 +125,7 @@ const LeadDetailSheet = ({ lead, staff, onClose, onChanged }: Props) => {
           </div>
 
           <div>
-            <h4 className="font-semibold text-sm flex items-center gap-1 mb-2"><History className="h-4 w-4" />Activity</h4>
+            <h4 className="font-semibold text-sm flex items-center gap-1 mb-2"><History className="h-4 w-4" aria-hidden="true" />Activity</h4>
             <ol className="border-l border-border ml-1 space-y-2">
               {acts.map((a) => (
                 <li key={a.id} className="pl-3 text-xs">
