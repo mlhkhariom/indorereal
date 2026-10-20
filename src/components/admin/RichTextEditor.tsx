@@ -11,7 +11,7 @@ const RichTextEditor = ({ value, onChange }: { value: string; onChange: (html: s
     editorProps: { attributes: { class: "prose prose-sm max-w-none min-h-[280px] p-4 focus:outline-none" } },
   });
   useEffect(() => {
-    if (editor && value !== editor.getHTML()) editor.commands.setContent(value || "", false);
+    if (editor && value !== editor.getHTML()) editor.commands.setContent(value || "", { emitUpdate: false });
   }, [value, editor]);
   if (!editor) return null;
   const B = ({ on, active, children, label }: any) => (
