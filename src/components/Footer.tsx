@@ -111,7 +111,7 @@ const Footer = () => {
                 <div className="h-9 w-9 rounded-lg bg-secondary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <MapPin className="h-4 w-4 text-secondary" />
                 </div>
-                <span>123 Business Park, Vijay Nagar, Indore, MP 452010</span>
+                <span>{contact.address}</span>
               </li>
               <li className="flex items-center gap-3 text-sm text-primary-foreground/60">
                 <div className="h-9 w-9 rounded-lg bg-secondary/10 flex items-center justify-center flex-shrink-0">
