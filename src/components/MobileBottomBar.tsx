@@ -1,8 +1,10 @@
+import { useContact } from "@/hooks/useContact";
 import { Phone, MessageCircle, Home, Building, User, MoreHorizontal } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 
 const MobileBottomBar = () => {
+  const contact = useContact();
   const location = useLocation();
   const path = location.pathname;
   const [showMore, setShowMore] = useState(false);
@@ -44,12 +46,12 @@ const MobileBottomBar = () => {
       <div className="bg-card/95 backdrop-blur-xl border-t border-border px-3 pt-1.5 pb-2 safe-area-bottom">
         {/* Quick action buttons */}
         <div className="flex gap-2 mb-1.5">
-          <a href="tel:+919876543210" className="flex-1">
+          <a href={contact.tel} className="flex-1">
             <button className="w-full h-10 rounded-xl btn-gold text-xs flex items-center justify-center gap-1.5">
               <Phone className="h-3.5 w-3.5" /> Call Now
             </button>
           </a>
-          <a href="https://wa.me/919876543210?text=Hi%2C%20I%20am%20interested%20in%20a%20property%20in%20Indore" target="_blank" rel="noopener noreferrer" className="flex-1">
+          <a href={contact.wa} target="_blank" rel="noopener noreferrer" className="flex-1">
             <button className="w-full h-10 rounded-xl bg-[#25D366] text-primary-foreground font-heading font-semibold text-xs flex items-center justify-center gap-1.5 shadow-md">
               <MessageCircle className="h-3.5 w-3.5" /> WhatsApp
             </button>

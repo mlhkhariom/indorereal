@@ -56,7 +56,9 @@ const settingsGroups = [
   },
 ];
 
-const AdminSEO = () => {
+export type SettingsGroup = { title: string; icon: any; keys: { key: string; label: string; type: string; help?: string }[] };
+
+const AdminSEO = ({ groups = settingsGroups as SettingsGroup[], heading = "SEO & Metadata Settings" }: { groups?: SettingsGroup[]; heading?: string }) => {
   const [settings, setSettings] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -85,7 +87,7 @@ const AdminSEO = () => {
       );
     }
     setSaving(false);
-    toast({ title: "SEO Settings Saved!", description: "Changes will reflect on the website." });
+    toast({ title: "Settings Saved!", description: "Changes will reflect on the website." });
   };
 
   if (loading) return <div className="flex justify-center py-12"><div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full" /></div>;
@@ -93,13 +95,13 @@ const AdminSEO = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-bold">SEO & Metadata Settings</h2>
+        <h2 className="text-lg font-bold">{heading}</h2>
         <Button className="btn-gold" onClick={handleSave} disabled={saving}>
           <Save className="h-4 w-4 mr-1" /> {saving ? "Saving..." : "Save All"}
         </Button>
       </div>
 
-      {settingsGroups.map((group) => {
+      {groups.map((group) => {
         const Icon = group.icon;
         return (
           <Card key={group.title}>

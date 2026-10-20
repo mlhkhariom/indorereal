@@ -1,3 +1,4 @@
+import { useContact } from "@/hooks/useContact";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -60,6 +61,7 @@ const faqSchema = {
 };
 
 const FAQ = () => {
+  const contact = useContact();
   return (
     <div className="min-h-screen flex flex-col">
       <SEOHead
@@ -124,12 +126,12 @@ const FAQ = () => {
               <h2 className="section-title">Still Have Questions?</h2>
               <p className="section-subtitle">Our team is always ready to help. Reach out to us anytime.</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-                <a href="tel:+919876543210">
+                <a href={contact.tel}>
                   <button className="btn-gold px-8 py-3.5 rounded-xl text-sm inline-flex items-center gap-2 w-full sm:w-auto justify-center">
                     <Phone className="h-4 w-4" /> Call Us Now
                   </button>
                 </a>
-                <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer">
+                <a href={contact.wa} target="_blank" rel="noopener noreferrer">
                   <button className="px-8 py-3.5 rounded-xl border-2 border-primary text-primary font-heading font-semibold text-sm hover:bg-primary hover:text-primary-foreground transition-all inline-flex items-center gap-2 w-full sm:w-auto justify-center">
                     <MessageCircle className="h-4 w-4" /> WhatsApp
                   </button>

@@ -1,3 +1,4 @@
+import { useContact } from "@/hooks/useContact";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search, MapPin, Building, Banknote, ArrowRight, Play } from "lucide-react";
@@ -15,6 +16,7 @@ const defaultStats = [
 ];
 
 const HeroSection = () => {
+  const contact = useContact();
   const navigate = useNavigate();
   const [location, setLocation] = useState("");
   const [type, setType] = useState("");
@@ -74,7 +76,7 @@ const HeroSection = () => {
             <button onClick={() => navigate("/properties")} className="btn-gold px-5 sm:px-7 py-3 sm:py-3.5 rounded-xl text-sm inline-flex items-center gap-2">
               Explore Properties <ArrowRight className="h-4 w-4" />
             </button>
-            <a href="tel:+919876543210" className="glass-card px-5 sm:px-7 py-3 sm:py-3.5 rounded-xl text-sm text-primary-foreground/90 inline-flex items-center gap-2 hover:bg-primary-foreground/10 transition-all">
+            <a href={contact.tel} className="glass-card px-5 sm:px-7 py-3 sm:py-3.5 rounded-xl text-sm text-primary-foreground/90 inline-flex items-center gap-2 hover:bg-primary-foreground/10 transition-all">
               <Play className="h-4 w-4 text-secondary" /> Schedule a Free Visit
             </a>
           </motion.div>

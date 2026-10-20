@@ -1,3 +1,4 @@
+import { useContact } from "@/hooks/useContact";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -11,32 +12,34 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
 
-const contactInfo = [
+const getContactInfo = (c: ReturnType<typeof useContact>) => [
   {
     icon: MapPin,
     title: "Visit Our Office",
-    lines: ["123 Business Park, Vijay Nagar", "Indore, Madhya Pradesh 452010"],
+    lines: [c.address],
   },
   {
     icon: Phone,
     title: "Call Us",
-    lines: ["+91 98765 43210", "+91 731 234 5678"],
-    links: ["tel:+919876543210", "tel:+917312345678"],
+    lines: [c.phone],
+    links: [c.tel],
   },
   {
     icon: Mail,
     title: "Email Us",
-    lines: ["info@indorerealty.in", "sales@indorerealty.in"],
-    links: ["mailto:info@indorerealty.in", "mailto:sales@indorerealty.in"],
+    lines: [c.email],
+    links: [c.mailto],
   },
   {
     icon: Clock,
     title: "Working Hours",
-    lines: ["Mon – Sat: 9:00 AM – 7:00 PM", "Sunday: 10:00 AM – 4:00 PM"],
+    lines: [c.hours],
   },
 ];
 
 const Contact = () => {
+  const contact = useContact();
+  const contactInfo = getContactInfo(contact);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -54,7 +57,7 @@ const Contact = () => {
     setLoading(true);
     const { error } = await supabase.from("enquiries").insert({
       name, phone, email: email || null, message: `${subject ? `[${subject}] ` : ""}${message}`.trim() || null,
-      source: "contact_page",
+      source: "contact_page", page_url: window.location.href,
     });
     setLoading(false);
     if (error) {
@@ -67,7 +70,7 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <SEOHead title="Contact Indore Realty — Get Free Property Consultation" description="Contact Indore Realty for free property consultation. Call +91 98765 43210 or visit our Vijay Nagar office. Expert guidance for buying, selling & renting in Indore." keywords="contact Indore Realty, property consultation Indore, real estate agent contact, property dealer Indore phone" canonical="https://indorerealty.in/contact" />
+      <SEOHead title="Contact Indore Realty — Get Free Property Consultation" description="Contact Indore Realty for free property consultation. Call us or visit our Vijay Nagar office. Expert guidance for buying, selling & renting in Indore." keywords="contact Indore Realty, property consultation Indore, real estate agent contact, property dealer Indore phone" canonical="https://indorerealty.in/contact" />
       <Header />
       <main className="flex-1">
         {/* Hero */}
@@ -144,12 +147,12 @@ const Contact = () => {
                   </form>
 
                   <div className="flex gap-3 mt-5">
-                    <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="flex-1">
+                    <a href={contact.wa} target="_blank" rel="noopener noreferrer" className="flex-1">
                       <button type="button" className="w-full h-11 rounded-xl border border-[#25D366]/30 text-[#25D366] hover:bg-[#25D366]/5 text-sm font-medium flex items-center justify-center gap-2 transition-colors">
                         <MessageCircle className="h-4 w-4" /> WhatsApp
                       </button>
                     </a>
-                    <a href="tel:+919876543210" className="flex-1">
+                    <a href={contact.tel} className="flex-1">
                       <button type="button" className="w-full h-11 rounded-xl border border-primary/20 text-primary hover:bg-primary/5 text-sm font-medium flex items-center justify-center gap-2 transition-colors">
                         <Phone className="h-4 w-4" /> Call Now
                       </button>

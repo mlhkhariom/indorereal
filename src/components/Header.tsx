@@ -1,9 +1,11 @@
+import { useContact } from "@/hooks/useContact";
 import { Link, useLocation } from "react-router-dom";
 import { Phone, Menu, X, ChevronDown } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 
 const Header = () => {
+  const contact = useContact();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
@@ -133,7 +135,7 @@ const Header = () => {
         </nav>
 
         <div className="hidden lg:flex items-center gap-3">
-          <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer">
+          <a href={contact.wa} target="_blank" rel="noopener noreferrer">
             <Button
               size="sm"
               variant="outline"
@@ -143,7 +145,7 @@ const Header = () => {
               WhatsApp
             </Button>
           </a>
-          <a href="tel:+919876543210">
+          <a href={contact.tel}>
             <Button size="sm" className="btn-gold rounded-xl h-10 px-6">
               <Phone className="h-4 w-4 mr-2" /> Call Now
             </Button>
@@ -174,12 +176,12 @@ const Header = () => {
             </Link>
           ))}
           <div className="flex gap-3 mt-5">
-            <a href="tel:+919876543210" className="flex-1">
+            <a href={contact.tel} className="flex-1">
               <Button className="w-full btn-gold rounded-xl h-11">
                 <Phone className="h-4 w-4 mr-2" /> Call Now
               </Button>
             </a>
-            <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="flex-1">
+            <a href={contact.wa} target="_blank" rel="noopener noreferrer" className="flex-1">
               <Button variant="outline" className="w-full border-primary-foreground/20 text-primary-foreground rounded-xl h-11">
                 WhatsApp
               </Button>

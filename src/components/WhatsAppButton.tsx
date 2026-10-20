@@ -1,7 +1,9 @@
+import { useContact } from "@/hooks/useContact";
 const WhatsAppButton = () => {
+  const contact = useContact();
   return (
     <a
-      href="https://wa.me/919876543210?text=Hi%2C%20I%20am%20interested%20in%20a%20property%20in%20Indore"
+      href={contact.wa}
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-32 lg:bottom-6 right-6 z-50 group"

@@ -1,3 +1,4 @@
+import { useContact } from "@/hooks/useContact";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -7,6 +8,7 @@ import { Home, ChevronRight, Calculator, IndianRupee, Phone } from "lucide-react
 import { useState, useMemo } from "react";
 
 const EMICalculator = () => {
+  const contact = useContact();
   const [loanAmount, setLoanAmount] = useState(5000000);
   const [interestRate, setInterestRate] = useState(8.5);
   const [tenure, setTenure] = useState(20);
@@ -179,7 +181,7 @@ const EMICalculator = () => {
                   </div>
 
                   {/* CTA */}
-                  <a href="tel:+919876543210" className="block">
+                  <a href={contact.tel} className="block">
                     <button className="w-full btn-gold py-4 rounded-xl text-sm inline-flex items-center justify-center gap-2">
                       <Phone className="h-4 w-4" /> Get Best Loan Rates — Call Now
                     </button>

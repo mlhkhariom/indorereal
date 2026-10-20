@@ -1,19 +1,30 @@
 import { Link, useLocation, useNavigate, Outlet } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
-import { LayoutDashboard, Building2, FileText, MessageSquare, LogOut, Menu, X, ChevronRight, Search, Home, Image, MapPin } from "lucide-react";
+import { LayoutDashboard, Building2, FileText, MessageSquare, LogOut, Menu, X, ChevronRight, Search, Home, Image, MapPin, KanbanSquare, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 
-const navItems = [
-  { label: "Dashboard", path: "/admin", icon: LayoutDashboard },
-  { label: "Properties", path: "/admin/properties", icon: Building2 },
-  { label: "Locations", path: "/admin/locations", icon: MapPin },
-  { label: "Gallery", path: "/admin/gallery", icon: Image },
-  { label: "Blog Posts", path: "/admin/blog", icon: FileText },
-  { label: "Enquiries", path: "/admin/enquiries", icon: MessageSquare },
-  { label: "Homepage", path: "/admin/homepage", icon: Home },
-  { label: "SEO Settings", path: "/admin/seo", icon: Search },
+const navGroups = [
+  { title: "Overview", items: [{ label: "Dashboard", path: "/admin", icon: LayoutDashboard }] },
+  { title: "CRM", items: [
+    { label: "Leads & Pipeline", path: "/admin/crm", icon: KanbanSquare },
+    { label: "Enquiries (simple)", path: "/admin/enquiries", icon: MessageSquare },
+  ] },
+  { title: "Listings", content: true, items: [
+    { label: "Properties", path: "/admin/properties", icon: Building2 },
+    { label: "Locations", path: "/admin/locations", icon: MapPin },
+  ] },
+  { title: "Content", content: true, items: [
+    { label: "Homepage", path: "/admin/homepage", icon: Home },
+    { label: "Blog Posts", path: "/admin/blog", icon: FileText },
+    { label: "Gallery", path: "/admin/gallery", icon: Image },
+  ] },
+  { title: "Settings", content: true, items: [
+    { label: "Site Settings", path: "/admin/settings", icon: Settings },
+    { label: "SEO Settings", path: "/admin/seo", icon: Search },
+  ] },
 ];
+const navItems = navGroups.flatMap((g) => g.items);
 
 const AdminLayout = () => {
   const { user, userRole, signOut, loading } = useAuth();
@@ -44,7 +55,10 @@ const AdminLayout = () => {
           <button className="lg:hidden ml-auto" onClick={() => setSidebarOpen(false)}><X className="h-5 w-5" /></button>
         </div>
         <nav className="p-3 space-y-1 overflow-y-auto max-h-[calc(100vh-140px)]">
-          {navItems.map((item) => {
+          {navGroups.filter((g) => !(userRole === "agent" && g.content)).map((g) => (
+            <div key={g.title} className="pb-2">
+              <p className="px-3 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70">{g.title}</p>
+          {g.items.map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.path;
             return (
@@ -55,6 +69,8 @@ const AdminLayout = () => {
               </Link>
             );
           })}
+            </div>
+          ))}
         </nav>
         <div className="absolute bottom-0 left-0 right-0 p-3 border-t border-border">
           <div className="text-xs text-muted-foreground mb-2 px-3 truncate">

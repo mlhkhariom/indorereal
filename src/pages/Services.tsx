@@ -1,3 +1,4 @@
+import { useContact } from "@/hooks/useContact";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -50,6 +51,7 @@ const services = [
 ];
 
 const Services = () => {
+  const contact = useContact();
   return (
     <div className="min-h-screen flex flex-col">
       <SEOHead title="Real Estate Services in Indore — Buy, Sell, Rent Properties" description="Explore Indore Realty's comprehensive real estate services — property search, legal assistance, home loans, vastu consultation, interior design & property management in Indore." keywords="real estate services Indore, property services, home loan assistance, vastu consultation, property management Indore" canonical="https://indorerealty.in/services" />
@@ -142,7 +144,7 @@ const Services = () => {
                     Every property journey is unique. Talk to our experts for personalized guidance.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-                    <a href="tel:+919876543210">
+                    <a href={contact.tel}>
                       <button className="btn-gold px-8 py-3.5 rounded-xl text-sm inline-flex items-center gap-2 w-full sm:w-auto justify-center">
                         <Phone className="h-4 w-4" /> Free Consultation
                       </button>

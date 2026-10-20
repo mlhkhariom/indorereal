@@ -76,40 +76,70 @@ export type Database = {
       }
       enquiries: {
         Row: {
+          assigned_to: string | null
+          budget: string | null
           created_at: string
           email: string | null
+          follow_up_at: string | null
           id: string
           message: string | null
           name: string
+          page_url: string | null
           phone: string
+          preferred_location: string | null
+          priority: string
           property_id: string | null
           property_title: string | null
           source: string | null
           status: string
+          tags: string[] | null
+          updated_at: string
+          utm_campaign: string | null
+          utm_source: string | null
         }
         Insert: {
+          assigned_to?: string | null
+          budget?: string | null
           created_at?: string
           email?: string | null
+          follow_up_at?: string | null
           id?: string
           message?: string | null
           name: string
+          page_url?: string | null
           phone: string
+          preferred_location?: string | null
+          priority?: string
           property_id?: string | null
           property_title?: string | null
           source?: string | null
           status?: string
+          tags?: string[] | null
+          updated_at?: string
+          utm_campaign?: string | null
+          utm_source?: string | null
         }
         Update: {
+          assigned_to?: string | null
+          budget?: string | null
           created_at?: string
           email?: string | null
+          follow_up_at?: string | null
           id?: string
           message?: string | null
           name?: string
+          page_url?: string | null
           phone?: string
+          preferred_location?: string | null
+          priority?: string
           property_id?: string | null
           property_title?: string | null
           source?: string | null
           status?: string
+          tags?: string[] | null
+          updated_at?: string
+          utm_campaign?: string | null
+          utm_source?: string | null
         }
         Relationships: [
           {
@@ -192,6 +222,76 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      lead_activities: {
+        Row: {
+          action: string
+          actor_id: string | null
+          created_at: string
+          details: string | null
+          enquiry_id: string
+          id: string
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          created_at?: string
+          details?: string | null
+          enquiry_id: string
+          id?: string
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          created_at?: string
+          details?: string | null
+          enquiry_id?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lead_activities_enquiry_id_fkey"
+            columns: ["enquiry_id"]
+            isOneToOne: false
+            referencedRelation: "enquiries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lead_notes: {
+        Row: {
+          author_email: string | null
+          author_id: string | null
+          created_at: string
+          enquiry_id: string
+          id: string
+          note: string
+        }
+        Insert: {
+          author_email?: string | null
+          author_id?: string | null
+          created_at?: string
+          enquiry_id: string
+          id?: string
+          note: string
+        }
+        Update: {
+          author_email?: string | null
+          author_id?: string | null
+          created_at?: string
+          enquiry_id?: string
+          id?: string
+          note?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lead_notes_enquiry_id_fkey"
+            columns: ["enquiry_id"]
+            isOneToOne: false
+            referencedRelation: "enquiries"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       locations: {
         Row: {
@@ -370,9 +470,18 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_staff: { Args: { _uid: string }; Returns: boolean }
+      list_staff: {
+        Args: never
+        Returns: {
+          email: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }[]
+      }
     }
     Enums: {
-      app_role: "admin" | "editor"
+      app_role: "admin" | "editor" | "agent"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -388,12 +497,12 @@ export type Tables<
   DefaultSchemaTableNameOrOptions extends
     | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
         DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -417,11 +526,11 @@ export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -442,11 +551,11 @@ export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -467,11 +576,11 @@ export type Enums<
   DefaultSchemaEnumNameOrOptions extends
     | keyof DefaultSchema["Enums"]
     | { schema: keyof DatabaseWithoutInternals },
-  EnumName extends DefaultSchemaEnumNameOrOptions extends {
+  EnumName extends (DefaultSchemaEnumNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaEnumNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -484,11 +593,11 @@ export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
     | keyof DefaultSchema["CompositeTypes"]
     | { schema: keyof DatabaseWithoutInternals },
-  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+  CompositeTypeName extends (PublicCompositeTypeNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
-    : never = never,
+    : never) = never,
 > = PublicCompositeTypeNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -500,7 +609,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "editor"],
+      app_role: ["admin", "editor", "agent"],
     },
   },
 } as const

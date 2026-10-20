@@ -1,3 +1,4 @@
+import { useContact } from "@/hooks/useContact";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,6 +11,7 @@ interface LeadFormProps {
 }
 
 const LeadForm = ({ propertyTitle }: LeadFormProps) => {
+  const contact = useContact();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -31,7 +33,10 @@ const LeadForm = ({ propertyTitle }: LeadFormProps) => {
       email: email || null,
       message: message || null,
       property_title: propertyTitle || null,
-      source: "website",
+      source: propertyTitle ? "property_page" : "website",
+      page_url: window.location.href,
+      utm_source: new URLSearchParams(window.location.search).get("utm_source"),
+      utm_campaign: new URLSearchParams(window.location.search).get("utm_campaign"),
     });
     setLoading(false);
     if (error) {
@@ -61,12 +66,12 @@ const LeadForm = ({ propertyTitle }: LeadFormProps) => {
       </form>
 
       <div className="flex gap-2 mt-4">
-        <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="flex-1">
+        <a href={contact.wa} target="_blank" rel="noopener noreferrer" className="flex-1">
           <button type="button" className="w-full h-10 rounded-xl border border-[#25D366]/30 text-[#25D366] hover:bg-[#25D366]/5 text-sm font-medium flex items-center justify-center gap-1.5 transition-colors">
             <MessageCircle className="h-4 w-4" /> WhatsApp
           </button>
         </a>
-        <a href="tel:+919876543210" className="flex-1">
+        <a href={contact.tel} className="flex-1">
           <button type="button" className="w-full h-10 rounded-xl border border-primary/20 text-primary hover:bg-primary/5 text-sm font-medium flex items-center justify-center gap-1.5 transition-colors">
             <Phone className="h-4 w-4" /> Call Now
           </button>
