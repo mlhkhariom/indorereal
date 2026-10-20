@@ -48,7 +48,7 @@ const defaultFaqs = [
 
 
 
-const faqSchema = {
+const buildFaqSchema = (allFaqItems: { q: string; a: string }[]) => ({
   "@context": "https://schema.org",
   "@type": "FAQPage",
   mainEntity: allFaqItems.map(faq => ({
@@ -59,7 +59,7 @@ const faqSchema = {
       text: faq.a,
     },
   })),
-};
+});
 
 const FAQ = () => {
   const { data: rows = [] } = useHomepageSection("faq");
@@ -71,6 +71,7 @@ const FAQ = () => {
       }, {}))
     : defaultFaqs;
   const allFaqItems = faqs.flatMap((s) => s.items);
+  const faqSchema = buildFaqSchema(allFaqItems);
   const contact = useContact();
   return (
     <div className="min-h-screen flex flex-col">
