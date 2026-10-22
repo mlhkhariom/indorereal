@@ -75,3 +75,4 @@ export const waLink = (phone: string, text?: string) => {
 
 export const daysSince = (iso: string, now = new Date()) => Math.max(0, Math.floor((now.getTime() - new Date(iso).getTime()) / 86400000));
 export const initials = (s?: string | null) => (s || "?").split(/[@.\s_-]/).filter(Boolean).slice(0, 2).map((p) => p[0]!.toUpperCase()).join("");
+export const stageColor = (id: string, alpha = 1) => `hsl(var(--stage-${normalizeStage(id)}) / ${alpha})`;
