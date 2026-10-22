@@ -5,6 +5,12 @@
 
 @layer base {
   :root {
+    --stage-new: 210 80% 52%;
+    --stage-contacted: 190 70% 42%;
+    --stage-site_visit: 38 95% 52%;
+    --stage-negotiation: 270 55% 55%;
+    --stage-won: 145 63% 38%;
+    --stage-lost: 0 70% 55%;
     --background: 210 25% 97%;
     --foreground: 210 40% 10%;
 

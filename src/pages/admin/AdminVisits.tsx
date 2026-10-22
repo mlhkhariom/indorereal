@@ -46,6 +46,7 @@ const AdminVisits = () => {
     else { setOpen(false); setF({ client_name: "", client_phone: "", property_title: "", visit_at: "" }); load(); }
   };
 
+  const agenda = visits.filter((v) => { const t = new Date(v.visit_at).getTime(); return t >= Date.now() && t < Date.now() + 7 * 86400000 && v.status !== "cancelled"; });
   const upcoming = visits.filter((v) => new Date(v.visit_at) >= new Date() && v.status !== "cancelled").length;
 
   return (
@@ -103,6 +104,25 @@ const AdminVisits = () => {
           </CardContent>
         </Card>
       </div>
+      <Card>
+        <CardHeader><CardTitle className="text-base">Next 7 days</CardTitle></CardHeader>
+        <CardContent className="space-y-2">
+          {agenda.length === 0 && <p className="text-sm text-muted-foreground text-center py-4">No visits planned this week.</p>}
+          {agenda.map((v) => (
+            <button key={v.id} onClick={() => setDay(new Date(v.visit_at))} className="w-full text-left flex items-center gap-3 rounded-lg border border-border p-2.5 hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+              <span className="w-12 shrink-0 text-center rounded-md bg-primary/10 py-1">
+                <span className="block text-[10px] uppercase text-muted-foreground">{new Date(v.visit_at).toLocaleDateString("en-IN", { weekday: "short" })}</span>
+                <span className="block text-base font-bold leading-none">{new Date(v.visit_at).getDate()}</span>
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-sm font-medium truncate">{v.client_name}</span>
+                <span className="block text-xs text-muted-foreground truncate">{new Date(v.visit_at).toLocaleTimeString("en-IN", { hour: "numeric", minute: "2-digit" })}{v.property_title ? ` · ${v.property_title}` : ""}</span>
+              </span>
+              <Badge variant="outline" className="capitalize shrink-0">{v.status.replace("_", " ")}</Badge>
+            </button>
+          ))}
+        </CardContent>
+      </Card>
     </div>
   );
 };
