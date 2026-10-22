@@ -77,11 +77,14 @@ export type Database = {
       enquiries: {
         Row: {
           assigned_to: string | null
+          bhk: string | null
           budget: string | null
           created_at: string
           email: string | null
           follow_up_at: string | null
           id: string
+          last_contacted_at: string | null
+          lost_reason: string | null
           message: string | null
           name: string
           page_url: string | null
@@ -90,6 +93,8 @@ export type Database = {
           priority: string
           property_id: string | null
           property_title: string | null
+          property_type: string | null
+          purpose: string | null
           source: string | null
           status: string
           tags: string[] | null
@@ -99,11 +104,14 @@ export type Database = {
         }
         Insert: {
           assigned_to?: string | null
+          bhk?: string | null
           budget?: string | null
           created_at?: string
           email?: string | null
           follow_up_at?: string | null
           id?: string
+          last_contacted_at?: string | null
+          lost_reason?: string | null
           message?: string | null
           name: string
           page_url?: string | null
@@ -112,6 +120,8 @@ export type Database = {
           priority?: string
           property_id?: string | null
           property_title?: string | null
+          property_type?: string | null
+          purpose?: string | null
           source?: string | null
           status?: string
           tags?: string[] | null
@@ -121,11 +131,14 @@ export type Database = {
         }
         Update: {
           assigned_to?: string | null
+          bhk?: string | null
           budget?: string | null
           created_at?: string
           email?: string | null
           follow_up_at?: string | null
           id?: string
+          last_contacted_at?: string | null
+          lost_reason?: string | null
           message?: string | null
           name?: string
           page_url?: string | null
@@ -134,6 +147,8 @@ export type Database = {
           priority?: string
           property_id?: string | null
           property_title?: string | null
+          property_type?: string | null
+          purpose?: string | null
           source?: string | null
           status?: string
           tags?: string[] | null
