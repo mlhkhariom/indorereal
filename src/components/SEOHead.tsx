@@ -19,8 +19,8 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
   const finalTitle = title || settings.site_title || "Indore Realty — Premium Properties in Indore";
   const finalDescription = description || settings.site_description || "";
   const finalKeywords = keywords || settings.site_keywords || "";
-  const finalOgTitle = ogTitle || settings.og_title || finalTitle;
-  const finalOgDescription = ogDescription || settings.og_description || finalDescription;
+  const finalOgTitle = ogTitle || (title ? finalTitle : settings.og_title || finalTitle);
+  const finalOgDescription = ogDescription || (description ? finalDescription : settings.og_description || finalDescription);
   const finalCanonical = canonical || settings.canonical_url || "https://indorerealty.in";
 
   const localBusinessSchema = {
@@ -62,12 +62,6 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
         closes: "19:00",
       },
     ],
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      reviewCount: "350",
-      bestRating: "5",
-    },
   };
 
   const realEstateSchema = {
@@ -131,11 +125,13 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
       <meta property="og:site_name" content="Indore Realty" />
       <meta property="og:locale" content="en_IN" />
       {ogImage && <meta property="og:image" content={ogImage} />}
+      {ogImage && <meta property="og:image:alt" content={finalOgTitle} />}
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={finalOgTitle} />
       <meta name="twitter:description" content={finalOgDescription} />
+      {ogImage && <meta name="twitter:image" content={ogImage} />}
 
       {/* Google Verification */}
       {settings.google_site_verification && (
@@ -152,7 +148,7 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
         </>
       )}
       <script type="application/ld+json">{JSON.stringify(orgSchema)}</script>
-      <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
+      {!schema && <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>}
     </Helmet>
   );
 };
