@@ -138,8 +138,8 @@ const BlockView = ({ b, pageTitle }: { b: Block; pageTitle: string }) => {
         <LeadCapture pageTitle={pageTitle} button={d.button || "Submit"} source="landing_page" /></div></Wrap>;
     case "overview": {
       const rows = [[Building2, "Developer", d.builder], [BadgeCheck, "RERA No.", d.rera], [Calendar, "Possession", d.possession], [Layers, "Configuration", d.config], [Ruler, "Sizes", d.area], [Home, "Total Units", d.units], [MapPin, "Land Area", d.land], [CheckCircle2, "Status", d.status]].filter((r) => r[2]);
-      return <Wrap b={b}><H2>{d.heading}</H2><div className="grid grid-cols-2 md:grid-cols-4 gap-4">{rows.map(([I, l, v]: any, i) => (
-        <div key={i} className="rounded-xl border border-border bg-card text-card-foreground p-4"><I className="h-5 w-5 text-secondary mb-2" aria-hidden="true" /><p className="text-xs text-muted-foreground">{l}</p><p className="font-semibold mt-0.5">{v}</p></div>))}</div></Wrap>;
+      return <Wrap b={b}><H2>{d.heading}</H2><div className="flex flex-wrap justify-center gap-4">{rows.map(([I, l, v]: any, i) => (
+        <div key={i} className="w-[calc(50%-0.5rem)] md:w-[calc(25%-0.75rem)] rounded-xl border border-border bg-card text-card-foreground p-4"><I className="h-5 w-5 text-secondary mb-2" aria-hidden="true" /><p className="text-xs text-muted-foreground">{l}</p><p className="font-semibold mt-0.5">{v}</p></div>))}</div></Wrap>;
     }
     case "prices":
       return <Wrap b={b}><H2>{d.heading}</H2><div className="max-w-3xl mx-auto overflow-x-auto rounded-xl border border-border bg-card text-card-foreground">

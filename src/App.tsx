@@ -114,7 +114,7 @@ const App = () => (
                 <Route path="*" element={<NotFound />} />
               </Routes>
               </Suspense>
-              <MobileBottomBar />
+              {window.location.pathname !== "/builder-preview" && <MobileBottomBar />}
               <CompareBar />
             </BrowserRouter>
           </SiteSettingsProvider>
