@@ -6,6 +6,7 @@ export const DEFAULT_MENUS: Record<string, MenuLink[]> = {
   menu_header: [
     { label: "Home", path: "/" },
     { label: "Properties", path: "/properties" },
+    { label: "New Projects", path: "/projects" },
     { label: "About Us", path: "/about" },
     { label: "Our Services", path: "/services" },
     { label: "Post Property", path: "/post-property" },
