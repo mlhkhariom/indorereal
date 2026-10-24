@@ -9,6 +9,7 @@ import WhyChooseUs from "@/components/WhyChooseUs";
 import HowItWorks from "@/components/HowItWorks";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import CTABanner from "@/components/CTABanner";
+import LeadershipSection from "@/components/LeadershipSection";
 import SEOHead from "@/components/SEOHead";
 
 const Index = () => {
@@ -23,6 +24,7 @@ const Index = () => {
         <LocationsSection />
         <WhyChooseUs />
         <HowItWorks />
+        <LeadershipSection />
         <TestimonialsSection />
         <CTABanner />
       </main>

@@ -42,7 +42,8 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-primary-foreground/60 text-sm leading-relaxed">
-              Indore's most trusted real estate platform. Discover verified properties with transparent pricing and expert guidance since 2015.
+              Indore's most trusted real estate platform. Discover verified properties with transparent pricing and expert guidance.</p>
+            <p className="text-primary-foreground/50 text-xs mt-3">Founder, CEO &amp; MD: <span className="text-secondary font-semibold">Subhash Pawar</span><br />Technical Admin: <span className="text-secondary font-semibold">Hariom Vishwakarma</span>
             </p>
             <div className="flex gap-3 mt-5">
               {(["facebook", "instagram", "youtube", "linkedin"] as const).filter((s) => contact[s]).map((s) => (
@@ -111,7 +112,6 @@ const Footer = () => {
                 </div>
                 <div>
                   <a href={contact.tel} className="hover:text-secondary transition-colors block">{contact.phone}</a>
-                  <a href="tel:+917312345678" className="hover:text-secondary transition-colors block">+91 731 234 5678</a>
                 </div>
               </li>
               <li className="flex items-center gap-3 text-sm text-primary-foreground/60">
@@ -127,7 +127,7 @@ const Footer = () => {
         {/* MLHK Infotech Branding Bar */}
         <div className="border-t border-primary-foreground/10 py-5">
           <div className="flex flex-col md:flex-row items-center justify-between gap-3">
-            <p className="text-xs text-primary-foreground/40">© {new Date().getFullYear()} Indore Realty. All rights reserved. RERA Registered.</p>
+            <p className="text-xs text-primary-foreground/40">© {new Date().getFullYear()} Indore Realty. All rights reserved.</p>
             <div className="flex items-center gap-2">
               <span className="text-xs text-primary-foreground/40">Designed & Developed by</span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-secondary/10 border border-secondary/20">

@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import ScrollReveal from "@/components/ScrollReveal";
 import SEOHead from "@/components/SEOHead";
+import LeadershipSection, { leaders } from "@/components/LeadershipSection";
 import { Link } from "react-router-dom";
 import { Home, ChevronRight, Target, Eye, Heart, Award, Users, Building, MapPin, Clock, ShieldCheck, Handshake } from "lucide-react";
 
@@ -16,12 +17,7 @@ const stats = [
   { value: "98%", label: "Client Satisfaction" },
 ];
 
-const team = [
-  { name: "Vikram Malhotra", role: "Founder & CEO", initials: "VM", desc: "15+ years in Indore real estate" },
-  { name: "Sneha Joshi", role: "Head of Sales", initials: "SJ", desc: "Expert in residential properties" },
-  { name: "Rahul Agarwal", role: "Legal Advisor", initials: "RA", desc: "RERA & documentation specialist" },
-  { name: "Pooja Verma", role: "Client Relations", initials: "PV", desc: "Ensuring seamless buyer journey" },
-];
+const team = leaders;
 
 const values = [
   { icon: ShieldCheck, title: "Transparency", desc: "No hidden charges, no surprises. Every detail upfront." },
@@ -33,7 +29,7 @@ const values = [
 const About = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      <SEOHead title="About Indore Realty — Indore's Trusted Real Estate Partner" description="Learn about Indore Realty — Indore's #1 trusted real estate agency with 500+ verified properties, 1200+ happy families, and 15+ years of experience." keywords="about Indore Realty, real estate agency Indore, property dealer Indore, trusted real estate" canonical="https://indorerealty.in/about" />
+      <SEOHead title="About Indore Realty — Indore's Trusted Real Estate Partner" description="Learn about Indore Realty — Indore's #1 trusted real estate agency with 500+ verified properties, 1200+ happy families, and expert local guidance." keywords="about Indore Realty, real estate agency Indore, property dealer Indore, trusted real estate" canonical="https://indorerealty.in/about" />
       <Header />
       <main id="main" className="outline-none flex-1">
         {/* Hero */}
@@ -69,7 +65,7 @@ const About = () => {
                 <div className="divider-gold !mx-0 !ml-0" />
                 <div className="space-y-4 mt-6 text-muted-foreground leading-relaxed">
                   <p>
-                    Founded in 2015, Indore Realty started with a simple vision — to bring transparency and trust to Indore's real estate market. What began as a small team of passionate real estate enthusiasts has grown into the city's most trusted property platform.
+                    Founded by Subhash Pawar (Founder, CEO & MD), Indore Realty started with a simple vision — to bring transparency and trust to Indore's real estate market. What began as a small team of passionate real estate enthusiasts has grown into the city's most trusted property platform.
                   </p>
                   <p>
                     Over the years, we've helped 1,200+ families find their dream homes, facilitated investments worth hundreds of crores, and established ourselves across 15+ prime localities in Indore. Our commitment to 100% verified listings, fair pricing, and end-to-end support sets us apart.
@@ -140,7 +136,7 @@ const About = () => {
                 <div className="divider-gold" />
               </div>
             </ScrollReveal>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-14">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-14 max-w-3xl mx-auto">
               {values.map((v, i) => (
                 <ScrollReveal key={v.title} delay={i * 0.08}>
                   <div className="card-elevated p-7 text-center group h-full">
@@ -165,7 +161,7 @@ const About = () => {
               <div className="text-center max-w-2xl mx-auto">
                 <span className="text-secondary font-semibold text-sm uppercase tracking-widest">The People Behind</span>
                 <h2 className="font-heading text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-primary-foreground mt-3 leading-tight">
-                  Meet Our Team
+                  Meet Our Leadership
                 </h2>
                 <div className="divider-gold" />
                 <p className="text-primary-foreground/50 text-base md:text-lg mt-3 max-w-xl mx-auto">
@@ -173,7 +169,7 @@ const About = () => {
                 </p>
               </div>
             </ScrollReveal>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-14">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-14 max-w-3xl mx-auto">
               {team.map((member, i) => (
                 <ScrollReveal key={member.name} delay={i * 0.1}>
                   <div className="glass-card rounded-2xl p-7 text-center">
