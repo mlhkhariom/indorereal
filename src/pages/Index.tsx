@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import HeroSection from "@/components/HeroSection";
 import FeaturedProperties from "@/components/FeaturedProperties";
+import FeaturedProjects from "@/components/FeaturedProjects";
 import LocationsSection from "@/components/LocationsSection";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import HowItWorks from "@/components/HowItWorks";
@@ -17,6 +18,7 @@ const Index = () => {
       <Header />
       <main id="main" className="outline-none flex-1">
         <HeroSection />
+        <FeaturedProjects />
         <FeaturedProperties />
         <LocationsSection />
         <WhyChooseUs />
