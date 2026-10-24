@@ -70,7 +70,7 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <SEOHead title="Contact Indore Realty — Get Free Property Consultation" description="Contact Indore Realty for free property consultation. Call us or visit our Vijay Nagar office. Expert guidance for buying, selling & renting in Indore." keywords="contact Indore Realty, property consultation Indore, real estate agent contact, property dealer Indore phone" canonical="https://screenshot-soul-canvas-42.lovable.app/contact" />
+      <SEOHead title="Contact Indore Realty — Get Free Property Consultation" description="Contact Indore Realty for free property consultation. Call or WhatsApp us, or book a site visit. Expert guidance for buying, selling & renting in Indore." keywords="contact Indore Realty, property consultation Indore, real estate agent contact, property dealer Indore phone" canonical="https://screenshot-soul-canvas-42.lovable.app/contact" />
       <Header />
       <main id="main" className="outline-none flex-1">
         {/* Hero */}

@@ -21,7 +21,7 @@ const Gallery = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <SEOHead title="Property Gallery — Indore Realty" description="Explore stunning visuals of premium properties across Indore. Apartments, villas, homes & commercial spaces." />
+      <SEOHead title="Property Gallery — Indore Realty" description="Photo gallery of Indore Realty projects — Prabhu Krishna Embrace and Rudra Palace: exteriors, interiors, amenities and floor plans." />
       <Header />
       <main id="main" className="outline-none flex-1">
         <section className="navy-gradient pt-28 pb-16 relative overflow-hidden">
