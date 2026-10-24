@@ -21,7 +21,7 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
   const finalKeywords = keywords || settings.site_keywords || "";
   const finalOgTitle = ogTitle || (title ? finalTitle : settings.og_title || finalTitle);
   const finalOgDescription = ogDescription || (description ? finalDescription : settings.og_description || finalDescription);
-  const base = (settings.canonical_url || "https://screenshot-soul-canvas-42.lovable.app").replace(/\/$/, "");
+  const base = (settings.canonical_url || "https://indorerealty.in").replace(/\/$/, "");
   const path = typeof window !== "undefined" ? window.location.pathname : "/";
   const finalCanonical = canonical || base + (path === "/" ? "/" : path.replace(/\/$/, ""));
 
@@ -29,17 +29,17 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
   const phone = settings.schema_org_phone && settings.schema_org_phone !== PLACEHOLDER_PHONE ? settings.schema_org_phone : undefined;
   const rawAddr = settings.schema_org_address || "";
   const street = rawAddr && !/123 Business Park/i.test(rawAddr) ? rawAddr.split(",")[0] : undefined;
-  const finalOgImage = ogImage || "https://screenshot-soul-canvas-42.lovable.app/og-image.jpg";
+  const finalOgImage = ogImage || "https://indorerealty.in/og-image.jpg";
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": "https://screenshot-soul-canvas-42.lovable.app/#website",
+    "@id": "https://indorerealty.in/#website",
     name: "Indore Realty",
-    url: "https://screenshot-soul-canvas-42.lovable.app/",
+    url: "https://indorerealty.in/",
     inLanguage: "en-IN",
     potentialAction: {
       "@type": "SearchAction",
-      target: "https://screenshot-soul-canvas-42.lovable.app/properties?q={search_term_string}",
+      target: "https://indorerealty.in/properties?q={search_term_string}",
       "query-input": "required name=search_term_string",
     },
   };
@@ -47,7 +47,7 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "@id": "https://screenshot-soul-canvas-42.lovable.app/#business",
+    "@id": "https://indorerealty.in/#business",
     name: settings.schema_org_name || "Indore Realty",
     description: settings.schema_org_description || "Indore Realty — verified new residential projects and flats in Indore",
     url: finalCanonical,
@@ -65,8 +65,8 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
       "@id": "https://www.wikidata.org/wiki/Q228405",
     },
     priceRange: "₹₹-₹₹₹₹",
-    image: "https://screenshot-soul-canvas-42.lovable.app/logo.png",
-    logo: "https://screenshot-soul-canvas-42.lovable.app/logo.png",
+    image: "https://indorerealty.in/logo.png",
+    logo: "https://indorerealty.in/logo.png",
     founder: { "@type": "Person", name: "Subhash Pawar", jobTitle: "Founder, CEO & Managing Director" },
     sameAs: [],
   };
@@ -87,7 +87,7 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
     },
     areaServed: { "@type": "City", name: "Indore" },
     priceRange: "₹₹-₹₹₹₹",
-    image: "https://screenshot-soul-canvas-42.lovable.app/logo.png",
+    image: "https://indorerealty.in/logo.png",
     sameAs: [],
   };
 
@@ -95,7 +95,7 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://screenshot-soul-canvas-42.lovable.app/" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://indorerealty.in/" },
     ],
   };
 
@@ -103,8 +103,8 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Indore Realty",
-    url: "https://screenshot-soul-canvas-42.lovable.app",
-    logo: "https://screenshot-soul-canvas-42.lovable.app/logo.png",
+    url: "https://indorerealty.in",
+    logo: "https://indorerealty.in/logo.png",
     founder: { "@type": "Person", name: "Subhash Pawar" },
     contactPoint: phone && {
       "@type": "ContactPoint",

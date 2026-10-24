@@ -55,7 +55,7 @@ const Services = () => {
   const contact = useContact();
   return (
     <div className="min-h-screen flex flex-col">
-      <SEOHead title="Real Estate Services in Indore — Buy, Sell, Rent Properties" description="Explore Indore Realty's comprehensive real estate services — property search, legal assistance, home loans, vastu consultation, interior design & property management in Indore." keywords="real estate services Indore, property services, home loan assistance, vastu consultation, property management Indore" canonical="https://screenshot-soul-canvas-42.lovable.app/services" />
+      <SEOHead title="Real Estate Services in Indore — Buy, Sell, Rent Properties" description="Explore Indore Realty's comprehensive real estate services — property search, legal assistance, home loans, vastu consultation, interior design & property management in Indore." keywords="real estate services Indore, property services, home loan assistance, vastu consultation, property management Indore" canonical="https://indorerealty.in/services" />
       <Header />
       <main id="main" className="outline-none flex-1">
         {/* Hero */}
