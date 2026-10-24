@@ -76,7 +76,7 @@ const PropertyDetail = () => {
     <div className="min-h-screen flex flex-col">
       <SEOHead title={`${property.title} in ${property.location}, Indore | Indore Realty`}
         description={(property.description || `${property.type} for ${property.status} in ${property.location}, Indore.`).slice(0, 155)}
-        canonical={`https://indorerealty.in/property/${property.slug}`} />
+        canonical={`https://screenshot-soul-canvas-42.lovable.app/property/${property.slug}`} />
       <Header />
       <main id="main" className="outline-none flex-1 bg-muted">
         <div className="navy-gradient pt-24 pb-6">

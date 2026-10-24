@@ -29,7 +29,7 @@ const values = [
 const About = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      <SEOHead title="About Indore Realty — Indore's Trusted Real Estate Partner" description="Learn about Indore Realty — Indore real estate partner led by Founder & CEO Subhash Pawar — verified new projects like Prabhu Krishna Embrace and Rudra Palace with honest pricing." keywords="about Indore Realty, real estate agency Indore, property dealer Indore, trusted real estate" canonical="https://indorerealty.in/about" />
+      <SEOHead title="About Indore Realty — Indore's Trusted Real Estate Partner" description="Learn about Indore Realty — Indore real estate partner led by Founder & CEO Subhash Pawar — verified new projects like Prabhu Krishna Embrace and Rudra Palace with honest pricing." keywords="about Indore Realty, real estate agency Indore, property dealer Indore, trusted real estate" canonical="https://screenshot-soul-canvas-42.lovable.app/about" />
       <Header />
       <main id="main" className="outline-none flex-1">
         {/* Hero */}
@@ -71,7 +71,7 @@ const About = () => {
                     Today we represent carefully chosen projects such as Prabhu Krishna Embrace and Rudra Palace (Pulak City), with complete brochures, floor plans and price lists shared upfront. Our commitment to 100% verified listings, fair pricing, and end-to-end support sets us apart.
                   </p>
                   <p>
-                    As an <strong className="text-foreground">MLHK Infotech</strong> initiative, we combine traditional real estate expertise with modern technology to deliver an unmatched property discovery experience.
+                    As an <a href="https://mlhk.in" target="_blank" rel="noopener" className="text-secondary font-semibold hover:underline">MLHK Infotech</a> initiative, we combine traditional real estate expertise with modern technology to deliver an unmatched property discovery experience.
                   </p>
                 </div>
               </ScrollReveal>

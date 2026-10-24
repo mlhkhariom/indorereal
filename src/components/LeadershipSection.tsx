@@ -9,8 +9,9 @@ export const leaders = [
     desc: "Leads Indore Realty's vision, project partnerships and client relationships — committed to honest guidance and verified projects for every family.",
   },
   {
-    name: "Hariom Vishwakarma",
+    name: "Hariom Vishwkarma",
     role: "Technical Admin · MLHK Infotech",
+    link: "https://mlhk.in",
     initials: "HV",
     icon: Cpu,
     desc: "Manages the website, CRM and digital systems so every enquiry is tracked, answered and followed up on time.",
@@ -43,6 +44,7 @@ const LeadershipSection = ({ dark = false }: { dark?: boolean }) => (
               </div>
             </div>
             <p className={`text-sm leading-relaxed mt-5 ${dark ? "text-primary-foreground/60" : "text-muted-foreground"}`}>{l.desc}</p>
+            {"link" in l && l.link && <a href={l.link} target="_blank" rel="noopener" className="inline-block mt-3 text-secondary text-sm font-semibold hover:underline">Visit MLHK Infotech — mlhk.in →</a>}
           </article>
         ))}
       </div>

@@ -94,10 +94,10 @@ const BlogDetail = () => {
     description: post.seo_description || post.excerpt,
     image: post.cover_image,
     author: { "@type": "Person", name: post.author_name },
-    publisher: { "@type": "Organization", name: "Indore Realty", logo: { "@type": "ImageObject", url: "https://indorerealty.in/logo.png" } },
+    publisher: { "@type": "Organization", name: "Indore Realty", logo: { "@type": "ImageObject", url: "https://screenshot-soul-canvas-42.lovable.app/logo.png" } },
     datePublished: post.created_at,
     dateModified: post.created_at,
-    mainEntityOfPage: { "@type": "WebPage", "@id": `https://indorerealty.in/blog/${post.slug}` },
+    mainEntityOfPage: { "@type": "WebPage", "@id": `https://screenshot-soul-canvas-42.lovable.app/blog/${post.slug}` },
     keywords: post.seo_keywords || post.tags?.join(", "),
   };
 
@@ -111,8 +111,8 @@ const BlogDetail = () => {
         <meta property="og:description" content={post.seo_description || post.excerpt || ""} />
         <meta property="og:type" content="article" />
         {post.cover_image && <meta property="og:image" content={post.cover_image} />}
-        <meta property="og:url" content={`https://indorerealty.in/blog/${post.slug}`} />
-        <link rel="canonical" href={`https://indorerealty.in/blog/${post.slug}`} />
+        <meta property="og:url" content={`https://screenshot-soul-canvas-42.lovable.app/blog/${post.slug}`} />
+        <link rel="canonical" href={`https://screenshot-soul-canvas-42.lovable.app/blog/${post.slug}`} />
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       </Helmet>
       <Header />

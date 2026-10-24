@@ -45,7 +45,7 @@ const CTABanner = () => {
                   <span className="h-1.5 w-1.5 rounded-full bg-green-400" /> No Hidden Charges
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-green-400" /> Powered by MLHK Infotech
+                  <span className="h-1.5 w-1.5 rounded-full bg-green-400" /> Powered by <a href="https://mlhk.in" target="_blank" rel="noopener" className="underline hover:text-secondary">MLHK Infotech</a>
                 </span>
               </div>
             </div>

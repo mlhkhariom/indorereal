@@ -41,7 +41,7 @@ const Footer = () => {
             </div>
             <p className="text-primary-foreground/60 text-sm leading-relaxed">
               Indore's most trusted real estate platform. Discover verified properties with transparent pricing and expert guidance.</p>
-            <p className="text-primary-foreground/50 text-xs mt-3">Founder, CEO &amp; MD: <span className="text-secondary font-semibold">Subhash Pawar</span><br />Technical Admin: <span className="text-secondary font-semibold">Hariom Vishwakarma</span> (<a href="https://mlhk.in" target="_blank" rel="noopener" className="underline hover:text-secondary">MLHK Infotech</a>)
+            <p className="text-primary-foreground/50 text-xs mt-3">Founder, CEO &amp; MD: <span className="text-secondary font-semibold">Subhash Pawar</span><br />Technical Admin: <span className="text-secondary font-semibold">Hariom Vishwkarma</span> (<a href="https://mlhk.in" target="_blank" rel="noopener" className="underline hover:text-secondary">MLHK Infotech</a>)
             </p>
             <div className="flex gap-3 mt-5">
               {(["facebook", "instagram", "youtube", "linkedin"] as const).filter((s) => contact[s]).map((s) => (
