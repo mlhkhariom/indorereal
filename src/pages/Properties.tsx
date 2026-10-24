@@ -121,7 +121,7 @@ const Properties = () => {
     <div className="min-h-screen flex flex-col">
       <SEOHead
         title={`Properties in Indore${location ? ` — ${location}` : ""} | Indore Realty`}
-        description={`Browse ${filtered.length}+ verified properties in Indore${location ? ` — ${location}` : ""}. Flats, plots, villas & houses with transparent pricing.`}
+        description={`Flats and new residential projects for sale in Indore${location ? ` — ${location}` : ""}: 1, 2 & 3 BHK homes in Prabhu Krishna Embrace, Rudra Palace and more, with price lists and floor plans.`}
         schema={propertySchema}
       />
       <Header />
