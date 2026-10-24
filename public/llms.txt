@@ -6,25 +6,25 @@ Every project page shares the brochure, floor plans, unit sizes, price list, ame
 
 ## Projects
 
-- [All New Projects](/projects): Current residential projects in Indore.
-- [Prabhu Krishna Embrace](/projects/prabhu-krishna-embrace): Premium 2 & 3 BHK flats (1360–1925 sq.ft), G+6 tower with 48 homes, rooftop clubhouse, gym and 20+ amenities.
-- [Rudra Palace, Pulak City](/projects/rudra-palace-pulak-city): 1 & 2 BHK flats (525–1120 sq.ft) near Silicon City at ₹4600/sq.ft, from ₹24.15 Lakh.
+- [All New Projects](https://indorerealty.in/projects): Current residential projects in Indore.
+- [Prabhu Krishna Embrace](https://indorerealty.in/projects/prabhu-krishna-embrace): Premium 2 & 3 BHK flats (1360–1925 sq.ft), G+6 tower with 48 homes, rooftop clubhouse, gym and 20+ amenities.
+- [Rudra Palace, Pulak City](https://indorerealty.in/projects/rudra-palace-pulak-city): 1 & 2 BHK flats (525–1120 sq.ft) near Silicon City at ₹4600/sq.ft, from ₹24.15 Lakh.
 
 ## Pages
 
-- [Home](/): Overview of Indore Realty.
-- [Properties](/properties): Property listings in Indore.
-- [About](/about): Company and leadership.
-- [Services](/services): Buying, selling and home-loan help.
-- [EMI Calculator](/emi-calculator): Home loan EMI calculator.
-- [Contact](/contact): Phone, WhatsApp and enquiry form.
-- [FAQ](/faq): Common property-buying questions.
+- [Home](https://indorerealty.in/): Overview of Indore Realty.
+- [Properties](https://indorerealty.in/properties): Property listings in Indore.
+- [About](https://indorerealty.in/about): Company and leadership.
+- [Services](https://indorerealty.in/services): Buying, selling and home-loan help.
+- [EMI Calculator](https://indorerealty.in/emi-calculator): Home loan EMI calculator.
+- [Contact](https://indorerealty.in/contact): Phone, WhatsApp and enquiry form.
+- [FAQ](https://indorerealty.in/faq): Common property-buying questions.
 
 ## Blog
 
-- [Blog](/blog): Indore area guides, home-buying tips and market updates.
+- [Blog](https://indorerealty.in/blog): Indore area guides, home-buying tips and market updates.
 
 ## Optional
 
-- [Gallery](/gallery): Project photos.
-- [Post Your Property](/post-property): List a property for sale or rent.
+- [Gallery](https://indorerealty.in/gallery): Project photos.
+- [Post Your Property](https://indorerealty.in/post-property): List a property for sale or rent.
