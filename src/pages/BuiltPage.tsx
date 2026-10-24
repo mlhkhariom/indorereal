@@ -23,14 +23,37 @@ const BuiltPage = ({ kind }: { kind: "page" | "project" }) => {
   const path = kind === "project" ? `/projects/${slug}` : `/p/${slug}`;
   const faqs = blocks.filter((b) => b.type === "faq" && !b.hidden).flatMap((b) => b.data.items || []);
   const schema: any[] = [];
-  if (kind === "project") schema.push({ "@context": "https://schema.org", "@type": "Residence", name: data.title, description: data.seo_description || undefined, image: meta.cover || undefined,
-    address: { "@type": "PostalAddress", addressLocality: meta.location || "Indore", addressRegion: "Madhya Pradesh", addressCountry: "IN" } });
-  if (faqs.length) schema.push({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map((f: any) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) });
+  const base = (settings.canonical_url || "https://indorerealty.in").replace(/\/$/, "");
+  const url = `${base}${path}`;
+  const vis = blocks.filter((b) => !b.hidden);
+  const images = [...new Set([data.og_image, meta.cover, ...vis.flatMap((b) => [b.data.image, ...(b.data.images || []), ...((b.type === "floorplans" ? b.data.items : []) || []).map((i: any) => i.image)])].filter((s) => typeof s === "string" && s))] as string[];
+  if (kind === "project") {
+    const amen = vis.filter((b) => b.type === "amenities").flatMap((b) => b.data.items || []).map((i: any) => i.name).filter(Boolean);
+    const units = vis.filter((b) => b.type === "units").flatMap((b) => b.data.items || []);
+    const facts = vis.filter((b) => b.type === "facts").flatMap((b) => b.data.items || []);
+    const total = parseInt(facts.find((f: any) => /flat|unit/i.test(f.label))?.value || "", 10);
+    const floors = facts.find((f: any) => /floor/i.test(f.label) && !/per/i.test(f.label))?.value;
+    const address = { "@type": "PostalAddress", addressLocality: meta.location || "Indore", addressRegion: "Madhya Pradesh", addressCountry: "IN" };
+    schema.push({ "@type": "ApartmentComplex", "@id": `${url}#complex`, name: data.title, url, description: data.seo_description || meta.tagline, image: images.slice(0, 12), address,
+      ...(Number.isFinite(total) ? { numberOfAccommodationUnits: total } : {}),
+      ...(floors ? { additionalProperty: [{ "@type": "PropertyValue", name: "Floors", value: floors }] } : {}),
+      amenityFeature: amen.map((name: string) => ({ "@type": "LocationFeatureSpecification", name, value: true })),
+      containsPlace: units.map((u: any) => {
+        const size = parseInt(String(u.sizes).replace(/[^\d]/g, "").slice(0, 4), 10);
+        const bhk = parseInt(u.type, 10);
+        return { "@type": "Apartment", name: `${u.type} – ${data.title}`, ...(bhk ? { numberOfRooms: bhk, numberOfBedrooms: bhk } : {}), ...(size ? { floorSize: { "@type": "QuantitativeValue", value: size, unitCode: "FTK" } } : {}), address };
+      }),
+      ...(meta.builder ? { brand: { "@type": "Organization", name: meta.builder } } : {}) });
+    schema.push({ "@type": "RealEstateListing", name: `${data.title} – ${meta.config || "Apartments"} in ${meta.location || "Indore"}`, url, image: images[0], description: data.seo_description, about: { "@id": `${url}#complex` }, datePosted: data.created_at, dateModified: data.updated_at, provider: { "@id": `${base}/#business` } });
+  }
+  schema.push({ "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: `${base}/` }, ...(kind === "project" ? [{ "@type": "ListItem", position: 2, name: "New Projects", item: `${base}/projects` }] : []), { "@type": "ListItem", position: kind === "project" ? 3 : 2, name: data.title, item: url }] });
+  if (faqs.length) schema.push({ "@type": "FAQPage", mainEntity: faqs.map((f: any) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) });
   const hasHero = blocks[0]?.type === "hero" && !blocks[0].hidden;
+  const keywords = meta.keywords || (kind === "project" ? `${data.title}, ${data.title} Indore, ${meta.config || "2 BHK 3 BHK"} flats in ${meta.location || "Indore"}, new projects in Indore, luxury apartments Indore, 2 BHK flat Indore, 3 BHK flat Indore` : undefined);
   return (
     <div className="min-h-screen flex flex-col">
-      <SEOHead title={data.seo_title || `${data.title} | Indore Realty`} description={data.seo_description || `${data.title} — Indore Realty`} ogImage={data.og_image || meta.cover || undefined}
-        canonical={`https://indorerealty.in${path}`} schema={schema.length ? { "@context": "https://schema.org", "@graph": schema } : undefined} />
+      <SEOHead title={data.seo_title || `${data.title} | Indore Realty`} description={data.seo_description || `${data.title} — Indore Realty`} keywords={keywords} ogImage={data.og_image || meta.cover || undefined}
+        canonical={url} type={kind === "project" ? "article" : "website"} schema={{ "@context": "https://schema.org", "@graph": schema }} />
       <Header />
       <main id="main" className={`outline-none flex-1 ${hasHero ? "" : "pt-24"}`}><BlockRenderer blocks={blocks} pageTitle={data.title} /></main>
       <Footer />
