@@ -202,7 +202,7 @@ const TermsConditions = () => {
                   <h2 className="font-heading font-bold text-foreground text-xl mb-3">16. Contact Information</h2>
                   <p>For any questions regarding these Terms & Conditions, please contact us:</p>
                   <div className="mt-3 p-5 rounded-xl bg-muted/60 border border-border space-y-2">
-                    <p><strong className="text-foreground">Indore Realty</strong> (A brand of MLHK Infotech)</p>
+                    <p><strong className="text-foreground">Indore Realty</strong> (A brand of <a href="https://mlhk.in" target="_blank" rel="noopener" className="text-secondary font-semibold hover:underline">MLHK Infotech</a>)</p>
                     <p>123 Business Park, Vijay Nagar, Indore, MP 452010</p>
                     <p>Phone: <a href={contact.tel} className="text-secondary hover:underline">{contact.phone}</a></p>
                     <p>Email: <a href={contact.mailto} className="text-secondary hover:underline">{contact.email}</a></p>

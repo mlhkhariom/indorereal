@@ -23,6 +23,21 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
   const finalOgDescription = ogDescription || (description ? finalDescription : settings.og_description || finalDescription);
   const finalCanonical = canonical || settings.canonical_url || "https://screenshot-soul-canvas-42.lovable.app";
 
+  const finalOgImage = ogImage || "https://screenshot-soul-canvas-42.lovable.app/og-image.jpg";
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://screenshot-soul-canvas-42.lovable.app/#website",
+    name: "Indore Realty",
+    url: "https://screenshot-soul-canvas-42.lovable.app/",
+    inLanguage: "en-IN",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: "https://screenshot-soul-canvas-42.lovable.app/properties?q={search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
+  };
+
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -53,6 +68,7 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
     priceRange: "₹₹-₹₹₹₹",
     image: "https://screenshot-soul-canvas-42.lovable.app/logo.png",
     logo: "https://screenshot-soul-canvas-42.lovable.app/logo.png",
+    founder: { "@type": "Person", name: "Subhash Pawar", jobTitle: "Founder, CEO & Managing Director" },
     sameAs: [],
     openingHoursSpecification: [
       {
@@ -124,14 +140,18 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
       <meta property="og:url" content={finalCanonical} />
       <meta property="og:site_name" content="Indore Realty" />
       <meta property="og:locale" content="en_IN" />
-      {ogImage && <meta property="og:image" content={ogImage} />}
-      {ogImage && <meta property="og:image:alt" content={finalOgTitle} />}
+      <meta property="og:image" content={finalOgImage} />
+      <meta property="og:image:secure_url" content={finalOgImage} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content={finalOgTitle} />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={finalOgTitle} />
       <meta name="twitter:description" content={finalOgDescription} />
-      {ogImage && <meta name="twitter:image" content={ogImage} />}
+      <meta name="twitter:image" content={finalOgImage} />
+      <meta name="twitter:image:alt" content={finalOgTitle} />
 
       {/* Google Verification */}
       {settings.google_site_verification && (
@@ -148,6 +168,7 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
         </>
       )}
       <script type="application/ld+json">{JSON.stringify(orgSchema)}</script>
+      <script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>
       {!schema && <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>}
     </Helmet>
   );

@@ -71,7 +71,7 @@ const About = () => {
                     Today we represent carefully chosen projects such as Prabhu Krishna Embrace and Rudra Palace (Pulak City), with complete brochures, floor plans and price lists shared upfront. Our commitment to 100% verified listings, fair pricing, and end-to-end support sets us apart.
                   </p>
                   <p>
-                    As an <strong className="text-foreground">MLHK Infotech</strong> initiative, we combine traditional real estate expertise with modern technology to deliver an unmatched property discovery experience.
+                    As an <a href="https://mlhk.in" target="_blank" rel="noopener" className="text-secondary font-semibold hover:underline">MLHK Infotech</a> initiative, we combine traditional real estate expertise with modern technology to deliver an unmatched property discovery experience.
                   </p>
                 </div>
               </ScrollReveal>
