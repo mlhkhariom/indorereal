@@ -12,7 +12,7 @@ const services = [
   {
     icon: Search,
     title: "Property Search & Discovery",
-    desc: "Access 500+ verified properties across 15+ locations in Indore. Use smart filters to find your perfect match — whether it's a flat, villa, plot, or commercial space.",
+    desc: "Explore verified new projects and flats in Indore. Use smart filters to find your perfect match — whether it's a flat, villa, plot, or commercial space.",
   },
   {
     icon: Building,

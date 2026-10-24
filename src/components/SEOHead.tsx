@@ -21,8 +21,14 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
   const finalKeywords = keywords || settings.site_keywords || "";
   const finalOgTitle = ogTitle || (title ? finalTitle : settings.og_title || finalTitle);
   const finalOgDescription = ogDescription || (description ? finalDescription : settings.og_description || finalDescription);
-  const finalCanonical = canonical || settings.canonical_url || "https://screenshot-soul-canvas-42.lovable.app";
+  const base = (settings.canonical_url || "https://screenshot-soul-canvas-42.lovable.app").replace(/\/$/, "");
+  const path = typeof window !== "undefined" ? window.location.pathname : "/";
+  const finalCanonical = canonical || base + (path === "/" ? "/" : path.replace(/\/$/, ""));
 
+  const PLACEHOLDER_PHONE = "+919876543210";
+  const phone = settings.schema_org_phone && settings.schema_org_phone !== PLACEHOLDER_PHONE ? settings.schema_org_phone : undefined;
+  const rawAddr = settings.schema_org_address || "";
+  const street = rawAddr && !/123 Business Park/i.test(rawAddr) ? rawAddr.split(",")[0] : undefined;
   const finalOgImage = ogImage || "https://screenshot-soul-canvas-42.lovable.app/og-image.jpg";
   const websiteSchema = {
     "@context": "https://schema.org",
@@ -45,20 +51,13 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
     name: settings.schema_org_name || "Indore Realty",
     description: settings.schema_org_description || "Indore Realty — verified new residential projects and flats in Indore",
     url: finalCanonical,
-    telephone: settings.schema_org_phone || "+919876543210",
-    email: "info@indorerealty.in",
+    telephone: phone,
     address: {
       "@type": "PostalAddress",
-      streetAddress: settings.schema_org_address?.split(",")[0] || "123 Business Park, Vijay Nagar",
+      streetAddress: street,
       addressLocality: "Indore",
       addressRegion: "Madhya Pradesh",
-      postalCode: "452010",
       addressCountry: "IN",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: "22.7196",
-      longitude: "75.8577",
     },
     areaServed: {
       "@type": "City",
@@ -70,29 +69,20 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
     logo: "https://screenshot-soul-canvas-42.lovable.app/logo.png",
     founder: { "@type": "Person", name: "Subhash Pawar", jobTitle: "Founder, CEO & Managing Director" },
     sameAs: [],
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        opens: "09:00",
-        closes: "19:00",
-      },
-    ],
   };
 
   const realEstateSchema = {
     "@context": "https://schema.org",
     "@type": "RealEstateAgent",
     name: settings.schema_org_name || "Indore Realty",
-    description: settings.schema_org_description || "Indore's #1 trusted real estate platform",
+    description: settings.schema_org_description || "Verified new flats and residential projects in Indore",
     url: finalCanonical,
-    telephone: settings.schema_org_phone || "+919876543210",
+    telephone: phone,
     address: {
       "@type": "PostalAddress",
-      streetAddress: settings.schema_org_address?.split(",")[0] || "123 Business Park, Vijay Nagar",
+      streetAddress: street,
       addressLocality: "Indore",
       addressRegion: "Madhya Pradesh",
-      postalCode: "452010",
       addressCountry: "IN",
     },
     areaServed: { "@type": "City", name: "Indore" },
@@ -115,9 +105,10 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
     name: "Indore Realty",
     url: "https://screenshot-soul-canvas-42.lovable.app",
     logo: "https://screenshot-soul-canvas-42.lovable.app/logo.png",
-    contactPoint: {
+    founder: { "@type": "Person", name: "Subhash Pawar" },
+    contactPoint: phone && {
       "@type": "ContactPoint",
-      telephone: settings.schema_org_phone || "+919876543210",
+      telephone: phone,
       contactType: "customer service",
       areaServed: "IN",
       availableLanguage: ["Hindi", "English"],
