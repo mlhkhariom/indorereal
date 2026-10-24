@@ -29,7 +29,7 @@ const values = [
 const About = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      <SEOHead title="About Indore Realty — Indore's Trusted Real Estate Partner" description="Learn about Indore Realty — Indore real estate partner led by Founder & CEO Subhash Pawar — verified new projects like Prabhu Krishna Embrace and Rudra Palace with honest pricing." keywords="about Indore Realty, real estate agency Indore, property dealer Indore, trusted real estate" canonical="https://indorerealty.in/about" />
+      <SEOHead title="About Indore Realty — Indore's Trusted Real Estate Partner" description="Learn about Indore Realty — Indore real estate partner led by Founder & CEO Subhash Pawar — verified new projects like Prabhu Krishna Embrace and Rudra Palace with honest pricing." keywords="about Indore Realty, real estate agency Indore, property dealer Indore, trusted real estate" canonical="https://screenshot-soul-canvas-42.lovable.app/about" />
       <Header />
       <main id="main" className="outline-none flex-1">
         {/* Hero */}

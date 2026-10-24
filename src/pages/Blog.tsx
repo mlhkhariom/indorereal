@@ -38,7 +38,7 @@ const Blog = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <SEOHead title="Indore Real Estate Blog — Property Tips, Area Guides & Market News | Indore Realty" description="Read expert guides on buying flats in Indore, area comparisons, home loans, RERA, registry charges and new projects like Prabhu Krishna Embrace and Rudra Palace." canonical="https://indorerealty.in/blog" />
+      <SEOHead title="Indore Real Estate Blog — Property Tips, Area Guides & Market News | Indore Realty" description="Read expert guides on buying flats in Indore, area comparisons, home loans, RERA, registry charges and new projects like Prabhu Krishna Embrace and Rudra Palace." canonical="https://screenshot-soul-canvas-42.lovable.app/blog" />
       <Header />
       <main id="main" className="outline-none flex-1">
         <section className="navy-gradient pt-28 pb-16 relative overflow-hidden">

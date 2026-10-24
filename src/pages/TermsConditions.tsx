@@ -12,7 +12,7 @@ const TermsConditions = () => {
   const contact = useContact();
   return (
     <div className="min-h-screen flex flex-col">
-      <SEOHead title="Terms & Conditions | Indore Realty" description="Terms and conditions for using the Indore Realty website, property listings and enquiry services." canonical="https://indorerealty.in/terms-conditions" />
+      <SEOHead title="Terms & Conditions | Indore Realty" description="Terms and conditions for using the Indore Realty website, property listings and enquiry services." canonical="https://screenshot-soul-canvas-42.lovable.app/terms-conditions" />
       <Header />
       <main id="main" className="outline-none flex-1">
         {/* Hero */}

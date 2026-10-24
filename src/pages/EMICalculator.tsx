@@ -29,7 +29,7 @@ const EMICalculator = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <SEOHead title="Home Loan EMI Calculator — Indore Flats | Indore Realty" description="Calculate your monthly home loan EMI for flats in Indore. Check affordability for 1, 2 and 3 BHK homes starting from ₹24 Lakh." canonical="https://indorerealty.in/emi-calculator" />
+      <SEOHead title="Home Loan EMI Calculator — Indore Flats | Indore Realty" description="Calculate your monthly home loan EMI for flats in Indore. Check affordability for 1, 2 and 3 BHK homes starting from ₹24 Lakh." canonical="https://screenshot-soul-canvas-42.lovable.app/emi-calculator" />
       <Header />
       <main id="main" className="outline-none flex-1">
         {/* Hero */}

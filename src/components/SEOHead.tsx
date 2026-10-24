@@ -21,12 +21,12 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
   const finalKeywords = keywords || settings.site_keywords || "";
   const finalOgTitle = ogTitle || (title ? finalTitle : settings.og_title || finalTitle);
   const finalOgDescription = ogDescription || (description ? finalDescription : settings.og_description || finalDescription);
-  const finalCanonical = canonical || settings.canonical_url || "https://indorerealty.in";
+  const finalCanonical = canonical || settings.canonical_url || "https://screenshot-soul-canvas-42.lovable.app";
 
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "@id": "https://indorerealty.in/#business",
+    "@id": "https://screenshot-soul-canvas-42.lovable.app/#business",
     name: settings.schema_org_name || "Indore Realty",
     description: settings.schema_org_description || "Indore Realty — verified new residential projects and flats in Indore",
     url: finalCanonical,
@@ -51,8 +51,8 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
       "@id": "https://www.wikidata.org/wiki/Q228405",
     },
     priceRange: "₹₹-₹₹₹₹",
-    image: "https://indorerealty.in/logo.png",
-    logo: "https://indorerealty.in/logo.png",
+    image: "https://screenshot-soul-canvas-42.lovable.app/logo.png",
+    logo: "https://screenshot-soul-canvas-42.lovable.app/logo.png",
     sameAs: [],
     openingHoursSpecification: [
       {
@@ -81,7 +81,7 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
     },
     areaServed: { "@type": "City", name: "Indore" },
     priceRange: "₹₹-₹₹₹₹",
-    image: "https://indorerealty.in/logo.png",
+    image: "https://screenshot-soul-canvas-42.lovable.app/logo.png",
     sameAs: [],
   };
 
@@ -89,7 +89,7 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://indorerealty.in/" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://screenshot-soul-canvas-42.lovable.app/" },
     ],
   };
 
@@ -97,8 +97,8 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Indore Realty",
-    url: "https://indorerealty.in",
-    logo: "https://indorerealty.in/logo.png",
+    url: "https://screenshot-soul-canvas-42.lovable.app",
+    logo: "https://screenshot-soul-canvas-42.lovable.app/logo.png",
     contactPoint: {
       "@type": "ContactPoint",
       telephone: settings.schema_org_phone || "+919876543210",

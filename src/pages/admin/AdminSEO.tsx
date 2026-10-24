@@ -23,7 +23,7 @@ const settingsGroups = [
       { key: "site_title", label: "Site Title", type: "input", help: "Browser tab title (<60 chars, include main keyword)" },
       { key: "site_description", label: "Meta Description", type: "textarea", help: "Search engine description (<160 chars)" },
       { key: "site_keywords", label: "Meta Keywords", type: "textarea", help: "Comma-separated keywords for SEO" },
-      { key: "canonical_url", label: "Canonical URL", type: "input", help: "Main website URL (e.g., https://indorerealty.in)" },
+      { key: "canonical_url", label: "Canonical URL", type: "input", help: "Main website URL (e.g., https://screenshot-soul-canvas-42.lovable.app)" },
     ],
   },
   {

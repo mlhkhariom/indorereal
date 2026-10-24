@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://indorerealty.in/sitemap.xml
+Sitemap: https://screenshot-soul-canvas-42.lovable.app/sitemap.xml

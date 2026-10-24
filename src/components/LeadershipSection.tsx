@@ -9,7 +9,7 @@ export const leaders = [
     desc: "Leads Indore Realty's vision, project partnerships and client relationships — committed to honest guidance and verified projects for every family.",
   },
   {
-    name: "Hariom Vishwakarma",
+    name: "Hariom Vishwkarma",
     role: "Technical Admin · MLHK Infotech",
     initials: "HV",
     icon: Cpu,

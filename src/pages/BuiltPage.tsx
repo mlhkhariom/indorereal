@@ -25,7 +25,7 @@ const BuiltPage = ({ kind }: { kind: "page" | "project" }) => {
   const path = kind === "project" ? `/projects/${slug}` : `/p/${slug}`;
   const faqs = blocks.filter((b) => b.type === "faq" && !b.hidden).flatMap((b) => b.data.items || []);
   const schema: any[] = [];
-  const base = (settings.canonical_url || "https://indorerealty.in").replace(/\/$/, "");
+  const base = (settings.canonical_url || "https://screenshot-soul-canvas-42.lovable.app").replace(/\/$/, "");
   const url = `${base}${path}`;
   const vis = blocks.filter((b) => !b.hidden);
   const images = [...new Set([data.og_image, meta.cover, ...vis.flatMap((b) => [b.data.image, ...(b.data.images || []), ...((b.type === "floorplans" ? b.data.items : []) || []).map((i: any) => i.image)])].filter((s) => typeof s === "string" && s))] as string[];
