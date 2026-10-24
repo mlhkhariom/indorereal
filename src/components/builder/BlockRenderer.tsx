@@ -28,7 +28,7 @@ const Wrap = ({ b, children, id }: { b: Block; children: React.ReactNode; id?: s
 );
 const H2 = ({ children }: { children: React.ReactNode }) => children ? <h2 className="font-heading text-2xl md:text-4xl font-bold mb-8 text-center">{children}</h2> : null;
 const html = (s: string) => ({ __html: DOMPurify.sanitize(s || "") });
-const ICONS: [RegExp, any][] = [[/gym|fitness/i, Dumbbell], [/garden|park|green/i, Trees], [/servant|quarter/i, BedDouble], [/cctv|camera/i, Cctv], [/power|backup|generator/i, Zap],
+const ICONS: [RegExp, any][] = [[/gym|fitness/i, Dumbbell], [/garden|green/i, Trees], [/servant|quarter/i, BedDouble], [/cctv|camera/i, Cctv], [/power|backup|generator/i, Zap],
   [/security|guard/i, ShieldCheck], [/intercom|epbx/i, PhoneCall], [/water|narmada/i, Droplets], [/fire/i, Flame], [/parking|car/i, Car], [/gas/i, Flame], [/solar/i, Sun],
   [/\bac\b|air/i, AirVent], [/lift|elevator/i, ArrowUpDown], [/pool|swim/i, Waves], [/club/i, Building2], [/kid|play/i, Baby]];
 const amenityIcon = (n: string) => ICONS.find(([r]) => r.test(n))?.[1] || Check;
