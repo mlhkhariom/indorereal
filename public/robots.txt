@@ -45,4 +45,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://screenshot-soul-canvas-42.lovable.app/sitemap.xml
+Sitemap: https://indorerealty.in/sitemap.xml

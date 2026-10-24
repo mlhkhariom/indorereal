@@ -15,7 +15,7 @@ const CmsPage = ({ slug, children }: { slug: string; children: ReactNode }) => {
   if (!data?.content?.trim()) return <>{children}</>;
   return (
     <div className="min-h-screen flex flex-col">
-      <SEOHead title={data.seo_title || `${data.title} | Indore Realty`} description={data.seo_description || undefined} canonical={`https://screenshot-soul-canvas-42.lovable.app/${slug}`} />
+      <SEOHead title={data.seo_title || `${data.title} | Indore Realty`} description={data.seo_description || undefined} canonical={`https://indorerealty.in/${slug}`} />
       <Header />
       <main id="main" className="outline-none flex-1">
         <section className="navy-gradient pt-28 pb-12">

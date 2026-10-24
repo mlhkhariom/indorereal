@@ -11,7 +11,7 @@ interface Props { title: string; subtitle?: string; seoTitle: string; seoDescrip
 /** Standard public page frame: header, navy title band with breadcrumb, footer. */
 const PageShell = ({ title, subtitle, seoTitle, seoDescription, path, children }: Props) => (
   <div className="min-h-screen flex flex-col">
-    <SEOHead title={seoTitle} description={seoDescription} canonical={`https://screenshot-soul-canvas-42.lovable.app${path}`} />
+    <SEOHead title={seoTitle} description={seoDescription} canonical={`https://indorerealty.in${path}`} />
     <Header />
     <main id="main" className="outline-none flex-1 bg-muted/40">
       <section className="navy-gradient pt-28 pb-12">

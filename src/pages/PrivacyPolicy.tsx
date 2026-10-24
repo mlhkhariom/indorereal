@@ -12,7 +12,7 @@ const PrivacyPolicy = () => {
   const contact = useContact();
   return (
     <div className="min-h-screen flex flex-col">
-      <SEOHead title="Privacy Policy | Indore Realty" description="How Indore Realty collects, uses and protects your personal information when you enquire about properties in Indore." canonical="https://screenshot-soul-canvas-42.lovable.app/privacy-policy" />
+      <SEOHead title="Privacy Policy | Indore Realty" description="How Indore Realty collects, uses and protects your personal information when you enquire about properties in Indore." canonical="https://indorerealty.in/privacy-policy" />
       <Header />
       <main id="main" className="outline-none flex-1">
         {/* Hero */}
