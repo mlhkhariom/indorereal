@@ -9,12 +9,12 @@ import { Link } from "react-router-dom";
 import { Home, ChevronRight, Target, Eye, Heart, Award, Users, Building, MapPin, Clock, ShieldCheck, Handshake } from "lucide-react";
 
 const stats = [
-  { value: "500+", label: "Properties Listed" },
-  { value: "1,200+", label: "Happy Families" },
+  { value: "2", label: "Live Projects" },
+  { value: "100+", label: "Flats on Offer" },
   { value: "8+", label: "Years Experience" },
   { value: "15+", label: "Locations Covered" },
   { value: "50+", label: "Expert Team" },
-  { value: "98%", label: "Client Satisfaction" },
+  { value: "₹0", label: "Brokerage for Buyers" },
 ];
 
 const team = leaders;
@@ -29,7 +29,7 @@ const values = [
 const About = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      <SEOHead title="About Indore Realty — Indore's Trusted Real Estate Partner" description="Learn about Indore Realty — Indore's #1 trusted real estate agency with 500+ verified properties, 1200+ happy families, and expert local guidance." keywords="about Indore Realty, real estate agency Indore, property dealer Indore, trusted real estate" canonical="https://indorerealty.in/about" />
+      <SEOHead title="About Indore Realty — Indore's Trusted Real Estate Partner" description="Learn about Indore Realty — Indore real estate partner led by Founder & CEO Subhash Pawar — verified new projects like Prabhu Krishna Embrace and Rudra Palace with honest pricing." keywords="about Indore Realty, real estate agency Indore, property dealer Indore, trusted real estate" canonical="https://indorerealty.in/about" />
       <Header />
       <main id="main" className="outline-none flex-1">
         {/* Hero */}
@@ -48,7 +48,7 @@ const About = () => {
                 About <span className="text-gold-gradient">Indore Realty</span>
               </h1>
               <p className="text-primary-foreground/60 text-lg md:text-xl mt-4 max-w-2xl leading-relaxed">
-                Indore's most trusted real estate partner since 2015 — helping families find their perfect home with transparency, expertise, and care.
+                Indore's most trusted real estate partner — helping families find their perfect home with transparency, expertise, and care.
               </p>
             </ScrollReveal>
           </div>
@@ -68,7 +68,7 @@ const About = () => {
                     Founded by Subhash Pawar (Founder, CEO & MD), Indore Realty started with a simple vision — to bring transparency and trust to Indore's real estate market. What began as a small team of passionate real estate enthusiasts has grown into the city's most trusted property platform.
                   </p>
                   <p>
-                    Over the years, we've helped 1,200+ families find their dream homes, facilitated investments worth hundreds of crores, and established ourselves across 15+ prime localities in Indore. Our commitment to 100% verified listings, fair pricing, and end-to-end support sets us apart.
+                    Today we represent carefully chosen projects such as Prabhu Krishna Embrace and Rudra Palace (Pulak City), with complete brochures, floor plans and price lists shared upfront. Our commitment to 100% verified listings, fair pricing, and end-to-end support sets us apart.
                   </p>
                   <p>
                     As an <strong className="text-foreground">MLHK Infotech</strong> initiative, we combine traditional real estate expertise with modern technology to deliver an unmatched property discovery experience.

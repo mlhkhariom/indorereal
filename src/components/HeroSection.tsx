@@ -8,8 +8,8 @@ import { useLocations } from "@/hooks/useLocations";
 import heroBg from "@/assets/hero-bg.webp";
 
 const defaultStats = [
-  { value: "500+", label: "Properties Listed" },
-  { value: "1,200+", label: "Happy Families" },
+  { value: "2", label: "Live Projects" },
+  { value: "1–3 BHK", label: "Flat Options" },
   { value: "8+", label: "Years Experience" },
   { value: "15+", label: "Locations Covered" },
 ];
