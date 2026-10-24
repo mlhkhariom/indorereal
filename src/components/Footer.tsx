@@ -31,9 +31,7 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-5">
-              <div className="h-10 w-10 rounded-xl gold-gradient flex items-center justify-center font-heading font-extrabold text-primary text-lg">
-                IR
-              </div>
+              <img src="/logo.png" alt="Indore Realty logo" width="48" height="48" loading="lazy" className="h-12 w-12 rounded-xl bg-card p-1 object-contain shadow-md" />
               <div>
                 <span className="font-heading text-lg font-bold leading-none block">Indore Realty</span>
                 <span className="text-[10px] text-primary-foreground/40 font-medium tracking-widest uppercase">
@@ -43,7 +41,7 @@ const Footer = () => {
             </div>
             <p className="text-primary-foreground/60 text-sm leading-relaxed">
               Indore's most trusted real estate platform. Discover verified properties with transparent pricing and expert guidance.</p>
-            <p className="text-primary-foreground/50 text-xs mt-3">Founder, CEO &amp; MD: <span className="text-secondary font-semibold">Subhash Pawar</span><br />Technical Admin: <span className="text-secondary font-semibold">Hariom Vishwakarma</span>
+            <p className="text-primary-foreground/50 text-xs mt-3">Founder, CEO &amp; MD: <span className="text-secondary font-semibold">Subhash Pawar</span><br />Technical Admin: <span className="text-secondary font-semibold">Hariom Vishwakarma</span> (<a href="https://mlhk.in" target="_blank" rel="noopener" className="underline hover:text-secondary">MLHK Infotech</a>)
             </p>
             <div className="flex gap-3 mt-5">
               {(["facebook", "instagram", "youtube", "linkedin"] as const).filter((s) => contact[s]).map((s) => (
@@ -130,10 +128,10 @@ const Footer = () => {
             <p className="text-xs text-primary-foreground/40">© {new Date().getFullYear()} Indore Realty. All rights reserved.</p>
             <div className="flex items-center gap-2">
               <span className="text-xs text-primary-foreground/40">Designed & Developed by</span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-secondary/10 border border-secondary/20">
+              <a href="https://mlhk.in" target="_blank" rel="noopener" title="MLHK Infotech — Website, CRM &amp; IT Solutions" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-secondary/10 border border-secondary/20 hover:bg-secondary/20 transition-colors">
                 <span className="h-5 w-5 rounded bg-secondary flex items-center justify-center text-[8px] font-bold text-secondary-foreground">M</span>
                 <span className="text-secondary font-heading font-bold text-sm">MLHK Infotech</span>
-              </span>
+              </a>
             </div>
           </div>
         </div>
