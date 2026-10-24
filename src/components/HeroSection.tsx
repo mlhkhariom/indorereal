@@ -52,7 +52,7 @@ const HeroSection = () => {
       <div className="absolute bottom-20 left-10 w-96 h-96 rounded-full bg-primary/20 blur-[120px]" />
 
       <div className="relative z-10 container mx-auto px-4 lg:px-8 pt-24 sm:pt-28 pb-12 sm:pb-16">
-        <div className="max-w-4xl">
+        <div className="max-w-4xl hero-rise">
           <div>
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-secondary/30 bg-secondary/10 text-secondary text-xs sm:text-sm font-medium backdrop-blur-sm">
               <span className="h-2 w-2 rounded-full bg-secondary animate-pulse" />
