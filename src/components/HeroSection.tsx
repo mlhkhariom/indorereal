@@ -2,7 +2,6 @@ import { useContact } from "@/hooks/useContact";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search, MapPin, Building, Banknote, ArrowRight, Play } from "lucide-react";
-import { motion } from "framer-motion";
 import { PROPERTY_TYPES, BUDGET_RANGES } from "@/types/property";
 import { useHomepageSection } from "@/hooks/useHomepageContent";
 import { useLocations } from "@/hooks/useLocations";
@@ -53,37 +52,37 @@ const HeroSection = () => {
       <div className="absolute bottom-20 left-10 w-96 h-96 rounded-full bg-primary/20 blur-[120px]" />
 
       <div className="relative z-10 container mx-auto px-4 lg:px-8 pt-24 sm:pt-28 pb-12 sm:pb-16">
-        <div className="max-w-4xl">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+        <div className="max-w-4xl hero-rise">
+          <div>
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-secondary/30 bg-secondary/10 text-secondary text-xs sm:text-sm font-medium backdrop-blur-sm">
               <span className="h-2 w-2 rounded-full bg-secondary animate-pulse" />
               Indore Realty — #1 Trusted Platform
             </span>
-          </motion.div>
+          </div>
 
-          <motion.h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-[4rem] font-extrabold text-primary-foreground mt-6 sm:mt-8 leading-[1.1]"
-            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.15 }}>
+          <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-[4rem] font-extrabold text-primary-foreground mt-6 sm:mt-8 leading-[1.1]"
+           >
             Discover Premium<br />Properties in{" "}<span className="text-gold-gradient">Indore</span>
-          </motion.h1>
+          </h1>
 
-          <motion.p className="text-primary-foreground/60 text-sm sm:text-base md:text-lg lg:text-xl mt-4 sm:mt-6 max-w-2xl leading-relaxed"
-            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}>
+          <p className="text-primary-foreground/60 text-sm sm:text-base md:text-lg lg:text-xl mt-4 sm:mt-6 max-w-2xl leading-relaxed"
+           >
             From luxurious flats in Vijay Nagar to prime plots on Super Corridor —
             explore verified listings with transparent pricing and expert guidance.
-          </motion.p>
+          </p>
 
-          <motion.div className="flex flex-wrap gap-3 mt-6 sm:mt-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.45 }}>
+          <div className="flex flex-wrap gap-3 mt-6 sm:mt-8">
             <button onClick={() => navigate("/properties")} className="btn-gold px-5 sm:px-7 py-3 sm:py-3.5 rounded-xl text-sm inline-flex items-center gap-2">
               Explore Properties <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </button>
             <a href={contact.tel} className="glass-card px-5 sm:px-7 py-3 sm:py-3.5 rounded-xl text-sm text-primary-foreground/90 inline-flex items-center gap-2 hover:bg-primary-foreground/10 transition-all">
               <Play className="h-4 w-4 text-secondary" aria-hidden="true" /> Schedule a Free Visit
             </a>
-          </motion.div>
+          </div>
         </div>
 
         {/* Search bar */}
-        <motion.div className="mt-10 sm:mt-14 max-w-5xl" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.55 }}>
+        <div className="mt-10 sm:mt-14 max-w-5xl">
           <div className="bg-card/95 backdrop-blur-xl rounded-2xl p-3 shadow-xl border border-border/50">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
               <div className="relative">
@@ -112,17 +111,17 @@ const HeroSection = () => {
               </button>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Stats */}
-        <motion.div className="mt-12 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 max-w-4xl" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.7 }}>
+        <div className="mt-12 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 max-w-4xl">
           {stats.map((stat, i) => (
-            <motion.div key={i} className="text-center md:text-left" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.8 + i * 0.1 }}>
+            <div key={i} className="text-center md:text-left">
               <p className="font-heading text-2xl sm:text-3xl md:text-4xl font-extrabold text-secondary">{stat.value}</p>
               <p className="text-primary-foreground/50 text-xs sm:text-sm mt-1 font-medium">{stat.label}</p>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
