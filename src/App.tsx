@@ -43,6 +43,11 @@ const AdminSubmissions = lazy(() => import("./pages/admin/AdminSubmissions"));
 const Wishlist = lazy(() => import("./pages/Wishlist"));
 const Compare = lazy(() => import("./pages/Compare"));
 const PostProperty = lazy(() => import("./pages/PostProperty"));
+const BuiltPage = lazy(() => import("./pages/BuiltPage"));
+const Projects = lazy(() => import("./pages/Projects"));
+const BuilderPreview = lazy(() => import("./pages/BuilderPreview"));
+const AdminBuilderList = lazy(() => import("./pages/admin/AdminBuilderList"));
+const AdminBuilderEditor = lazy(() => import("./pages/admin/AdminBuilderEditor"));
 const AreaPage = lazy(() => import("./pages/AreaPage"));
 import CompareBar from "./components/CompareBar";
 import ScrollToTop from "./components/ScrollToTop";
@@ -81,6 +86,10 @@ const App = () => (
                 <Route path="/compare" element={<Compare />} />
                 <Route path="/post-property" element={<PostProperty />} />
                 <Route path="/area/:slug" element={<AreaPage />} />
+                <Route path="/p/:slug" element={<BuiltPage kind="page" />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/projects/:slug" element={<BuiltPage kind="project" />} />
+                <Route path="/builder-preview" element={<BuilderPreview />} />
                 <Route path="/admin/login" element={<AdminLogin />} />
                 <Route path="/admin" element={<AdminLayout />}>
                   <Route index element={<AdminDashboard />} />
@@ -91,6 +100,9 @@ const App = () => (
                   <Route path="settings" element={<AdminSiteSettings />} />
                   <Route path="menus" element={<AdminMenus />} />
                   <Route path="pages" element={<AdminPages />} />
+                  <Route path="builder" element={<AdminBuilderList kind="page" />} />
+                  <Route path="projects" element={<AdminBuilderList kind="project" />} />
+                  <Route path="builder/:id" element={<AdminBuilderEditor />} />
                   <Route path="visits" element={<AdminVisits />} />
                   <Route path="team" element={<AdminTeam />} />
                   <Route path="submissions" element={<AdminSubmissions />} />
