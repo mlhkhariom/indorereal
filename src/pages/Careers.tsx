@@ -1,3 +1,4 @@
+import SEOHead from "@/components/SEOHead";
 import { useHomepageSection } from "@/hooks/useHomepageContent";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -29,6 +30,7 @@ const Careers = () => {
     : defaultOpenings;
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOHead title="Careers at Indore Realty — Real Estate Jobs in Indore" description="Join Indore Realty in Indore. Openings for sales executives, property advisors and telecallers in a growing real estate team." canonical="https://indorerealty.in/careers" />
       <Header />
       <main id="main" className="outline-none flex-1">
         {/* Hero */}

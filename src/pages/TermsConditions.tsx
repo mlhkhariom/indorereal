@@ -1,3 +1,4 @@
+import SEOHead from "@/components/SEOHead";
 import CmsPage from "@/components/CmsPage";
 import { useContact } from "@/hooks/useContact";
 import Header from "@/components/Header";
@@ -11,6 +12,7 @@ const TermsConditions = () => {
   const contact = useContact();
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOHead title="Terms & Conditions | Indore Realty" description="Terms and conditions for using the Indore Realty website, property listings and enquiry services." canonical="https://indorerealty.in/terms-conditions" />
       <Header />
       <main id="main" className="outline-none flex-1">
         {/* Hero */}
