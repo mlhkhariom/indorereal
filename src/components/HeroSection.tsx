@@ -9,9 +9,9 @@ import heroBg from "@/assets/hero-bg.webp";
 
 const defaultStats = [
   { value: "2", label: "Live Projects" },
+  { value: "100+", label: "Flats on Offer" },
   { value: "1–3 BHK", label: "Flat Options" },
-  { value: "8+", label: "Years Experience" },
-  { value: "15+", label: "Locations Covered" },
+  { value: "₹24 L+", label: "Starting Price" },
 ];
 
 const HeroSection = () => {

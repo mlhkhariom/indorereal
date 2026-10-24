@@ -11,10 +11,10 @@ import { Home, ChevronRight, Target, Eye, Heart, Award, Users, Building, MapPin,
 const stats = [
   { value: "2", label: "Live Projects" },
   { value: "100+", label: "Flats on Offer" },
-  { value: "8+", label: "Years Experience" },
-  { value: "15+", label: "Locations Covered" },
-  { value: "50+", label: "Expert Team" },
-  { value: "₹0", label: "Brokerage for Buyers" },
+  { value: "G+6", label: "Modern Towers" },
+  { value: "Indore", label: "Local Experts" },
+  { value: "100%", label: "Brochure & Price Shared" },
+  { value: "1–3 BHK", label: "Flat Options" },
 ];
 
 const team = leaders;
