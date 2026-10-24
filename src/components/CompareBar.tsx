@@ -5,7 +5,7 @@ import { useCompare } from "@/hooks/useShortlist";
 const CompareBar = () => {
   const { ids, clear } = useCompare();
   const { pathname } = useLocation();
-  if (!ids.length || pathname.startsWith("/admin") || pathname === "/compare") return null;
+  if (!ids.length || pathname.startsWith("/admin") || pathname === "/builder-preview" || pathname === "/compare") return null;
   return (
     <div className="fixed bottom-24 lg:bottom-6 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 rounded-full bg-primary text-primary-foreground shadow-2xl pl-4 pr-1.5 py-1.5">
       <GitCompare className="h-4 w-4 text-secondary" aria-hidden="true" />

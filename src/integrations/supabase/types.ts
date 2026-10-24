@@ -74,6 +74,51 @@ export type Database = {
         }
         Relationships: []
       }
+      builder_pages: {
+        Row: {
+          blocks: Json
+          created_at: string
+          id: string
+          kind: string
+          meta: Json
+          og_image: string | null
+          seo_description: string | null
+          seo_title: string | null
+          slug: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          blocks?: Json
+          created_at?: string
+          id?: string
+          kind?: string
+          meta?: Json
+          og_image?: string | null
+          seo_description?: string | null
+          seo_title?: string | null
+          slug: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Update: {
+          blocks?: Json
+          created_at?: string
+          id?: string
+          kind?: string
+          meta?: Json
+          og_image?: string | null
+          seo_description?: string | null
+          seo_title?: string | null
+          slug?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       enquiries: {
         Row: {
           assigned_to: string | null

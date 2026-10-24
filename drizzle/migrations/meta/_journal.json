@@ -29,6 +29,13 @@
       "when": 1792646365106,
       "tag": "0003_crm_rebuild_fields",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1792864706410,
+      "tag": "0004_builder_pages",
+      "breakpoints": true
     }
   ]
 }

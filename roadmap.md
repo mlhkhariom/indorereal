@@ -8,3 +8,4 @@
 - [x] Property photo slider + lightbox, map, similar, share, visit booking; compare; wishlist; post-your-property; area pages
 - [x] Speed: compressed hero, fonts preloaded, lazy pages/images; fixed faded hero text and invisible header button
 - [x] Phone + desktop check of all public pages (no sideways scroll, no errors)
+- [x] Drag-drop Page Builder (any page at /p/…) + Real estate Projects (/projects) with live phone/tablet/desktop preview

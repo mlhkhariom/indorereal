@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate, Outlet } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
-import { LayoutDashboard, Building2, FileText, MessageSquare, LogOut, Menu, X, ChevronRight, Search, Home, Image, MapPin, KanbanSquare, Settings, CalendarCheck, Inbox, FileEdit, ListTree, UserCog } from "lucide-react";
+import { LayoutDashboard, Building2, FileText, MessageSquare, LogOut, Menu, X, ChevronRight, Search, Home, Image, MapPin, KanbanSquare, Settings, CalendarCheck, Inbox, FileEdit, ListTree, UserCog, LayoutTemplate, Building } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 
@@ -20,6 +20,8 @@ const navGroups = [
     { label: "Homepage", path: "/admin/homepage", icon: Home },
     { label: "Blog Posts", path: "/admin/blog", icon: FileText },
     { label: "Gallery", path: "/admin/gallery", icon: Image },
+    { label: "Page Builder", path: "/admin/builder", icon: LayoutTemplate },
+    { label: "Projects", path: "/admin/projects", icon: Building },
     { label: "Pages", path: "/admin/pages", icon: FileEdit },
     { label: "Menus", path: "/admin/menus", icon: ListTree },
   ] },
