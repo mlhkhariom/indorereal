@@ -78,7 +78,7 @@ const BlockView = ({ b, pageTitle }: { b: Block; pageTitle: string }) => {
       return (
         <section className={`relative ${h} flex items-center navy-gradient text-primary-foreground overflow-hidden`}>
           {d.video ? <video src={d.video} autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover" />
-            : d.image ? <img src={d.image} alt="" loading="eager" fetchPriority="high" decoding="async" className="absolute inset-0 w-full h-full object-cover" /> : null}
+            : d.image ? <img src={d.image} alt={d.heading || pageTitle || ""} loading="eager" fetchPriority="high" decoding="async" className="absolute inset-0 w-full h-full object-cover" /> : null}
           <div className="absolute inset-0 bg-primary/70" />
           <div className="relative container mx-auto px-4 lg:px-8 pt-28 pb-16">
             {d.eyebrow && <p className="text-secondary font-semibold tracking-widest uppercase text-xs mb-3">{d.eyebrow}</p>}
@@ -103,12 +103,12 @@ const BlockView = ({ b, pageTitle }: { b: Block; pageTitle: string }) => {
       return <Wrap b={b}><H2>{d.heading}</H2>
         {imgs.length ? <div className="grid grid-cols-2 md:grid-cols-3 gap-3">{imgs.map((s, i) => (
           <button key={i} type="button" onClick={() => setLb(i)} aria-label={`Open photo ${i + 1}`} className={`overflow-hidden rounded-xl ${i === 0 ? "col-span-2 row-span-2" : ""}`}>
-            <img src={s} alt="" loading="lazy" decoding="async" className="w-full h-full object-cover aspect-square bg-muted hover:scale-105 transition-transform" /></button>))}</div> : <Ph label="Add photos" />}
+            <img src={s} alt={`${pageTitle || "Project"} – ${d.heading || "photo"} ${i + 1}`} loading="lazy" decoding="async" className="w-full h-full object-cover aspect-square bg-muted hover:scale-105 transition-transform" /></button>))}</div> : <Ph label="Add photos" />}
         <Lightbox open={lb >= 0} index={lb} close={() => setLb(-1)} slides={imgs.map((src) => ({ src }))} /></Wrap>;
     }
     case "split":
       return <Wrap b={b}><div className={`grid md:grid-cols-2 gap-10 items-center ${d.side === "right" ? "md:[&>*:first-child]:order-2" : ""}`}>
-        {d.image ? <img src={d.image} alt="" loading="lazy" decoding="async" className="w-full rounded-2xl shadow-lg aspect-[4/3] object-cover bg-muted" /> : <Ph label="Add an image" />}
+        {d.image ? <img src={d.image} alt={`${d.heading || ""}${pageTitle ? " – " + pageTitle : ""}`} loading="lazy" decoding="async" className="w-full rounded-2xl shadow-lg aspect-[4/3] object-cover bg-muted" /> : <Ph label="Add an image" />}
         <div><h2 className="font-heading text-2xl md:text-4xl font-bold mb-4">{d.heading}</h2>
           <div className={`prose max-w-none ${b.bg === "dark" ? "prose-invert" : ""}`} dangerouslySetInnerHTML={html(d.html)} />
           {d.btn && <Button asChild className="btn-gold mt-6"><a href={d.btnLink || "#"}>{d.btn}</a></Button>}</div></div></Wrap>;
