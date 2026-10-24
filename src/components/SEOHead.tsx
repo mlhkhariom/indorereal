@@ -28,7 +28,7 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
     "@type": "LocalBusiness",
     "@id": "https://indorerealty.in/#business",
     name: settings.schema_org_name || "Indore Realty",
-    description: settings.schema_org_description || "Indore's #1 trusted real estate platform with 500+ verified properties",
+    description: settings.schema_org_description || "Indore Realty — verified new residential projects and flats in Indore",
     url: finalCanonical,
     telephone: settings.schema_org_phone || "+919876543210",
     email: "info@indorerealty.in",

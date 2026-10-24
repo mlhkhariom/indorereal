@@ -8,10 +8,10 @@ import { useLocations } from "@/hooks/useLocations";
 import heroBg from "@/assets/hero-bg.webp";
 
 const defaultStats = [
-  { value: "500+", label: "Properties Listed" },
-  { value: "1,200+", label: "Happy Families" },
-  { value: "8+", label: "Years Experience" },
-  { value: "15+", label: "Locations Covered" },
+  { value: "2", label: "Live Projects" },
+  { value: "100+", label: "Flats on Offer" },
+  { value: "1–3 BHK", label: "Flat Options" },
+  { value: "₹24 L+", label: "Starting Price" },
 ];
 
 const HeroSection = () => {

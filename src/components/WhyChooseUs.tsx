@@ -31,7 +31,7 @@ const WhyChooseUs = () => {
         <ScrollReveal>
           <div className="text-center max-w-2xl mx-auto">
             <span className="text-secondary font-semibold text-sm uppercase tracking-widest">Why Indore Realty</span>
-            <h2 className="section-title mt-3">Trusted by 1,200+ Families</h2>
+            <h2 className="section-title mt-3">Why Families Choose Indore Realty</h2>
             <div className="divider-gold" />
             <p className="section-subtitle">We go beyond just listing properties — we build lasting relationships with every client</p>
           </div>

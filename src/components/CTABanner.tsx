@@ -36,10 +36,10 @@ const CTABanner = () => {
               {/* Trust badges */}
               <div className="flex flex-wrap items-center justify-center gap-6 mt-10 text-xs text-primary-foreground/40 font-medium">
                 <span className="flex items-center gap-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-green-400" /> RERA Registered
+                  <span className="h-1.5 w-1.5 rounded-full bg-green-400" /> Verified Projects
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-green-400" /> 500+ Verified Listings
+                  <span className="h-1.5 w-1.5 rounded-full bg-green-400" /> Transparent Pricing
                 </span>
                 <span className="flex items-center gap-1.5">
                   <span className="h-1.5 w-1.5 rounded-full bg-green-400" /> No Hidden Charges
