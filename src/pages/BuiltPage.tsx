@@ -7,11 +7,13 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import SEOHead from "@/components/SEOHead";
 import BlockRenderer from "@/components/builder/BlockRenderer";
 import NotFound from "./NotFound";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 import { normalizeBlocks } from "@/lib/builder";
 
 /** Public renderer for pages and projects made in the Page Builder. */
 const BuiltPage = ({ kind }: { kind: "page" | "project" }) => {
   const { slug = "" } = useParams();
+  const settings = useSiteSettings();
   const { data, isLoading } = useQuery({
     queryKey: ["builder_page", kind, slug],
     queryFn: async () => (await supabase.from("builder_pages").select("*").eq("kind", kind).eq("slug", slug).eq("status", "published").maybeSingle()).data,
