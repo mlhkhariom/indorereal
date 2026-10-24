@@ -78,7 +78,7 @@ const BlockView = ({ b, pageTitle }: { b: Block; pageTitle: string }) => {
       return (
         <section className={`relative ${h} flex items-center navy-gradient text-primary-foreground overflow-hidden`}>
           {d.video ? <video src={d.video} autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover" />
-            : d.image ? <img src={d.image} alt="" className="absolute inset-0 w-full h-full object-cover" /> : null}
+            : d.image ? <img src={d.image} alt="" loading="eager" fetchPriority="high" decoding="async" className="absolute inset-0 w-full h-full object-cover" /> : null}
           <div className="absolute inset-0 bg-primary/70" />
           <div className="relative container mx-auto px-4 lg:px-8 pt-28 pb-16">
             {d.eyebrow && <p className="text-secondary font-semibold tracking-widest uppercase text-xs mb-3">{d.eyebrow}</p>}
@@ -103,12 +103,12 @@ const BlockView = ({ b, pageTitle }: { b: Block; pageTitle: string }) => {
       return <Wrap b={b}><H2>{d.heading}</H2>
         {imgs.length ? <div className="grid grid-cols-2 md:grid-cols-3 gap-3">{imgs.map((s, i) => (
           <button key={i} type="button" onClick={() => setLb(i)} aria-label={`Open photo ${i + 1}`} className={`overflow-hidden rounded-xl ${i === 0 ? "col-span-2 row-span-2" : ""}`}>
-            <img src={s} alt="" loading="lazy" className="w-full h-full object-cover aspect-square hover:scale-105 transition-transform" /></button>))}</div> : <Ph label="Add photos" />}
+            <img src={s} alt="" loading="lazy" decoding="async" className="w-full h-full object-cover aspect-square bg-muted hover:scale-105 transition-transform" /></button>))}</div> : <Ph label="Add photos" />}
         <Lightbox open={lb >= 0} index={lb} close={() => setLb(-1)} slides={imgs.map((src) => ({ src }))} /></Wrap>;
     }
     case "split":
       return <Wrap b={b}><div className={`grid md:grid-cols-2 gap-10 items-center ${d.side === "right" ? "md:[&>*:first-child]:order-2" : ""}`}>
-        {d.image ? <img src={d.image} alt="" loading="lazy" className="w-full rounded-2xl shadow-lg aspect-[4/3] object-cover" /> : <Ph label="Add an image" />}
+        {d.image ? <img src={d.image} alt="" loading="lazy" decoding="async" className="w-full rounded-2xl shadow-lg aspect-[4/3] object-cover bg-muted" /> : <Ph label="Add an image" />}
         <div><h2 className="font-heading text-2xl md:text-4xl font-bold mb-4">{d.heading}</h2>
           <div className={`prose max-w-none ${b.bg === "dark" ? "prose-invert" : ""}`} dangerouslySetInnerHTML={html(d.html)} />
           {d.btn && <Button asChild className="btn-gold mt-6"><a href={d.btnLink || "#"}>{d.btn}</a></Button>}</div></div></Wrap>;
@@ -175,7 +175,7 @@ const BlockView = ({ b, pageTitle }: { b: Block; pageTitle: string }) => {
       if (!items.length) return null;
       return <Wrap b={b}><H2>{d.heading}</H2><Tabs defaultValue="0" className="max-w-4xl mx-auto"><TabsList className="flex flex-wrap h-auto mx-auto w-fit">{items.map((p: any, i: number) => <TabsTrigger key={i} value={String(i)}>{p.name}</TabsTrigger>)}</TabsList>
         {items.map((p: any, i: number) => <TabsContent key={i} value={String(i)} className="text-center">
-          {p.image ? <button type="button" onClick={() => setLb(i)} aria-label={`Enlarge ${p.name} plan`} className="w-full"><img src={p.image} alt={`${p.name} floor plan`} loading="lazy" className="mx-auto max-h-[480px] rounded-xl bg-card" /></button> : <Ph label="Add a plan image" />}
+          {p.image ? <button type="button" onClick={() => setLb(i)} aria-label={`Enlarge ${p.name} plan`} className="w-full"><img src={p.image} alt={`${p.name} floor plan`} loading="lazy" decoding="async" className="mx-auto w-full max-h-[480px] aspect-[1332/869] object-contain rounded-xl bg-card" /></button> : <Ph label="Add a plan image" />}
           {p.size && <p className="mt-3 font-medium">{p.name} · {p.size}</p>}</TabsContent>)}</Tabs>
         <Lightbox open={lb >= 0} index={lb} close={() => setLb(-1)} slides={items.filter((p: any) => p.image).map((p: any) => ({ src: p.image }))} /></Wrap>;
     }
@@ -189,7 +189,7 @@ const BlockView = ({ b, pageTitle }: { b: Block; pageTitle: string }) => {
           <span className="flex items-center gap-2 text-sm"><MapPin className="h-4 w-4 text-secondary" aria-hidden="true" />{n.name}</span><span className="text-sm font-semibold">{n.distance}</span></li>)}</ul></div></Wrap>;
     case "brochure":
       return <Wrap b={b} id="brochure"><div className="grid md:grid-cols-2 gap-8 items-center max-w-4xl mx-auto">
-        {d.cover ? <img src={d.cover} alt="Brochure cover" loading="lazy" className="rounded-2xl shadow-xl w-full max-w-sm mx-auto" /> : <div className="rounded-2xl bg-card border border-border aspect-[3/4] max-w-xs w-full mx-auto flex items-center justify-center"><Download className="h-12 w-12 text-secondary" aria-hidden="true" /></div>}
+        {d.cover ? <img src={d.cover} alt="Brochure cover" loading="lazy" decoding="async" className="rounded-2xl shadow-xl w-full max-w-sm mx-auto aspect-[4/3] object-cover bg-muted" /> : <div className="rounded-2xl bg-card border border-border aspect-[3/4] max-w-xs w-full mx-auto flex items-center justify-center"><Download className="h-12 w-12 text-secondary" aria-hidden="true" /></div>}
         <div><h2 className="font-heading text-2xl md:text-3xl font-bold">{d.heading}</h2><p className="opacity-80 mt-2 mb-5">{d.text}</p>
           {unlocked ? (d.file ? <Button asChild className="btn-gold"><a href={d.file} target="_blank" rel="noreferrer"><Download className="h-4 w-4 mr-2" aria-hidden="true" />Download now</a></Button> : <p className="font-medium">Thank you! We'll send the brochure on WhatsApp.</p>)
             : <LeadCapture compact pageTitle={`${pageTitle} (Brochure)`} button="Get Brochure" source="brochure" onDone={() => { setUnlocked(true); if (d.file) window.open(d.file, "_blank", "noopener"); }} />}</div></div></Wrap>;

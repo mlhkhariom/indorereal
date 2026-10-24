@@ -27,7 +27,7 @@ const FeaturedProjects = ({ compact = false }: { compact?: boolean }) => {
             return (
               <article key={p.id} className="grid lg:grid-cols-2 rounded-2xl overflow-hidden bg-card border border-border shadow-lg">
                 <Link to={`/projects/${p.slug}`} className="relative block aspect-[16/10] lg:aspect-auto lg:min-h-[420px] overflow-hidden group">
-                  {img && <img src={img} alt={p.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />}
+                  {img && <img src={img} alt={p.title} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover bg-muted group-hover:scale-105 transition-transform duration-700" />}
                   {m.status && <span className="absolute top-4 left-4 rounded-full bg-secondary text-secondary-foreground text-xs font-semibold px-3 py-1">{m.status}</span>}
                 </Link>
                 <div className="p-6 md:p-10 flex flex-col justify-center">
