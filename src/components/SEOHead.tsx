@@ -21,7 +21,9 @@ const SEOHead = ({ title, description, keywords, ogTitle, ogDescription, ogImage
   const finalKeywords = keywords || settings.site_keywords || "";
   const finalOgTitle = ogTitle || (title ? finalTitle : settings.og_title || finalTitle);
   const finalOgDescription = ogDescription || (description ? finalDescription : settings.og_description || finalDescription);
-  const finalCanonical = canonical || settings.canonical_url || "https://screenshot-soul-canvas-42.lovable.app";
+  const base = (settings.canonical_url || "https://screenshot-soul-canvas-42.lovable.app").replace(/\/$/, "");
+  const path = typeof window !== "undefined" ? window.location.pathname : "/";
+  const finalCanonical = canonical || base + (path === "/" ? "/" : path.replace(/\/$/, ""));
 
   const PLACEHOLDER_PHONE = "+919876543210";
   const phone = settings.schema_org_phone && settings.schema_org_phone !== PLACEHOLDER_PHONE ? settings.schema_org_phone : undefined;
