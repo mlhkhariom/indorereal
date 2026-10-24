@@ -6,6 +6,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import PropertyCard from "@/components/PropertyCard";
 import ScrollReveal from "@/components/ScrollReveal";
 import SEOHead from "@/components/SEOHead";
+import FeaturedProjects from "@/components/FeaturedProjects";
 import { useProperties } from "@/hooks/useProperties";
 import { useLocations } from "@/hooks/useLocations";
 import { PROPERTY_TYPES, BUDGET_RANGES } from "@/types/property";
@@ -178,6 +179,7 @@ const Properties = () => {
             </aside>
 
             <div className="flex-1">
+              <FeaturedProjects compact />
               {isLoading ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
                   {[1, 2, 3, 4, 5, 6].map((i) => (

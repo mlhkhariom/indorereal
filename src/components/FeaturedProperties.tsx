@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 
 const FeaturedProperties = () => {
   const { data: featured = [], isLoading } = useFeaturedProperties();
+  if (!isLoading && featured.length === 0) return null;
 
   return (
     <section className="section-padding bg-background relative overflow-hidden">
