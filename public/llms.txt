@@ -1,0 +1,30 @@
+# Indore Realty
+
+> Indore Realty helps families and investors buy verified new 1, 2 and 3 BHK flats and residential projects in Indore, Madhya Pradesh. Founder, CEO & MD: Subhash Pawar. Website and technology by MLHK Infotech (https://mlhk.in).
+
+Every project page shares the brochure, floor plans, unit sizes, price list, amenities and specifications upfront, and visitors can book a site visit or enquire on WhatsApp.
+
+## Projects
+
+- [All New Projects](/projects): Current residential projects in Indore.
+- [Prabhu Krishna Embrace](/projects/prabhu-krishna-embrace): Premium 2 & 3 BHK flats (1360–1925 sq.ft), G+6 tower with 48 homes, rooftop clubhouse, gym and 20+ amenities.
+- [Rudra Palace, Pulak City](/projects/rudra-palace-pulak-city): 1 & 2 BHK flats (525–1120 sq.ft) near Silicon City at ₹4600/sq.ft, from ₹24.15 Lakh.
+
+## Pages
+
+- [Home](/): Overview of Indore Realty.
+- [Properties](/properties): Property listings in Indore.
+- [About](/about): Company and leadership.
+- [Services](/services): Buying, selling and home-loan help.
+- [EMI Calculator](/emi-calculator): Home loan EMI calculator.
+- [Contact](/contact): Phone, WhatsApp and enquiry form.
+- [FAQ](/faq): Common property-buying questions.
+
+## Blog
+
+- [Blog](/blog): Indore area guides, home-buying tips and market updates.
+
+## Optional
+
+- [Gallery](/gallery): Project photos.
+- [Post Your Property](/post-property): List a property for sale or rent.
