@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import DOMPurify from "dompurify";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
-import { Check, Phone, Download, MapPin, CheckCircle2, Circle, Star, Building2, Calendar, Ruler, Layers, BadgeCheck, Home } from "lucide-react";
+import { Check, Phone, Download, MapPin, CheckCircle2, Circle, Star, Building2, Calendar, Ruler, Layers, BadgeCheck, Home, Dumbbell, Trees, BedDouble, Cctv, Zap, ShieldCheck, PhoneCall, Droplets, Flame, Car, Sun, AirVent, ArrowUpDown, Waves, Baby } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -28,6 +28,10 @@ const Wrap = ({ b, children, id }: { b: Block; children: React.ReactNode; id?: s
 );
 const H2 = ({ children }: { children: React.ReactNode }) => children ? <h2 className="font-heading text-2xl md:text-4xl font-bold mb-8 text-center">{children}</h2> : null;
 const html = (s: string) => ({ __html: DOMPurify.sanitize(s || "") });
+const ICONS: [RegExp, any][] = [[/gym|fitness/i, Dumbbell], [/garden|green/i, Trees], [/servant|quarter/i, BedDouble], [/cctv|camera/i, Cctv], [/power|backup|generator/i, Zap],
+  [/security|guard/i, ShieldCheck], [/intercom|epbx/i, PhoneCall], [/water|narmada/i, Droplets], [/fire/i, Flame], [/parking|car/i, Car], [/gas/i, Flame], [/solar/i, Sun],
+  [/\bac\b|air/i, AirVent], [/lift|elevator/i, ArrowUpDown], [/pool|swim/i, Waves], [/club/i, Building2], [/kid|play/i, Baby]];
+const amenityIcon = (n: string) => ICONS.find(([r]) => r.test(n))?.[1] || Check;
 const Ph = ({ label }: { label: string }) => <div className="aspect-[4/3] w-full rounded-xl bg-muted flex items-center justify-center text-muted-foreground text-sm">{label}</div>;
 
 /** Lead form shared by the Enquiry and Brochure blocks — writes into CRM enquiries. */
@@ -129,9 +133,28 @@ const BlockView = ({ b, pageTitle }: { b: Block; pageTitle: string }) => {
     }
     case "video": {
       const id = youtubeId(d.url || "");
-      return <Wrap b={b}><H2>{d.heading}</H2><div className="max-w-4xl mx-auto aspect-video rounded-2xl overflow-hidden bg-muted">
-        {id ? <iframe className="w-full h-full" src={`https://www.youtube-nocookie.com/embed/${id}`} title={d.heading || "Video"} loading="lazy" allowFullScreen /> : <div className="h-full flex items-center justify-center text-muted-foreground text-sm">Paste a YouTube link</div>}</div></Wrap>;
+      const file = !id && /\.(mp4|webm|mov)(\?|$)/i.test(d.url || "") || (d.url || "").includes("/__l5e/");
+      return <Wrap b={b}><H2>{d.heading}</H2><div className="max-w-4xl mx-auto aspect-video rounded-2xl overflow-hidden bg-muted shadow-xl">
+        {id ? <iframe className="w-full h-full" src={`https://www.youtube-nocookie.com/embed/${id}`} title={d.heading || "Video"} loading="lazy" allowFullScreen />
+          : file ? <video className="w-full h-full object-contain bg-primary" src={d.url} poster={d.poster || undefined} controls preload="none" playsInline />
+          : <div className="h-full flex items-center justify-center text-muted-foreground text-sm">Paste a YouTube or video link</div>}</div></Wrap>;
     }
+    case "facts":
+      return <section className={`${BG[b.bg || "light"]} py-8`}><div className="container mx-auto px-4 lg:px-8"><div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">{(d.items || []).map((f: any, i: number) => (
+        <div key={i} className="rounded-2xl border border-secondary/30 bg-card text-card-foreground p-4 text-center shadow-sm"><p className="font-heading text-2xl md:text-3xl font-bold text-secondary">{f.value}</p><p className="text-xs uppercase tracking-wider text-muted-foreground mt-1">{f.label}</p></div>))}</div></div></section>;
+    case "units":
+      return <Wrap b={b}><H2>{d.heading}</H2>{d.text && <p className="text-center max-w-2xl mx-auto -mt-4 mb-8 opacity-80">{d.text}</p>}
+        <div className="grid sm:grid-cols-2 gap-5 max-w-4xl mx-auto">{(d.items || []).map((u: any, i: number) => (
+          <div key={i} className="relative rounded-2xl border border-border bg-card text-card-foreground p-6 shadow-sm hover:shadow-xl transition-shadow overflow-hidden">
+            <span className="absolute inset-x-0 top-0 h-1 bg-secondary" aria-hidden="true" />
+            <div className="flex items-center gap-3"><span className="h-12 w-12 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center"><Home className="h-6 w-6" aria-hidden="true" /></span>
+              <h3 className="font-heading text-2xl font-bold">{u.type}</h3></div>
+            <p className="mt-4 text-sm text-muted-foreground">Super area</p>
+            <p className="font-semibold text-lg flex items-center gap-2"><Ruler className="h-4 w-4 text-secondary" aria-hidden="true" />{u.sizes}</p>
+            {u.note && <p className="mt-2 text-sm text-muted-foreground">{u.note}</p>}
+            <div className="mt-5 flex items-center justify-between border-t border-border pt-4">{u.price ? <span className="font-bold text-secondary text-lg">{u.price}</span> : <span className="text-sm text-muted-foreground">Price on request</span>}
+              <Button asChild size="sm" className="bg-secondary text-secondary-foreground hover:bg-secondary/90"><a href="#enquiry">Get price</a></Button></div>
+          </div>))}</div></Wrap>;
     case "enquiry":
       return <Wrap b={b} id="enquiry"><div className="max-w-xl mx-auto rounded-2xl bg-card text-card-foreground border border-border shadow-xl p-6 md:p-8">
         <h2 className="font-heading text-2xl font-bold text-center">{d.heading}</h2>{d.text && <p className="text-center text-muted-foreground text-sm mt-2 mb-5">{d.text}</p>}
@@ -157,8 +180,8 @@ const BlockView = ({ b, pageTitle }: { b: Block; pageTitle: string }) => {
         <Lightbox open={lb >= 0} index={lb} close={() => setLb(-1)} slides={items.filter((p: any) => p.image).map((p: any) => ({ src: p.image }))} /></Wrap>;
     }
     case "amenities":
-      return <Wrap b={b}><H2>{d.heading}</H2><div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">{(d.items || []).map((a: any, i: number) => (
-        <div key={i} className="flex items-center gap-3 rounded-xl border border-border bg-card text-card-foreground p-4"><span className="h-9 w-9 rounded-full bg-secondary/15 text-secondary flex items-center justify-center shrink-0"><Check className="h-4 w-4" aria-hidden="true" /></span><span className="text-sm font-medium">{a.name}</span></div>))}</div></Wrap>;
+      return <Wrap b={b}><H2>{d.heading}</H2><div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">{(d.items || []).map((a: any, i: number) => { const I = amenityIcon(a.name || ""); return (
+        <div key={i} className="group flex items-center gap-3 rounded-xl border border-border bg-card text-card-foreground p-4 hover:border-secondary transition-colors"><span className="h-11 w-11 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center shrink-0 group-hover:bg-secondary group-hover:text-secondary-foreground transition-colors"><I className="h-5 w-5" aria-hidden="true" /></span><span className="text-sm font-medium">{a.name}</span></div>); })}</div></Wrap>;
     case "location":
       return <Wrap b={b}><H2>{d.heading}</H2><div className="grid md:grid-cols-2 gap-8 items-start">
         <PropertyMap location={d.address || "Indore"} lat={d.lat ? Number(d.lat) : null} lng={d.lng ? Number(d.lng) : null} />

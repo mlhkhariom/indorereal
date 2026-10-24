@@ -30,7 +30,11 @@ export const BLOCKS: BlockDef[] = [
   { type: "testimonials", label: "Testimonials", group: "General", fields: [t("heading", "Heading"), list("items", "Reviews", [t("name", "Name"), t("role", "Role / area"), ta("text", "Review")])],
     defaults: { heading: "What our clients say", items: [{ name: "Rahul Sharma", role: "Vijay Nagar", text: "Smooth experience from visit to registry." }] } },
   { type: "spacer", label: "Spacer / Divider", group: "General", fields: [{ key: "size", label: "Size", type: "select", options: ["small", "medium", "large"] }, { key: "line", label: "Show line", type: "select", options: ["no", "yes"] }], defaults: { size: "medium", line: "no" } },
-  { type: "video", label: "YouTube Video", group: "General", fields: [t("heading", "Heading"), t("url", "YouTube link")], defaults: { heading: "Project walkthrough", url: "" } },
+  { type: "video", label: "Video", group: "General", fields: [t("heading", "Heading"), t("url", "YouTube link or video file URL (.mp4)"), img("poster", "Cover image (optional)")], defaults: { heading: "Project walkthrough", url: "", poster: "" } },
+  { type: "facts", label: "Quick Facts Strip", group: "Real estate", fields: [list("items", "Facts", [t("value", "Value", "G+6"), t("label", "Label", "Floors")])],
+    defaults: { items: [{ value: "G+6", label: "Floors" }, { value: "48", label: "Flats" }] } },
+  { type: "units", label: "Flat Types", group: "Real estate", fields: [t("heading", "Heading"), ta("text", "Intro"), list("items", "Flat types", [t("type", "Type", "3 BHK"), t("sizes", "Sizes", "1813 sq.ft"), t("note", "Short note"), t("price", "Price (blank = Get price)")])],
+    defaults: { heading: "Flat Types", text: "", items: [{ type: "2 BHK", sizes: "1200 sq.ft", note: "", price: "" }] } },
   { type: "enquiry", label: "Enquiry Form", group: "General", fields: [t("heading", "Heading"), ta("text", "Text"), t("button", "Button text")], defaults: { heading: "Get Best Price & Offers", text: "Share your details and our expert will call you back.", button: "Request Call Back" } },
   // Real estate
   { type: "overview", label: "Project Overview", group: "Real estate",
