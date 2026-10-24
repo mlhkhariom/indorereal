@@ -10,6 +10,7 @@ import HowItWorks from "@/components/HowItWorks";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import CTABanner from "@/components/CTABanner";
 import LeadershipSection from "@/components/LeadershipSection";
+import HomeSeoContent from "@/components/HomeSeoContent";
 import SEOHead from "@/components/SEOHead";
 
 const Index = () => {
@@ -26,6 +27,7 @@ const Index = () => {
         <HowItWorks />
         <LeadershipSection />
         <TestimonialsSection />
+        <HomeSeoContent />
         <CTABanner />
       </main>
       <Footer />
