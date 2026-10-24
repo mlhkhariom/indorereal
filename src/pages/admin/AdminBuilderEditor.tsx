@@ -50,6 +50,8 @@ const AdminBuilderEditor = () => {
   const [saving, setSaving] = useState(false);
   const [mobileTab, setMobileTab] = useState("edit");
   const frame = useRef<HTMLIFrameElement>(null);
+  const [isLg, setIsLg] = useState(() => window.matchMedia("(min-width: 1024px)").matches);
+  useEffect(() => { const m = window.matchMedia("(min-width: 1024px)"); const f = () => setIsLg(m.matches); m.addEventListener("change", f); return () => m.removeEventListener("change", f); }, []);
   const blocks = hist.now;
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }), useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }));
 
@@ -220,17 +222,18 @@ const AdminBuilderEditor = () => {
           : <Button size="sm" className="btn-gold" onClick={() => save("published")} disabled={saving}><Globe className="h-4 w-4 mr-1" aria-hidden="true" />Publish</Button>}
       </div>
 
-      <div className="lg:hidden">
+      {isLg ? (
+        <div className="grid grid-cols-[360px_1fr] gap-4 h-[calc(100vh-150px)]">
+          <div className="overflow-y-auto pr-1">{editor}</div>
+          {preview}
+        </div>
+      ) : (
         <Tabs value={mobileTab} onValueChange={setMobileTab}>
           <TabsList className="w-full"><TabsTrigger value="edit" className="flex-1">Edit</TabsTrigger><TabsTrigger value="preview" className="flex-1">Preview</TabsTrigger></TabsList>
-          <TabsContent value="edit">{editor}</TabsContent>
-          <TabsContent value="preview" forceMount className={mobileTab === "preview" ? "h-[75vh]" : "hidden"}>{preview}</TabsContent>
+          <div className={mobileTab === "edit" ? "mt-2" : "hidden"}>{editor}</div>
+          <div className={mobileTab === "preview" ? "mt-2 h-[75vh]" : "hidden"}>{preview}</div>
         </Tabs>
-      </div>
-      <div className="hidden lg:grid grid-cols-[360px_1fr] gap-4 h-[calc(100vh-150px)]">
-        <div className="overflow-y-auto pr-1">{editor}</div>
-        {preview}
-      </div>
+      )}
     </div>
   );
 };
