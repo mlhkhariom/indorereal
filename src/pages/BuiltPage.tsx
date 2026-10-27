@@ -8,7 +8,7 @@ import SEOHead from "@/components/SEOHead";
 import BlockRenderer from "@/components/builder/BlockRenderer";
 import NotFound from "./NotFound";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
-import { normalizeBlocks } from "@/lib/builder";
+import { normalizeBlocks, projectSchemaType } from "@/lib/builder";
 
 /** Public renderer for pages and projects made in the Page Builder. */
 const BuiltPage = ({ kind }: { kind: "page" | "project" }) => {
@@ -36,7 +36,7 @@ const BuiltPage = ({ kind }: { kind: "page" | "project" }) => {
     const total = parseInt(facts.find((f: any) => /flat|unit/i.test(f.label))?.value || "", 10);
     const floors = facts.find((f: any) => /floor/i.test(f.label) && !/per/i.test(f.label))?.value;
     const address = { "@type": "PostalAddress", addressLocality: meta.location || "Indore", addressRegion: "Madhya Pradesh", addressCountry: "IN" };
-    schema.push({ "@type": "ApartmentComplex", "@id": `${url}#complex`, name: data.title, url, description: data.seo_description || meta.tagline, image: images.slice(0, 12), address,
+    schema.push({ "@type": projectSchemaType(meta.project_type), "@id": `${url}#complex`, name: data.title, url, description: data.seo_description || meta.tagline, image: images.slice(0, 12), address,
       ...(Number.isFinite(total) ? { numberOfAccommodationUnits: total } : {}),
       ...(floors ? { additionalProperty: [{ "@type": "PropertyValue", name: "Floors", value: floors }] } : {}),
       amenityFeature: amen.map((name: string) => ({ "@type": "LocationFeatureSpecification", name, value: true })),
