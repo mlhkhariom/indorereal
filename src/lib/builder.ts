@@ -82,6 +82,7 @@ export const normalizeBlocks = (raw: unknown): Block[] => {
 export const youtubeId = (url: string) => url.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/)?.[1] || null;
 
 export const PROJECT_STATUSES = ["Upcoming", "Under Construction", "Ready to Move"];
+export const projectSchemaType = (projectType: unknown) => projectType === "plots" ? "Place" : "ApartmentComplex";
 
 export const TEMPLATES: Record<string, { label: string; blocks: () => Block[] }> = {
   blank: { label: "Blank", blocks: () => [] },
