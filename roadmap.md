@@ -1,4 +1,5 @@
 # Roadmap
+- [ ] Add Zillion Park and Shrinath Samradhi from supplied documents with media, SEO and listing cards; verify both pages.
 - [x] Contact/social/hours editable in Admin → Site Settings
 - [x] CRM pipeline, lead notes, activity history, assignment, follow-ups, CSV export, agent role
 - [x] Editable header/footer menus (Admin → Menus)
