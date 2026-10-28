@@ -184,8 +184,9 @@ const AdminBuilderEditor = () => {
                 <p className="text-sm font-semibold">Project card (shown on the Projects list)</p>
                 <div><Label>Status</Label><Select value={page.meta.status || PROJECT_STATUSES[1]} onValueChange={(v) => setMeta({ status: v })}><SelectTrigger aria-label="Project status"><SelectValue /></SelectTrigger>
                   <SelectContent>{PROJECT_STATUSES.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}</SelectContent></Select></div>
-                {[["location", "Area", "Vijay Nagar"], ["builder", "Builder", ""], ["price_from", "Starting price", "₹ 55 L onwards"], ["config", "Configuration", "2 & 3 BHK"], ["possession", "Possession", "Dec 2027"], ["rera", "RERA number", ""]].map(([k, l, ph]) => (
+                {[["location", "Area", "Vijay Nagar"], ["builder", "Builder", ""], ["price_from", "Starting price", "₹ 55 L onwards"], ["config", "Configuration", "2 & 3 BHK"], ["possession", "Possession", "Dec 2027"], ["rera", "RERA number", ""], ["project_type", "Project type", "Apartments / Plots"], ["tagline", "Card tagline", ""], ["keywords", "SEO keywords", "Comma-separated keywords"]].map(([k, l, ph]) => (
                   <div key={k}><Label>{l}</Label><Input value={page.meta[k] || ""} placeholder={ph} onChange={(e) => setMeta({ [k]: e.target.value })} /></div>))}
+                <div><Label>Highlights (one per line)</Label><Textarea rows={4} value={(page.meta.highlights || []).join("\n")} onChange={(e) => setMeta({ highlights: e.target.value.split("\n").map((x) => x.trim()).filter(Boolean).slice(0, 8) })} /></div>
                 <div><Label>Cover photo</Label><ImageUploader folder="pages" value={page.meta.cover ? [page.meta.cover] : []} onChange={(u) => setMeta({ cover: u[u.length - 1] || "" })} /></div>
               </div>
             )}

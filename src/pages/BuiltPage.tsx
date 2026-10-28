@@ -8,7 +8,7 @@ import SEOHead from "@/components/SEOHead";
 import BlockRenderer from "@/components/builder/BlockRenderer";
 import NotFound from "./NotFound";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
-import { normalizeBlocks, projectSchemaType } from "@/lib/builder";
+import { makeBlock, normalizeBlocks, projectSchemaType } from "@/lib/builder";
 
 /** Public renderer for pages and projects made in the Page Builder. */
 const BuiltPage = ({ kind }: { kind: "page" | "project" }) => {
@@ -20,8 +20,15 @@ const BuiltPage = ({ kind }: { kind: "page" | "project" }) => {
   });
   if (isLoading) return <div className="min-h-screen" />;
   if (!data) return <NotFound />;
-  const blocks = normalizeBlocks(data.blocks);
   const meta = (data.meta as any) || {};
+  const storedBlocks = normalizeBlocks(data.blocks);
+  const blocks = kind === "project" ? [
+    ...storedBlocks,
+    ...(Array.isArray(meta.highlights) && meta.highlights.length && !storedBlocks.some((b) => b.type === "highlights")
+      ? [makeBlock("highlights", { items: meta.highlights.map((value: string) => ({ value })) })]
+      : []),
+    ...(!storedBlocks.some((b) => b.type === "similar_projects") ? [makeBlock("similar_projects", { by_location: "no" })] : []),
+  ] : storedBlocks;
   const path = kind === "project" ? `/projects/${slug}` : `/p/${slug}`;
   const faqs = blocks.filter((b) => b.type === "faq" && !b.hidden).flatMap((b) => b.data.items || []);
   const schema: any[] = [];
@@ -32,18 +39,23 @@ const BuiltPage = ({ kind }: { kind: "page" | "project" }) => {
   if (kind === "project") {
     const amen = vis.filter((b) => b.type === "amenities").flatMap((b) => b.data.items || []).map((i: any) => i.name).filter(Boolean);
     const units = vis.filter((b) => b.type === "units").flatMap((b) => b.data.items || []);
+    const prices = vis.filter((b) => b.type === "prices").flatMap((b) => b.data.items || []);
+    const overview = vis.find((b) => b.type === "overview")?.data || {};
+    const floorplans = vis.filter((b) => b.type === "floorplans").flatMap((b) => b.data.items || []);
+    const accommodation = units.length ? units : prices.length ? prices : floorplans;
     const facts = vis.filter((b) => b.type === "facts").flatMap((b) => b.data.items || []);
-    const total = parseInt(facts.find((f: any) => /flat|unit/i.test(f.label))?.value || "", 10);
+    const total = parseInt(String(overview.units || facts.find((f: any) => /flat|unit/i.test(f.label))?.value || ""), 10);
     const floors = facts.find((f: any) => /floor/i.test(f.label) && !/per/i.test(f.label))?.value;
     const address = { "@type": "PostalAddress", addressLocality: meta.location || "Indore", addressRegion: "Madhya Pradesh", addressCountry: "IN" };
     schema.push({ "@type": projectSchemaType(meta.project_type), "@id": `${url}#complex`, name: data.title, url, description: data.seo_description || meta.tagline, image: images.slice(0, 12), address,
       ...(Number.isFinite(total) ? { numberOfAccommodationUnits: total } : {}),
       ...(floors ? { additionalProperty: [{ "@type": "PropertyValue", name: "Floors", value: floors }] } : {}),
       amenityFeature: amen.map((name: string) => ({ "@type": "LocationFeatureSpecification", name, value: true })),
-      containsPlace: units.map((u: any) => {
-        const size = parseInt(String(u.sizes).replace(/[^\d]/g, "").slice(0, 4), 10);
-        const bhk = parseInt(u.type, 10);
-        return { "@type": "Apartment", name: `${u.type} – ${data.title}`, ...(bhk ? { numberOfRooms: bhk, numberOfBedrooms: bhk } : {}), ...(size ? { floorSize: { "@type": "QuantitativeValue", value: size, unitCode: "FTK" } } : {}), address };
+      containsPlace: accommodation.map((u: any) => {
+        const unitType = u.type || u.name || "Residential unit";
+        const size = parseInt(String(u.sizes || u.size || "").replace(/[^\d]/g, "").slice(0, 4), 10);
+        const bhk = parseInt(unitType, 10);
+        return { "@type": "Apartment", name: `${unitType} – ${data.title}`, ...(bhk ? { numberOfRooms: bhk, numberOfBedrooms: bhk } : {}), ...(size ? { floorSize: { "@type": "QuantitativeValue", value: size, unitCode: "FTK" } } : {}), address };
       }),
       ...(meta.builder ? { brand: { "@type": "Organization", name: meta.builder } } : {}) });
     schema.push({ "@type": "RealEstateListing", name: `${data.title} – ${meta.config || "Apartments"} in ${meta.location || "Indore"}`, url, image: images[0], description: data.seo_description, about: { "@id": `${url}#complex` }, datePosted: data.created_at, dateModified: data.updated_at, provider: { "@id": `${base}/#business` } });
@@ -57,7 +69,7 @@ const BuiltPage = ({ kind }: { kind: "page" | "project" }) => {
       <SEOHead title={data.seo_title || `${data.title} | Indore Realty`} description={data.seo_description || `${data.title} — Indore Realty`} keywords={keywords} ogImage={data.og_image || meta.cover || undefined}
         canonical={url} type={kind === "project" ? "article" : "website"} schema={{ "@context": "https://schema.org", "@graph": schema }} />
       <Header />
-      <main id="main" className={`outline-none flex-1 ${hasHero ? "" : "pt-24"}`}><BlockRenderer blocks={blocks} pageTitle={data.title} /></main>
+      <main id="main" className={`outline-none flex-1 ${hasHero ? "" : "pt-24"}`}><BlockRenderer blocks={blocks} pageTitle={data.title} kind={kind} /></main>
       <Footer />
       <WhatsAppButton />
       <div className="lg:hidden h-28" />

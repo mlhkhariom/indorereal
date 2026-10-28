@@ -1,17 +1,21 @@
-import { useMemo, useState } from "react";
+import { lazy, Suspense, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import DOMPurify from "dompurify";
-import Lightbox from "yet-another-react-lightbox";
+const Lightbox = lazy(() => import("yet-another-react-lightbox"));
 import "yet-another-react-lightbox/styles.css";
-import { Check, Phone, Download, MapPin, CheckCircle2, Circle, Star, Building2, Calendar, Ruler, Layers, BadgeCheck, Home, Dumbbell, Trees, BedDouble, Cctv, Zap, ShieldCheck, PhoneCall, Droplets, Flame, Car, Sun, AirVent, ArrowUpDown, Waves, Baby } from "lucide-react";
+import { Check, Phone, Download, MapPin, CheckCircle2, Circle, Star, Building2, Calendar, Ruler, Layers, BadgeCheck, Home, Dumbbell, Trees, BedDouble, Cctv, Zap, ShieldCheck, PhoneCall, Droplets, Flame, Car, Sun, AirVent, ArrowUpDown, Waves, Baby, ChevronRight, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Slider } from "@/components/ui/slider";
+import { Badge } from "@/components/ui/badge";
 import PropertyCard from "@/components/PropertyCard";
 import PropertyMap from "@/components/PropertyMap";
+import EnquiryWidget from "@/components/EnquiryWidget";
 import { useProperties } from "@/hooks/useProperties";
+import { useQuery } from "@tanstack/react-query";
 import { useContact } from "@/hooks/useContact";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -28,63 +32,77 @@ const Wrap = ({ b, children, id }: { b: Block; children: React.ReactNode; id?: s
 );
 const H2 = ({ children }: { children: React.ReactNode }) => children ? <h2 className="font-heading text-2xl md:text-4xl font-bold mb-8 text-center">{children}</h2> : null;
 const html = (s: string) => ({ __html: DOMPurify.sanitize(s || "") });
-const ICONS: [RegExp, any][] = [[/gym|fitness/i, Dumbbell], [/garden|green/i, Trees], [/servant|quarter/i, BedDouble], [/cctv|camera/i, Cctv], [/power|backup|generator/i, Zap],
-  [/security|guard/i, ShieldCheck], [/intercom|epbx/i, PhoneCall], [/water|narmada/i, Droplets], [/fire/i, Flame], [/parking|car/i, Car], [/gas/i, Flame], [/solar/i, Sun],
-  [/\bac\b|air/i, AirVent], [/lift|elevator/i, ArrowUpDown], [/pool|swim/i, Waves], [/club/i, Building2], [/kid|play/i, Baby]];
-const amenityIcon = (n: string) => ICONS.find(([r]) => r.test(n))?.[1] || Check;
-const Ph = ({ label }: { label: string }) => <div className="aspect-[4/3] w-full rounded-xl bg-muted flex items-center justify-center text-muted-foreground text-sm">{label}</div>;
+
+// Icon mapping for amenities - extended regex + exact names + custom icon support
+const AMENITY_ICON_MAP: Record<string, any> = {
+  "gym": Dumbbell, "fitness": Dumbbell, "fitness centre": Dumbbell,
+  "garden": Trees, "green": Trees, "landscaped garden": Trees, "terrace garden": Trees,
+  "servant quarter": BedDouble, "driver room": BedDouble, "servant quarters": BedDouble,
+  "cctv": Cctv, "camera": Cctv, "security cabin": Cctv,
+  "power backup": Zap, "generator": Zap, "inverter": Zap,
+  "security": ShieldCheck, "guard": ShieldCheck, "24x7 security": ShieldCheck,
+  "intercom": PhoneCall, "epbx": PhoneCall, "intercom system": PhoneCall,
+  "water": Droplets, "narmada": Droplets, "water supply": Droplets,
+  "fire": Flame, "fire safety": Flame, "fire fighting": Flame,
+  "parking": Car, "car parking": Car, "ev charging": Car, "covered parking": Car,
+  "gas": Flame, "gas pipeline": Flame, "png": Flame,
+  "solar": Sun, "solar panels": Sun,
+  "ac": AirVent, "air conditioning": AirVent, "ac piping": AirVent,
+  "lift": ArrowUpDown, "elevator": ArrowUpDown, "2 branded lifts": ArrowUpDown,
+  "pool": Waves, "swimming pool": Waves, "swim": Waves,
+  "club": Building2, "clubhouse": Building2, "club lounge": Building2,
+  "kid": Baby, "play": Baby, "kids": Baby, "kids play area": Baby, "children play": Baby,
+  "temple": Building2, "community hall": Building2, "games hall": Building2, "indoor games": Building2,
+  "swimming": Waves, "jogging": Trees, "walking track": Trees,
+};
+const amenityIcon = (name: string) => {
+  const key = (name || "").toLowerCase().trim();
+  return AMENITY_ICON_MAP[key] || AMENITY_ICON_MAP[key.split(" ")[0]] || Check;
+};
+const Ph = ({ label }: { label: string }) => (
+  <div className="aspect-[4/3] w-full rounded-xl bg-muted flex items-center justify-center text-muted-foreground text-sm">
+    {label}
+  </div>
+);
 
 /** Lead form shared by the Enquiry and Brochure blocks — writes into CRM enquiries. */
-const LeadCapture = ({ pageTitle, button, source, onDone, compact }: { pageTitle: string; button: string; source: string; onDone?: () => void; compact?: boolean }) => {
-  const [f, setF] = useState({ name: "", phone: "", message: "" });
-  const [busy, setBusy] = useState(false);
-  const { toast } = useToast();
-  const submit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!f.name.trim() || !/^[+\d\s-]{8,15}$/.test(f.phone.trim())) { toast({ title: "Please enter your name and a valid phone number", variant: "destructive" }); return; }
-    setBusy(true);
-    const q = new URLSearchParams(window.location.search);
-    const { error } = await supabase.from("enquiries").insert({
-      name: f.name.trim().slice(0, 100), phone: f.phone.trim(), message: f.message.trim().slice(0, 1000) || null,
-      property_title: pageTitle, source, page_url: window.location.href, utm_source: q.get("utm_source"), utm_campaign: q.get("utm_campaign"),
-    });
-    setBusy(false);
-    if (error) return toast({ title: "Something went wrong", description: "Please try again or call us.", variant: "destructive" });
-    toast({ title: "Thank you!", description: "Our team will call you shortly." });
-    setF({ name: "", phone: "", message: "" });
-    onDone?.();
-  };
-  return (
-    <form onSubmit={submit} className="space-y-3 text-foreground">
-      <Input aria-label="Your name" placeholder="Your name" value={f.name} maxLength={100} onChange={(e) => setF({ ...f, name: e.target.value })} />
-      <Input aria-label="Phone number" placeholder="Phone number" type="tel" value={f.phone} maxLength={15} onChange={(e) => setF({ ...f, phone: e.target.value })} />
-      {!compact && <Textarea aria-label="Message" placeholder="Message (optional)" rows={3} value={f.message} maxLength={1000} onChange={(e) => setF({ ...f, message: e.target.value })} />}
-      <Button type="submit" className="btn-gold w-full" disabled={busy}>{busy ? "Sending…" : button}</Button>
-    </form>
-  );
-};
+const LeadCapture = ({ pageTitle, button, source, onDone, compact }: {
+  pageTitle: string; button: string; source: string; onDone?: () => void; compact?: boolean;
+}) => (
+  <EnquiryWidget pageTitle={pageTitle} button={button} source={source} compact={compact} prefill={undefined} />
+);
 
-const BlockView = ({ b, pageTitle }: { b: Block; pageTitle: string }) => {
+const BlockView = ({ b, pageTitle, kind }: { b: Block; pageTitle: string; kind: "page" | "project" }) => {
   const d = b.data;
   const { phone, tel } = useContact();
   const [lb, setLb] = useState(-1);
-  const [unlocked, setUnlocked] = useState(false);
-  const { data: allProps } = useProperties();
+  const needsProperties = b.type === "properties";
+  const { data: allProps } = useProperties({ enabled: needsProperties });
+  const { data: projects = [] } = useQuery({
+    queryKey: ["builder_projects", "similar", pageTitle],
+    enabled: b.type === "similar_projects",
+    queryFn: async () => {
+      const { data, error } = await supabase.from("builder_pages").select("id,slug,title,meta").eq("kind", "project").eq("status", "published").neq("title", pageTitle).limit(24);
+      if (error) throw error;
+      return data || [];
+    },
+  });
   const [emi, setEmi] = useState({ amount: Number(d.amount) || 5000000, rate: 8.5, years: 20 });
-
   switch (b.type) {
     case "hero": {
       const h = d.height === "full" ? "min-h-[100svh]" : d.height === "medium" ? "min-h-[50vh]" : "min-h-[75vh]";
+      const overlayLevel = d.overlay === "0" ? "" : d.overlay === "30" ? "bg-primary/30" : d.overlay === "50" ? "bg-primary/50" : "bg-primary/70";
+      const alignClass = d.align === "left" ? "text-left" : "text-center";
       return (
         <section className={`relative ${h} flex items-center navy-gradient text-primary-foreground overflow-hidden`}>
           {d.video ? <video src={d.video} autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover" />
             : d.image ? <img src={d.image} alt={d.heading || pageTitle || ""} loading="eager" fetchPriority="high" decoding="async" className="absolute inset-0 w-full h-full object-cover" /> : null}
-          <div className="absolute inset-0 bg-primary/70" />
-          <div className="relative container mx-auto px-4 lg:px-8 pt-28 pb-16">
+          <div className={`absolute inset-0 ${overlayLevel}`} />
+          <div className={`relative container mx-auto px-4 lg:px-8 pt-28 pb-16 ${alignClass}`}>
             {d.eyebrow && <p className="text-secondary font-semibold tracking-widest uppercase text-xs mb-3">{d.eyebrow}</p>}
             <h1 className="font-heading text-3xl md:text-6xl font-bold max-w-3xl leading-tight">{d.heading}</h1>
-            {d.subheading && <p className="mt-4 text-lg text-primary-foreground/80 max-w-2xl">{d.subheading}</p>}
-            <div className="mt-8 flex flex-wrap gap-3">
+            {d.subheading && <p className={`mt-4 text-lg text-primary-foreground/80 max-w-2xl ${d.align === "left" ? "" : "mx-auto"}`}>{d.subheading}</p>}
+            <div className={`mt-8 flex flex-wrap gap-3 ${d.align === "center" ? "justify-center" : "justify-start"}`}>
               {d.btn1 && <Button asChild size="lg" className="btn-gold"><a href={d.btn1Link || "#"}>{d.btn1}</a></Button>}
               {d.btn2 && <Button asChild size="lg" variant="outline" className="bg-transparent border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10"><a href={d.btn2Link || "#"}>{d.btn2}</a></Button>}
             </div>
@@ -104,7 +122,7 @@ const BlockView = ({ b, pageTitle }: { b: Block; pageTitle: string }) => {
         {imgs.length ? <div className="grid grid-cols-2 md:grid-cols-3 gap-3">{imgs.map((s, i) => (
           <button key={i} type="button" onClick={() => setLb(i)} aria-label={`Open photo ${i + 1}`} className={`overflow-hidden rounded-xl ${i === 0 ? "col-span-2 row-span-2" : ""}`}>
             <img src={s} alt={`${pageTitle || "Project"} – ${d.heading || "photo"} ${i + 1}`} loading="lazy" decoding="async" className="w-full h-full object-cover aspect-square bg-muted hover:scale-105 transition-transform" /></button>))}</div> : <Ph label="Add photos" />}
-        <Lightbox open={lb >= 0} index={lb} close={() => setLb(-1)} slides={imgs.map((src) => ({ src }))} /></Wrap>;
+        <Suspense fallback={null}><Lightbox open={lb >= 0} index={lb} close={() => setLb(-1)} slides={imgs.map((src) => ({ src }))} /></Suspense></Wrap>;
     }
     case "split":
       return <Wrap b={b}><div className={`grid md:grid-cols-2 gap-10 items-center ${d.side === "right" ? "md:[&>*:first-child]:order-2" : ""}`}>
@@ -134,9 +152,10 @@ const BlockView = ({ b, pageTitle }: { b: Block; pageTitle: string }) => {
     case "video": {
       const id = youtubeId(d.url || "");
       const file = !id && /\.(mp4|webm|mov)(\?|$)/i.test(d.url || "") || (d.url || "").includes("/__l5e/");
+      const isLovableAsset = (d.url || "").includes("/__l5e/");
       return <Wrap b={b}><H2>{d.heading}</H2><div className="max-w-4xl mx-auto aspect-video rounded-2xl overflow-hidden bg-muted shadow-xl">
-        {id ? <iframe className="w-full h-full" src={`https://www.youtube-nocookie.com/embed/${id}`} title={d.heading || "Video"} loading="lazy" allowFullScreen />
-          : file ? <video className="w-full h-full object-contain bg-primary" src={d.url} poster={d.poster || undefined} controls preload="none" playsInline />
+        {id ? <iframe className="w-full h-full" src={`https://www.youtube-nocookie.com/embed/${id}`} title={d.heading || "Video"} loading="lazy" allow="autoplay; encrypted-media" allowFullScreen />
+          : file ? <video className="w-full h-full object-contain bg-primary" src={d.url} poster={d.poster || undefined} controls preload="none" playsInline loop={d.loop === "yes"} autoPlay={d.autoplay === "yes"} muted={d.autoplay === "yes"} />
           : <div className="h-full flex items-center justify-center text-muted-foreground text-sm">Paste a YouTube or video link</div>}</div></Wrap>;
     }
     case "facts":
@@ -158,10 +177,10 @@ const BlockView = ({ b, pageTitle }: { b: Block; pageTitle: string }) => {
     case "enquiry":
       return <Wrap b={b} id="enquiry"><div className="max-w-xl mx-auto rounded-2xl bg-card text-card-foreground border border-border shadow-xl p-6 md:p-8">
         <h2 className="font-heading text-2xl font-bold text-center">{d.heading}</h2>{d.text && <p className="text-center text-muted-foreground text-sm mt-2 mb-5">{d.text}</p>}
-        <LeadCapture pageTitle={pageTitle} button={d.button || "Submit"} source="landing_page" /></div></Wrap>;
+        <EnquiryWidget pageTitle={pageTitle} button={d.button || "Submit"} source={kind === "project" ? "builder_project" : "builder_page"} /></div></Wrap>;
     case "overview": {
-      const rows = [[Building2, "Developer", d.builder], [BadgeCheck, "RERA No.", d.rera], [Calendar, "Possession", d.possession], [Layers, "Configuration", d.config], [Ruler, "Sizes", d.area], [Home, "Total Units", d.units], [MapPin, "Land Area", d.land], [CheckCircle2, "Status", d.status]].filter((r) => r[2]);
-      return <Wrap b={b}><H2>{d.heading}</H2><div className="flex flex-wrap justify-center gap-4">{rows.map(([I, l, v]: any, i) => (
+      const rows = [[Building2, "Developer", d.builder], [BadgeCheck, "RERA No.", d.rera], [Calendar, "Possession", d.possession], [Layers, "Configuration", d.config], [Ruler, "Sizes", d.area], [Home, "Total Units", d.units], [MapPin, "Land Area", d.land], [CheckCircle2, "Status", d.status]].filter((r: any) => r[2]);
+      return <Wrap b={b}><H2>{d.heading}</H2><div className="flex flex-wrap justify-center gap-4">{rows.map(([I, l, v]: any, i: number) => (
         <div key={i} className="w-[calc(50%-0.5rem)] md:w-[calc(25%-0.75rem)] rounded-xl border border-border bg-card text-card-foreground p-4"><I className="h-5 w-5 text-secondary mb-2" aria-hidden="true" /><p className="text-xs text-muted-foreground">{l}</p><p className="font-semibold mt-0.5">{v}</p></div>))}</div></Wrap>;
     }
     case "prices":
@@ -177,11 +196,11 @@ const BlockView = ({ b, pageTitle }: { b: Block; pageTitle: string }) => {
         {items.map((p: any, i: number) => <TabsContent key={i} value={String(i)} className="text-center">
           {p.image ? <button type="button" onClick={() => setLb(i)} aria-label={`Enlarge ${p.name} plan`} className="w-full"><img src={p.image} alt={`${p.name} floor plan`} loading="lazy" decoding="async" className="mx-auto w-full max-h-[480px] aspect-[1332/869] object-contain rounded-xl bg-card" /></button> : <Ph label="Add a plan image" />}
           {p.size && <p className="mt-3 font-medium">{p.name} · {p.size}</p>}</TabsContent>)}</Tabs>
-        <Lightbox open={lb >= 0} index={lb} close={() => setLb(-1)} slides={items.filter((p: any) => p.image).map((p: any) => ({ src: p.image }))} /></Wrap>;
+        <Suspense fallback={null}><Lightbox open={lb >= 0} index={lb} close={() => setLb(-1)} slides={items.filter((p: any) => p.image).map((p: any) => ({ src: p.image }))} /></Suspense></Wrap>;
     }
     case "amenities":
-      return <Wrap b={b}><H2>{d.heading}</H2><div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">{(d.items || []).map((a: any, i: number) => { const I = amenityIcon(a.name || ""); return (
-        <div key={i} className="group flex items-center gap-3 rounded-xl border border-border bg-card text-card-foreground p-4 hover:border-secondary transition-colors"><span className="h-11 w-11 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center shrink-0 group-hover:bg-secondary group-hover:text-secondary-foreground transition-colors"><I className="h-5 w-5" aria-hidden="true" /></span><span className="text-sm font-medium">{a.name}</span></div>); })}</div></Wrap>;
+      return <Wrap b={b}><H2>{d.heading}</H2><div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">{(d.items || []).map((a: any, i: number) => { const name = typeof a === "string" ? a : a.name || ""; const I = amenityIcon(name); return (
+        <div key={i} className="group flex items-center gap-3 rounded-xl border border-border bg-card text-card-foreground p-4 hover:border-secondary transition-colors"><span className="h-11 w-11 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center shrink-0 group-hover:bg-secondary group-hover:text-secondary-foreground transition-colors"><I className="h-5 w-5" aria-hidden="true" /></span><span className="text-sm font-medium">{name}</span></div>); })}</div></Wrap>;
     case "location":
       return <Wrap b={b}><H2>{d.heading}</H2><div className="grid md:grid-cols-2 gap-8 items-start">
         <PropertyMap location={d.address || "Indore"} lat={d.lat ? Number(d.lat) : null} lng={d.lng ? Number(d.lng) : null} />
@@ -191,8 +210,9 @@ const BlockView = ({ b, pageTitle }: { b: Block; pageTitle: string }) => {
       return <Wrap b={b} id="brochure"><div className="grid md:grid-cols-2 gap-8 items-center max-w-4xl mx-auto">
         {d.cover ? <img src={d.cover} alt="Brochure cover" loading="lazy" decoding="async" className="rounded-2xl shadow-xl w-full max-w-sm mx-auto aspect-[4/3] object-cover bg-muted" /> : <div className="rounded-2xl bg-card border border-border aspect-[3/4] max-w-xs w-full mx-auto flex items-center justify-center"><Download className="h-12 w-12 text-secondary" aria-hidden="true" /></div>}
         <div><h2 className="font-heading text-2xl md:text-3xl font-bold">{d.heading}</h2><p className="opacity-80 mt-2 mb-5">{d.text}</p>
-          {unlocked ? (d.file ? <Button asChild className="btn-gold"><a href={d.file} target="_blank" rel="noreferrer"><Download className="h-4 w-4 mr-2" aria-hidden="true" />Download now</a></Button> : <p className="font-medium">Thank you! We'll send the brochure on WhatsApp.</p>)
-            : <LeadCapture compact pageTitle={`${pageTitle} (Brochure)`} button="Get Brochure" source="brochure" onDone={() => { setUnlocked(true); if (d.file) window.open(d.file, "_blank", "noopener"); }} />}</div></div></Wrap>;
+          {d.file ? <><LeadCapture compact pageTitle={`${pageTitle} (Brochure)`} button="Get Brochure" source="brochure" />
+            <Button asChild variant="link" className="mt-2"><a href={d.file} target="_blank" rel="noreferrer"><Download className="h-4 w-4 mr-2" aria-hidden="true" />Open brochure</a></Button></>
+            : <LeadCapture compact pageTitle={`${pageTitle} (Brochure)`} button="Request Brochure" source="brochure" />}</div></div></Wrap>;
     case "progress":
       return <Wrap b={b}><H2>{d.heading}</H2><ol className="max-w-2xl mx-auto relative border-l-2 border-secondary/40 ml-3 space-y-6">{(d.items || []).map((m: any, i: number) => (
         <li key={i} className="pl-6 relative"><span className="absolute -left-[11px] top-0.5 bg-background rounded-full">{m.done === "yes" ? <CheckCircle2 className="h-5 w-5 text-secondary" aria-label="Done" /> : <Circle className="h-5 w-5 text-muted-foreground" aria-label="Pending" />}</span>
@@ -218,12 +238,59 @@ const BlockView = ({ b, pageTitle }: { b: Block; pageTitle: string }) => {
         {d.logo ? <img src={d.logo} alt={d.name} loading="lazy" className="h-24 w-24 object-contain" /> : <Building2 className="h-20 w-20 text-secondary" aria-hidden="true" />}
         <div className="flex-1 text-center md:text-left"><p className="text-xs uppercase tracking-widest text-secondary font-semibold">About the developer</p><h2 className="font-heading text-2xl font-bold">{d.name}</h2><p className="text-muted-foreground mt-2 text-sm">{d.about}</p></div>
         <div className="flex gap-6 text-center">{d.years && <div><p className="font-heading text-2xl font-bold text-secondary">{d.years}</p><p className="text-xs">Years</p></div>}{d.projects && <div><p className="font-heading text-2xl font-bold text-secondary">{d.projects}</p><p className="text-xs">Projects</p></div>}</div></div></Wrap>;
+    case "specifications": {
+      const items = d.items || [];
+      const titles = [...new Set(items.map((x: any) => x.title || "Specs")).filter(Boolean)];
+      return <Wrap b={b}><H2>{d.heading}</H2>{d.intro && <p className="text-center max-w-2xl mx-auto -mt-4 mb-8 opacity-80">{d.intro}</p>}
+        <Tabs defaultValue={String(titles.indexOf(items[0]?.title || "Specs"))} className="max-w-4xl mx-auto">
+          <TabsList className="flex flex-wrap h-auto mx-auto w-fit">{titles.map((t, i) => <TabsTrigger key={i} value={String(i)}>{t}</TabsTrigger>)}</TabsList>
+          {titles.map((t, i) => <TabsContent key={i} value={String(i)}>
+            <div className="grid sm:grid-cols-2 gap-4">{(items.filter((x: any) => x.title === t)).map((x: any, j: number) => (
+              <div key={j} className="rounded-xl border border-border bg-card text-card-foreground p-4"><div className="flex items-center gap-2 mb-2"><Info className="h-4 w-4 text-secondary" /> <span className="font-semibold">{x.title}</span></div><p className="text-sm text-muted-foreground">{x.desc}</p></div>))}</div>
+          </TabsContent>)}</Tabs></Wrap>;
+    }
+    case "payment_plan": {
+      const items = d.items || [];
+      const notes = d.notes || [];
+      const planColor = d.type === "Bank Finance" ? "blue" : d.type === "Construction-Linked" ? "green" : "slate";
+      return <Wrap b={b}><H2>{d.heading}</H2>{d.intro && <p className="text-center max-w-2xl mx-auto -mt-4 mb-8 opacity-80">{d.intro}</p>}
+        <div className="max-w-4xl mx-auto rounded-2xl border border-border bg-card p-6">
+          <div className="flex items-center justify-between mb-6"><Badge variant={planColor === "blue" ? "default" : planColor === "green" ? "secondary" : "outline"}>{d.type}</Badge>
+            <span className="text-sm text-muted-foreground">{items.length} stages</span></div>
+          <ol className="relative border-l-2 border-secondary/40 ml-3 space-y-6">
+            {items.map((s: any, i: number) => (
+              <li key={i} className="pl-6 relative"><span className="absolute -left-[11px] top-0.5 bg-background rounded-full h-5 w-5 border-2 border-secondary flex items-center justify-center"><span className="text-xs font-bold text-secondary">{i + 1}</span></span>
+                <p className="font-semibold">{s.label}</p>
+                <div className="flex items-center gap-3 text-sm text-muted-foreground mt-1">
+                  {s.when && <span><Calendar className="h-3.5 w-3.5 mr-1" />{s.when}</span>}
+                  {s.percent && <span className="font-semibold text-secondary"><span className="mr-1">₹</span>{s.percent}</span>}
+                </div></li>))}
+          </ol>
+          {notes.length > 0 && <div className="mt-6 space-y-2"><h3 className="font-semibold text-sm">Additional notes</h3>{notes.map((n: any, i: number) => (
+            <p key={i} className="text-sm opacity-80">– {n.text}</p>))}</div>}
+        </div></Wrap>;
+    }
+    case "similar_projects": {
+      const currentLocation = String(d.location || "").toLowerCase();
+      const matches = projects.filter((p: any) => !currentLocation || d.by_location !== "yes" || String(p.meta?.location || "").toLowerCase().includes(currentLocation));
+      return <Wrap b={b}><H2>{d.heading}</H2>{matches.length ? <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {matches.slice(0, Math.max(1, Number(d.limit) || 4)).map((p: any) => <Link key={p.id} to={`/projects/${p.slug}`} className="group rounded-2xl overflow-hidden bg-card border border-border shadow-sm hover:shadow-xl transition-shadow">
+          <div className="aspect-[16/10] overflow-hidden bg-muted">{p.meta?.cover ? <img src={p.meta.cover} alt={p.title} loading="lazy" className="h-full w-full object-cover group-hover:scale-105 transition-transform" /> : <div className="h-full w-full navy-gradient flex items-center justify-center"><Building2 className="h-10 w-10 text-secondary" /></div>}</div>
+          <div className="p-5"><h3 className="font-heading text-lg font-bold group-hover:text-secondary">{p.title}</h3><p className="mt-1 text-sm text-muted-foreground">{p.meta?.location || "Indore"} · {p.meta?.price_from || "Price on request"}</p></div>
+        </Link>)}
+      </div> : <p className="text-center text-muted-foreground">No similar projects available yet.</p>}</Wrap>;
+    }
+    case "highlights":
+      return <Wrap b={b}><H2>{d.heading}</H2><div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        {(d.items || []).map((item: any, i: number) => <div key={i} className="flex items-start gap-3 rounded-xl border border-border bg-card p-4"><CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-secondary" /><p className="font-medium">{item.value || item.text}</p></div>)}
+      </div></Wrap>;
     default: return null;
   }
 };
 
-const BlockRenderer = ({ blocks, pageTitle, showHidden }: { blocks: Block[]; pageTitle: string; showHidden?: boolean }) => {
+const BlockRenderer = ({ blocks, pageTitle, showHidden, kind = "page" }: { blocks: Block[]; pageTitle: string; showHidden?: boolean; kind?: "page" | "project" }) => {
   const visible = useMemo(() => blocks.filter((b) => showHidden || !b.hidden), [blocks, showHidden]);
-  return <>{visible.map((b) => <div key={b.id} data-block={b.id} className={b.hidden ? "opacity-40" : ""}><BlockView b={b} pageTitle={pageTitle} /></div>)}</>;
+  return <>{visible.map((b) => <div key={b.id} data-block={b.id} className={b.hidden ? "opacity-40" : ""}><BlockView b={b} pageTitle={pageTitle} kind={kind} /></div>)}</>;
 };
+
 export default BlockRenderer;

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import type { Property } from "@/types/property";
 
-export const useProperties = () => {
+export const useProperties = ({ enabled = true }: { enabled?: boolean } = {}) => {
   return useQuery({
     queryKey: ["properties"],
     queryFn: async () => {
@@ -13,6 +13,7 @@ export const useProperties = () => {
       if (error) throw error;
       return (data || []) as Property[];
     },
+    enabled,
   });
 };
 

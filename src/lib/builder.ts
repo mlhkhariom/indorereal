@@ -12,8 +12,9 @@ const list = (key: string, label: string, itemFields: Field[]): Field => ({ key,
 export const BLOCKS: BlockDef[] = [
   { type: "hero", label: "Banner", group: "General",
     fields: [t("eyebrow", "Small label"), t("heading", "Heading"), ta("subheading", "Sub heading"), img("image", "Background image"), t("video", "Background video URL (mp4, optional)"),
-      t("btn1", "Button 1 text"), t("btn1Link", "Button 1 link"), t("btn2", "Button 2 text"), t("btn2Link", "Button 2 link"), { key: "height", label: "Height", type: "select", options: ["medium", "tall", "full"] }],
-    defaults: { eyebrow: "Indore Realty", heading: "Your heading here", subheading: "A short line about this page.", image: "", video: "", btn1: "Enquire Now", btn1Link: "#enquiry", btn2: "", btn2Link: "", height: "tall" } },
+      t("btn1", "Button 1 text"), t("btn1Link", "Button 1 link"), t("btn2", "Button 2 text"), t("btn2Link", "Button 2 link"), { key: "height", label: "Height", type: "select", options: ["medium", "tall", "full"] },
+      { key: "align", label: "Text align", type: "select", options: ["left", "center"] }, { key: "overlay", label: "Overlay opacity", type: "select", options: ["0", "30", "50", "70"] }],
+    defaults: { eyebrow: "Indore Realty", heading: "Your heading here", subheading: "A short line about this page.", image: "", video: "", btn1: "Enquire Now", btn1Link: "#enquiry", btn2: "", btn2Link: "", height: "tall", align: "left", overlay: "50" } },
   { type: "text", label: "Text", group: "General", fields: [t("heading", "Heading"), { key: "html", label: "Content", type: "rich" }, { key: "align", label: "Align", type: "select", options: ["left", "center"] }],
     defaults: { heading: "About this", html: "<p>Write your content here.</p>", align: "left" } },
   { type: "image", label: "Image", group: "General", fields: [img("src", "Image"), t("alt", "Description (for blind users & Google)"), t("caption", "Caption")], defaults: { src: "", alt: "", caption: "" } },
@@ -30,7 +31,9 @@ export const BLOCKS: BlockDef[] = [
   { type: "testimonials", label: "Testimonials", group: "General", fields: [t("heading", "Heading"), list("items", "Reviews", [t("name", "Name"), t("role", "Role / area"), ta("text", "Review")])],
     defaults: { heading: "What our clients say", items: [{ name: "Rahul Sharma", role: "Vijay Nagar", text: "Smooth experience from visit to registry." }] } },
   { type: "spacer", label: "Spacer / Divider", group: "General", fields: [{ key: "size", label: "Size", type: "select", options: ["small", "medium", "large"] }, { key: "line", label: "Show line", type: "select", options: ["no", "yes"] }], defaults: { size: "medium", line: "no" } },
-  { type: "video", label: "Video", group: "General", fields: [t("heading", "Heading"), t("url", "YouTube link or video file URL (.mp4)"), img("poster", "Cover image (optional)")], defaults: { heading: "Project walkthrough", url: "", poster: "" } },
+  { type: "video", label: "Video", group: "General", fields: [t("heading", "Heading"), t("url", "YouTube link or video file URL (.mp4)"), t("thumbnail", "Thumbnail/poster image URL"), t("autoplay", "Autoplay (muted)", "yes"),
+    img("poster", "Poster image (optional)"), { key: "loop", label: "Loop video", type: "select", options: ["yes", "no"] }],
+    defaults: { heading: "Project walkthrough", url: "", thumbnail: "", autoplay: "no", poster: "", loop: "no" } },
   { type: "facts", label: "Quick Facts Strip", group: "Real estate", fields: [list("items", "Facts", [t("value", "Value", "G+6"), t("label", "Label", "Floors")])],
     defaults: { items: [{ value: "G+6", label: "Floors" }, { value: "48", label: "Flats" }] } },
   { type: "units", label: "Flat Types", group: "Real estate", fields: [t("heading", "Heading"), ta("text", "Intro"), list("items", "Flat types", [t("type", "Type", "3 BHK"), t("sizes", "Sizes", "1813 sq.ft"), t("note", "Short note"), t("price", "Price (blank = Get price)")])],
@@ -57,6 +60,21 @@ export const BLOCKS: BlockDef[] = [
   { type: "emi", label: "EMI Calculator", group: "Real estate", fields: [t("heading", "Heading"), { key: "amount", label: "Default loan (₹)", type: "number" }], defaults: { heading: "Calculate your EMI", amount: 5000000 } },
   { type: "developer", label: "Builder Info", group: "Real estate", fields: [t("name", "Builder name"), img("logo", "Logo"), ta("about", "About"), t("years", "Years"), t("projects", "Projects delivered")],
     defaults: { name: "Developer name", logo: "", about: "Trusted developer in Indore.", years: "15+", projects: "20+" } },
+  { type: "specifications", label: "Specifications", group: "Real estate",
+    fields: [t("heading", "Heading"), t("intro", "Intro text"), list("items", "Specifications", [t("title", "Category", "Structure"), t("desc", "Details", "R.C.C. framed structure")])],
+    defaults: { heading: "Specifications", intro: "Premium finishes and quality materials.", items: [{ title: "Structure", desc: "R.C.C. framed structure" }, { title: "Flooring", desc: "Premium vitrified tiles" }, { title: "Windows", desc: "Powder-coated aluminium sliding windows" }, { title: "Doors", desc: "Flush doors with wooden frames" }] } },
+  { type: "payment_plan", label: "Payment Plan", group: "Real estate", fields: [t("heading", "Heading"), t("intro", "Intro text"),
+    list("items", "Plan stages", [t("label", "Stage", "Booking"), t("when", "When", "At booking"), t("percent", "Amount", "₹1 Lakh")]),
+    list("notes", "Additional notes", [t("text", "Note")]),
+    { key: "type", label: "Plan type", type: "select", options: ["Bank Finance", "Construction-Linked", "Instant", "Flexible"] }],
+    defaults: { heading: "Easy Payment Plans", intro: "Flexible plans with bank finance support.", items: [{ label: "Booking", when: "At booking", percent: "₹1 Lakh" }], notes: [{ text: "80% bank finance available" }], type: "Bank Finance" } },
+  { type: "similar_projects", label: "Similar Projects", group: "Real estate", fields: [t("heading", "Heading"),
+    { key: "by_location", label: "Match by area", type: "select", options: ["yes", "no"] },
+    { key: "by_config", label: "Match by type", type: "select", options: ["yes", "no"] },
+    { key: "limit", label: "How many", type: "number" }],
+    defaults: { heading: "Similar Projects", by_location: "yes", by_config: "yes", limit: 4 } },
+  { type: "highlights", label: "Project Highlights", group: "Real estate", fields: [t("heading", "Heading"), list("items", "Highlights", [t("value", "Highlight", "RERA Registered")])],
+    defaults: { heading: "Project Highlights", items: [{ value: "RERA Registered" }, { value: "Prime Indore location" }, { value: "Flexible payment plans" }] } },
 ];
 
 export const getDef = (type: string) => BLOCKS.find((b) => b.type === type);
@@ -81,12 +99,63 @@ export const normalizeBlocks = (raw: unknown): Block[] => {
 
 export const youtubeId = (url: string) => url.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/)?.[1] || null;
 
-export const PROJECT_STATUSES = ["Upcoming", "Under Construction", "Ready to Move"];
+export const PROJECT_STATUSES = ["Upcoming", "Under Construction", "Ready to Move", "New Launch"];
 export const projectSchemaType = (projectType: unknown) => projectType === "plots" ? "Place" : "ApartmentComplex";
-
 export const TEMPLATES: Record<string, { label: string; blocks: () => Block[] }> = {
   blank: { label: "Blank", blocks: () => [] },
-  landing: { label: "Landing Page", blocks: () => [makeBlock("hero"), makeBlock("stats", undefined), makeBlock("split"), makeBlock("properties"), makeBlock("testimonials"), makeBlock("faq"), makeBlock("enquiry")] },
-  project: { label: "Project Launch", blocks: () => [makeBlock("hero", { btn2: "Download Brochure", btn2Link: "#brochure" }), makeBlock("overview"), makeBlock("prices"), makeBlock("floorplans"), makeBlock("amenities"), makeBlock("gallery"), makeBlock("location"), makeBlock("progress"), makeBlock("brochure"), makeBlock("developer"), makeBlock("emi"), makeBlock("faq"), makeBlock("enquiry")] },
-  area: { label: "Area Guide", blocks: () => [makeBlock("hero", { heading: "Living in Vijay Nagar" }), makeBlock("text"), makeBlock("location"), makeBlock("properties", { location: "Vijay Nagar" }), makeBlock("faq"), makeBlock("cta")] },
+  landing: {
+    label: "Landing Page",
+    blocks: () => [
+      makeBlock("hero"),
+      makeBlock("stats", undefined),
+      makeBlock("split"),
+      makeBlock("properties"),
+      makeBlock("testimonials"),
+      makeBlock("faq"),
+      makeBlock("enquiry"),
+    ],
+  },
+  project: {
+    label: "Project Launch",
+    blocks: () => [
+      makeBlock("hero", { btn2: "Download Brochure", btn2Link: "#brochure" }),
+      makeBlock("facts"),
+      makeBlock("overview"),
+      makeBlock("highlights"),
+      makeBlock("prices"),
+      makeBlock("payment_plan"),
+      makeBlock("floorplans"),
+      makeBlock("amenities"),
+      makeBlock("specifications"),
+      makeBlock("gallery"),
+      makeBlock("location"),
+      makeBlock("progress"),
+      makeBlock("brochure"),
+      makeBlock("developer"),
+      makeBlock("emi"),
+      makeBlock("faq"),
+      makeBlock("similar_projects"),
+      makeBlock("enquiry"),
+    ],
+  },
+  plotting_project: {
+    label: "Plotting Project",
+    blocks: () => [
+      makeBlock("hero", { btn2: "Download Brochure", btn2Link: "#brochure" }),
+      makeBlock("facts"), makeBlock("overview"), makeBlock("highlights"), makeBlock("prices"),
+      makeBlock("location"), makeBlock("amenities"), makeBlock("gallery"), makeBlock("brochure"),
+      makeBlock("faq"), makeBlock("similar_projects"), makeBlock("enquiry"),
+    ],
+  },
+  area: {
+    label: "Area Guide",
+    blocks: () => [
+      makeBlock("hero", { heading: "Living in Vijay Nagar" }),
+      makeBlock("text"),
+      makeBlock("location"),
+      makeBlock("properties", { location: "Vijay Nagar" }),
+      makeBlock("faq"),
+      makeBlock("cta"),
+    ],
+  },
 };
