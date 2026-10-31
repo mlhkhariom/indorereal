@@ -35,7 +35,7 @@ export const EnquiryWidget = ({
       try {
         const parsed = JSON.parse(stored);
         if (parsed.name && parsed.phone) {
-          setF({ name: parsed.name, phone: parsed.phone });
+          setF((p) => ({ ...p, name: parsed.name, phone: parsed.phone }));
           return;
         }
       } catch {}
