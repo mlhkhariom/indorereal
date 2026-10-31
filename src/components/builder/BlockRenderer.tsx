@@ -240,7 +240,7 @@ const BlockView = ({ b, pageTitle, kind }: { b: Block; pageTitle: string; kind: 
         <div className="flex gap-6 text-center">{d.years && <div><p className="font-heading text-2xl font-bold text-secondary">{d.years}</p><p className="text-xs">Years</p></div>}{d.projects && <div><p className="font-heading text-2xl font-bold text-secondary">{d.projects}</p><p className="text-xs">Projects</p></div>}</div></div></Wrap>;
     case "specifications": {
       const items = d.items || [];
-      const titles = [...new Set(items.map((x: any) => x.title || "Specs")).filter(Boolean)];
+      const titles = [...new Set<string>(items.map((x: any) => x.title || "Specs"))].filter(Boolean);
       return <Wrap b={b}><H2>{d.heading}</H2>{d.intro && <p className="text-center max-w-2xl mx-auto -mt-4 mb-8 opacity-80">{d.intro}</p>}
         <Tabs defaultValue={String(titles.indexOf(items[0]?.title || "Specs"))} className="max-w-4xl mx-auto">
           <TabsList className="flex flex-wrap h-auto mx-auto w-fit">{titles.map((t, i) => <TabsTrigger key={i} value={String(i)}>{t}</TabsTrigger>)}</TabsList>
