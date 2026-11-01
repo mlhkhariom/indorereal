@@ -1,7 +1,7 @@
 export type FieldType = "text" | "textarea" | "rich" | "image" | "images" | "select" | "number" | "list";
 export interface Field { key: string; label: string; type: FieldType; options?: string[]; itemFields?: Field[]; placeholder?: string }
 export type BlockBg = "light" | "muted" | "dark" | "gold";
-export interface Block { id: string; type: string; hidden?: boolean; bg?: BlockBg; data: Record<string, any> }
+export interface Block { id: string; type: string; name?: string; locked?: boolean; hidden?: boolean; bg?: BlockBg; data: Record<string, any> }
 export interface BlockDef { type: string; label: string; group: "General" | "Real estate"; fields: Field[]; defaults: Record<string, any> }
 
 const t = (key: string, label: string, placeholder?: string): Field => ({ key, label, type: "text", placeholder });
@@ -91,9 +91,10 @@ export const isValidSlug = (s: string) => /^[a-z0-9]+(-[a-z0-9]+)*$/.test(s) && 
 export const normalizeBlocks = (raw: unknown): Block[] => {
   if (!Array.isArray(raw)) return [];
   return raw.filter((b: any) => b && typeof b === "object" && getDef(b.type)).map((b: any) => ({
-    id: typeof b.id === "string" ? b.id : uid(), type: b.type, hidden: !!b.hidden,
+    id: typeof b.id === "string" ? b.id : uid(), type: b.type, hidden: !!b.hidden, locked: !!b.locked,
+    name: typeof b.name === "string" ? b.name.slice(0, 80) : undefined,
     bg: ["light", "muted", "dark", "gold"].includes(b.bg) ? b.bg : "light",
-    data: { ...getDef(b.type)!.defaults, ...(b.data || {}) },
+    data: { ...getDef(b.type)?.defaults, ...(b.data || {}) },
   }));
 };
 

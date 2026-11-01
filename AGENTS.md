@@ -8,4 +8,5 @@
 - Admin and secondary pages are lazy-loaded routes to keep the public site fast.
 - Tailwind opacity modifiers must be on the default scale (5-step); off-scale values like /92 silently do nothing.
 - Page Builder pages/projects live in builder_pages (blocks jsonb); block types are defined once in src/lib/builder.ts and rendered by BlockRenderer for both the editor iframe preview (/builder-preview via postMessage) and public pages — why: one source so preview matches live.
+- Builder interactions stay in editor-only canvas wrappers; iframe messages validate origin and source, and automatic saves serialize exact page-ID-scoped snapshots with session recovery — why: public pages stay unchanged and overlapping writes cannot erase newer edits.
 - Plotting projects set meta.project_type to "plots" and use Place structured data instead of ApartmentComplex — why: land listings must not be described as apartment buildings.
