@@ -26,8 +26,8 @@ export default function BuilderCanvasBlock({ block, title, kind, selected, actio
         return <Button key={String(key)} variant="ghost" size="icon" className="h-8 w-8" disabled={block.locked} aria-label={`${name} ${label}`} title={String(name)} onClick={() => action(String(key), block.id)}><I className="h-4 w-4" /></Button>;
       })}
     </div>
-    <div onClickCapture={(e) => { e.preventDefault(); e.stopPropagation(); action("select", block.id); }} className="cursor-pointer" inert="" {...({ inert: undefined } as Record<string, unknown>)}>
-      <div className="pointer-events-none select-none"><BlockRenderer blocks={[block]} pageTitle={title} kind={kind} showHidden /></div>
+    <div onClickCapture={(e) => { e.preventDefault(); e.stopPropagation(); action("select", block.id); }} className="cursor-pointer" role="button" tabIndex={0} aria-label={`Edit ${label}`} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); action("select", block.id); } }}>
+      <div className="pointer-events-none select-none" {...{ inert: "" }}><BlockRenderer blocks={[block]} pageTitle={title} kind={kind} showHidden /></div>
     </div>
     <div className="flex justify-center border-t border-dashed border-border py-1 bg-muted/50"><Button variant="ghost" size="icon" className="h-7 w-7" title="Add block after" aria-label={`Add block after ${label}`} onClick={() => action("insert", block.id)}><Plus className="h-4 w-4" /></Button></div>
   </div>;
