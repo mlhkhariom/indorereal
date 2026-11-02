@@ -1,5 +1,6 @@
 # Roadmap
-- [ ] Improve Project Builder: interactive canvas sorting, automatic saving/recovery, searchable blocks, editing tools and verified desktop/mobile flows.
+- [x] Improve Project Builder: interactive canvas sorting, automatic saving/recovery, searchable blocks, locking, import/export and editing tools; 14 tests pass and canvas verified on desktop/mobile.
+- [ ] Verify signed-in Builder save/reload and publish flow — blocked: preview admin session unavailable; user must sign in.
 - [ ] Add Zillion Park and Shrinath Samradhi from supplied documents with media, SEO and listing cards; verify both pages.
 - [x] Contact/social/hours editable in Admin → Site Settings
 - [x] CRM pipeline, lead notes, activity history, assignment, follow-ups, CSV export, agent role
