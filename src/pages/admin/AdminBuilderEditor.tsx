@@ -87,7 +87,7 @@ function Editor({ initial }: { initial: { page: Page; blocks: Block[] } }) {
     if (!p.title.trim()) throw new Error("Add a page title before saving.");
     const { data, error } = await supabase.from("builder_pages").update({slug: p.slug, title: p.title.trim(), status: p.status, blocks: b as any, seo_title: p.seo_title || null, seo_description: p.seo_description || null, og_image: p.og_image || null, meta: p.meta}).eq("id", initial.page.id).select("id").single();
     if (error || !data) throw new Error(error?.message || "Save was not accepted. Check your access and retry.");
-    qc.invalidateQueries({queryKey: ["builder_page"]}); qc.invalidateQueries({queryKey: ["builder_projects"]}); qc.invalidateQueries({queryKey: ["admin_builder"]});
+    qc.invalidateQueries({queryKey: ["builder_page"]}); qc.invalidateQueries({queryKey: ["builder_projects"]}); qc.invalidateQueries({queryKey: ["builder_projects_featured"]});
   };
   const {dirty, saving, error, lastSaved, save} = useBuilderAutosave({snapshot, initial: baseline.current, enabled: autoSave && !recovery, persist, recoveryKey});
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }), useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }));
