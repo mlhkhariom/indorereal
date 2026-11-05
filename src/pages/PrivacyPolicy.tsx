@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Link } from "react-router-dom";
+import { openCookieSettings } from "@/lib/metaPixel";
 import { Home, ChevronRight } from "lucide-react";
 
 const PrivacyPolicy = () => {
@@ -107,6 +108,13 @@ const PrivacyPolicy = () => {
                     <li><strong className="text-foreground">Analytics Cookies:</strong> Help us understand how visitors interact with our website</li>
                     <li><strong className="text-foreground">Marketing Cookies:</strong> Used to deliver relevant advertisements</li>
                   </ul>
+                  <p className="mt-3">
+                    <strong className="text-foreground">Meta Pixel (Facebook &amp; Instagram ads):</strong> We use the Meta Pixel to measure how our Facebook and Instagram ads perform. It shares with Meta Platforms the pages you visit on our website, your browser and device details, Meta cookie identifiers, and the fact that you submitted an enquiry or site-visit request (not your name or phone number). Meta may use this to measure and improve ad delivery. Visitors in the EU/EEA, UK and Switzerland are asked for consent first and are not tracked unless they accept; we store your choice and the date on your device.
+                  </p>
+                  <p className="mt-3">
+                    You can change or withdraw your choice at any time:{" "}
+                    <button type="button" onClick={openCookieSettings} className="underline text-secondary font-medium">Cookie settings</button>. You can also control ad preferences in your Facebook account settings.
+                  </p>
                 </div>
 
                 <div>

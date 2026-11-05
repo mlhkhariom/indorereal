@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Phone, MessageCircle, Send } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { trackLead } from "@/lib/metaPixel";
 
 interface LeadFormProps {
   propertyTitle?: string;
@@ -42,6 +43,7 @@ const LeadForm = ({ propertyTitle }: LeadFormProps) => {
     if (error) {
       toast({ title: "Something went wrong", description: "Please try again or call us directly.", variant: "destructive" });
     } else {
+      trackLead(propertyTitle ? "property_page" : "website");
       toast({ title: "Enquiry sent successfully!", description: "Our team will contact you within 30 minutes." });
       setName(""); setPhone(""); setEmail(""); setMessage("");
     }

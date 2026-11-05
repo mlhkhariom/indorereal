@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { trackLead } from "@/lib/metaPixel";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -80,6 +81,7 @@ export const EnquiryWidget = ({
       return;
     }
     storeLead();
+    trackLead(source);
     toast({ title: "Thank you!", description: "Our team will call you shortly." });
     setF({ name: "", phone: "", message: "" });
   };

@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Home, ChevronRight, MapPin, Phone, Mail, Clock, Send, MessageCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { trackLead } from "@/lib/metaPixel";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
@@ -63,6 +64,7 @@ const Contact = () => {
     if (error) {
       toast({ title: "Something went wrong", description: "Please try again or call us directly.", variant: "destructive" });
     } else {
+      trackLead("contact_page");
       toast({ title: "Message sent successfully!", description: "Our team will get back to you within 24 hours." });
       setName(""); setPhone(""); setEmail(""); setSubject(""); setMessage("");
     }
