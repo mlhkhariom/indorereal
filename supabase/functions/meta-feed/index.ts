@@ -18,6 +18,7 @@ const DEFAULTS: Record<string, Extra> = {
   "zillion-park": { price: 5900000, addr1: "Zillion Park", addr2: "Super Corridor", postal_code: "452005", lat: "22.7660", lng: "75.8230", neighborhood: "Super Corridor", tags: ["Residential Plots", "Super Corridor", "P-IND-24-5300", "Gated Colony"] },
   "shrinath-samradhi": { price: 4200000, addr1: "Plot No. 04, Shiv Vatika", addr2: "Indore", postal_code: "452010", lat: "22.7533", lng: "75.8937", neighborhood: "Shiv Vatika", tags: ["Residential Apartments", "Shiv Vatika", "1070 sq ft", "1220 sq ft", "1320 sq ft"] },
   "zillion-avadh-greens": { price: 2009000, addr1: "Zillion Avadh Greens, Khandwa Road", addr2: "Simrol", postal_code: "452020", lat: "22.5452", lng: "75.9228", neighborhood: "Simrol", units: 75, tags: ["Residential Plots", "Simrol", "Khandwa Road", "Gated Community"] },
+  "kalyanam-courtyard": { price: 8500000, addr1: "Kalyanam Courtyard, Rau Circle", addr2: "Rau", postal_code: "453331", lat: "22.6335", lng: "75.8080", neighborhood: "Rau", units: 21, tags: ["Luxury Triplex Mansions", "3.5 BHK", "Clubhouse", "Swimming Pool", "Rau Circle Indore", "Smart Home", "Alexa"] },
 };
 
 const esc = (s: unknown) =>

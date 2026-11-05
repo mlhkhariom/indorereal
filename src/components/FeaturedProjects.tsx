@@ -1,13 +1,26 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowRight, CheckCircle2, Download, MapPin } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { BUILTIN_PROJECTS } from "@/data/builtinProjects";
 
 const FeaturedProjects = ({ compact = false }: { compact?: boolean }) => {
-  const { data = [] } = useQuery({
+  const { data: dbData = [] } = useQuery({
     queryKey: ["builder_projects_featured"],
     queryFn: async () => (await supabase.from("builder_pages").select("id,slug,title,meta,og_image,seo_description").eq("kind", "project").eq("status", "published").order("updated_at", { ascending: false })).data || [],
   });
+
+  const data = useMemo(() => {
+    const list = [...dbData];
+    const slugs = new Set(list.map((p: any) => p.slug));
+    for (const [slug, proj] of Object.entries(BUILTIN_PROJECTS)) {
+      if (!slugs.has(slug)) {
+        list.push({ id: proj.id, slug, title: proj.title, meta: proj.meta, og_image: proj.og_image, seo_description: proj.seo_description });
+      }
+    }
+    return list;
+  }, [dbData]);
   if (!data.length) return null;
   return (
     <section className={compact ? "pb-8" : "section-padding bg-muted"} aria-labelledby="featured-projects-heading">

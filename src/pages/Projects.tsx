@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { MapPin, Calendar, Building2 } from "lucide-react";
@@ -7,14 +7,26 @@ import PageShell from "@/components/PageShell";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { PROJECT_STATUSES } from "@/lib/builder";
+import { BUILTIN_PROJECTS } from "@/data/builtinProjects";
 
 const Projects = () => {
   const [status, setStatus] = useState("all");
   const [area, setArea] = useState("all");
-  const { data = [], isLoading } = useQuery({
+  const { data: dbData = [], isLoading } = useQuery({
     queryKey: ["builder_projects"],
     queryFn: async () => (await supabase.from("builder_pages").select("id,slug,title,meta,updated_at").eq("kind", "project").eq("status", "published").order("updated_at", { ascending: false })).data || [],
   });
+
+  const data = useMemo(() => {
+    const list = [...dbData];
+    const slugs = new Set(list.map((p: any) => p.slug));
+    for (const [slug, proj] of Object.entries(BUILTIN_PROJECTS)) {
+      if (!slugs.has(slug)) {
+        list.push({ id: proj.id, slug, title: proj.title, meta: proj.meta, updated_at: proj.updated_at });
+      }
+    }
+    return list;
+  }, [dbData]);
   const areas = [...new Set(data.map((p: any) => p.meta?.location).filter(Boolean))] as string[];
   const list = data.filter((p: any) => (status === "all" || p.meta?.status === status) && (area === "all" || p.meta?.location === area));
   return (

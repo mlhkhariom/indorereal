@@ -3,6 +3,11 @@ import { Building2, MapPin, IndianRupee } from "lucide-react";
 
 const projects = [
   {
+    name: "Kalyanam Courtyard, Rau Circle",
+    to: "/projects/kalyanam-courtyard",
+    text: "Ultra-luxurious 3.5 BHK smart triplex row houses (2,229 sq.ft) with clubhouse, swimming pool & Alexa IOT automation, just 250m from Rau Circle.",
+  },
+  {
     name: "Prabhu Krishna Embrace",
     to: "/projects/prabhu-krishna-embrace",
     text: "Premium 2 & 3 BHK flats (1360–1925 sq.ft) in a G+6 tower with 48 homes, rooftop clubhouse, gym, indoor games and 20+ amenities.",

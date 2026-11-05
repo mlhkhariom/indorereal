@@ -9,16 +9,18 @@ import BlockRenderer from "@/components/builder/BlockRenderer";
 import NotFound from "./NotFound";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 import { makeBlock, normalizeBlocks, projectSchemaType } from "@/lib/builder";
+import { BUILTIN_PROJECTS } from "@/data/builtinProjects";
 
 /** Public renderer for pages and projects made in the Page Builder. */
 const BuiltPage = ({ kind }: { kind: "page" | "project" }) => {
   const { slug = "" } = useParams();
   const settings = useSiteSettings();
-  const { data, isLoading } = useQuery({
+  const { data: dbData, isLoading } = useQuery({
     queryKey: ["builder_page", kind, slug],
     queryFn: async () => (await supabase.from("builder_pages").select("*").eq("kind", kind).eq("slug", slug).eq("status", "published").maybeSingle()).data,
   });
-  if (isLoading) return <div className="min-h-screen" />;
+  const data = dbData || (kind === "project" ? (BUILTIN_PROJECTS[slug] as any) : null);
+  if (isLoading && !data) return <div className="min-h-screen" />;
   if (!data) return <NotFound />;
   const meta = (data.meta as any) || {};
   const storedBlocks = normalizeBlocks(data.blocks);
