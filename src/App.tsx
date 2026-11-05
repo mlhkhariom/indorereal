@@ -51,6 +51,7 @@ const AdminBuilderEditor = lazy(() => import("./pages/admin/AdminBuilderEditor")
 const AreaPage = lazy(() => import("./pages/AreaPage"));
 import CompareBar from "./components/CompareBar";
 import ScrollToTop from "./components/ScrollToTop";
+import CookieBanner from "./components/CookieBanner";
 import SkipLink from "./components/SkipLink";
 
 const queryClient = new QueryClient();
@@ -65,6 +66,7 @@ const App = () => (
             <Sonner />
             <BrowserRouter>
               <ScrollToTop />
+              <CookieBanner />
               <SkipLink />
               <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="animate-spin h-8 w-8 border-4 border-secondary border-t-transparent rounded-full" /></div>}>
               <Routes>

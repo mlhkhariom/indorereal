@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { trackLead } from "@/lib/metaPixel";
 import { Input } from "@/components/ui/input";
 import { CalendarCheck } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
@@ -24,7 +25,7 @@ const ScheduleVisitForm = ({ propertyId, propertyTitle }: { propertyId: string; 
     ]);
     setLoading(false);
     if (v.error) toast({ title: "Could not book visit", description: "Please call us directly.", variant: "destructive" });
-    else { toast({ title: "Visit requested!", description: "We'll call to confirm your slot." }); setName(""); setPhone(""); setWhen(""); }
+    else { trackLead("site_visit_request"); toast({ title: "Visit requested!", description: "We'll call to confirm your slot." }); setName(""); setPhone(""); setWhen(""); }
   };
 
   return (
